@@ -204,7 +204,6 @@
 							<ul class="list-inline m-0 p-0">
 									
 						<c:forEach  var="wslist"   items="${wslist }" varStatus="status">
-	<!----round >>>----------->		
 								<li class="d-flex mb-4 align-items-center">
 									<div class="img-fluid bg-soft-warning rounded-pill">
 										<img
@@ -225,7 +224,6 @@
 										</a>
 									</div>	
 								</li>
-	<!----------<<< round ------->
 								</c:forEach>
 	<!--------- ------------------------------------근태 영역--------------- -->								
 
