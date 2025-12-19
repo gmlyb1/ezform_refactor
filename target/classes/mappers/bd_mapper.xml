@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ezform.mapper.bd_Mapper">
+
+ 	<!-- 페이징 처리 list -->
+ 	<select id="listCri" resultType="EZ_boardVO">
+		select * from ez_cm 
+		order by cm_bnum desc, cm_regdate desc
+ 	</select>
+ 	
+  	<!-- 전체 데이터 개수 (페이징 처리 연산 필요) -->
+ 	<select id="listPageCnt" resultType="int">
+ 		select count(*) from ez_cm
+ 	</select> 
+	
+	<!-- db 최대값  -->
+	<select id="boardnumCnt" resultType="String">
+		select max(cm_bnum) from ez_cm
+	</select>
+
+	<!-- 게시판 글쓰기 -->
+	<insert id="create">
+		insert into ez_cm values (#{cm_bnum}, #{cm_id}, #{cm_title}, #{cm_dname}, 
+		#{cm_name}, now(), #{cm_content}, 0, 0, #{cm_file})
+	</insert>
+
+	<!-- 게시판 글조회 -->
+	<select id="read" resultType="com.ezform.domain.EZ_boardVO">
+		select * from ez_cm
+		where cm_bnum = #{cm_bnum}
+	</select>
+	
+	 <!-- 게시판 조회수 -->
+	<update id="hits">
+		update ez_cm set cm_hits=cm_hits+1 
+		where cm_bnum=#{cm_bnum}
+	</update>
+	
+	<!-- 게시판 글수정 -->
+	<update id="modify">
+		update ez_cm set cm_title = #{cm_title}, cm_content = #{cm_content}, cm_file = #{cm_file}, cm_regdate = now()
+		where cm_bnum = #{cm_bnum}
+	</update>
+	
+	<!-- 게시판 글삭제 -->
+	<delete id="delete">
+		delete from ez_cm 
+		where cm_bnum = #{cm_bnum}
+	</delete>
+	
+	<!-- 게시글 번호 수정 -->
+	<update id="update_num">
+	<![CDATA[
+		update ez_cm
+		set cm_bnum = cm_bnum - 1
+		where cm_bnum > #{cm_bnum} and
+		cm_bnum <= (select tmp.cnt from (select count(*) as cnt from ez_cm where cm_bnum > #{cm_bnum}) tmp) + #{cm_bnum}
+	]]>
+	</update>
+	
+	<!-- 좋아요 체크 -->
+	<select id="likechk1" resultType="int">
+		select count(like_id) from ez_cm_like
+		where like_bnum = #{like_bnum} and like_id = #{like_id}
+	</select>
+	
+	<!-- 해당 사원의 좋아요 컬럼 추가 -->
+	<insert id="insert_likeInfo">
+		insert into ez_cm_like 
+		values (#{like_bnum}, #{like_id}, '1')
+	</insert>
+	
+	<select id="islike" resultType="String">
+		select like_check from ez_cm_like
+		where like_bnum = #{like_bnum} and like_id = #{like_id}
+	</select>
+	
+	<!-- 좋아요 +1 -->
+	<update id="like_plus">
+		update ez_cm set cm_like = cm_like + 1
+		where cm_bnum = #{like_bnum}
+	</update>
+	
+	<!-- 좋아요 -1 -->
+	<update id="like_minus">
+		update ez_cm set cm_like = cm_like - 1
+		where cm_bnum = #{like_bnum}
+	</update>
+	
+	<!-- 좋아요 연산 처리 후 like_likechk 변경 -->
+	<update id="likechk_update">
+		update ez_cm_like 
+		set like_check = if(like_check = '1','0','1')
+		where like_bnum = #{like_bnum} and like_id = #{like_id}
+	</update>
+	
+ </mapper>
