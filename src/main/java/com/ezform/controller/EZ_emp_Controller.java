@@ -33,12 +33,6 @@ public class EZ_emp_Controller {
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String empUpdateGET(HttpSession session, @RequestParam("em_id") int id,
 								Model model) throws Exception{
-		logger.info("empUpdateGET() 호출 em_id: "+id);
-		
-		//id 가져오기
-		
-		logger.info("접속em_id: "+ id);
-		
 		//기존회원정보 가져오기   
 		//model객체에 저장, view페이지 까지 전달
 		model.addAttribute("empvo",emp_service.getEmp(id));
@@ -59,8 +53,6 @@ public class EZ_emp_Controller {
 	//사원 전체리스트(관리자 기능) ---GET  
 	@RequestMapping(value = "/list", method = RequestMethod.GET) 
 	public String empList(HttpSession session, Model model,Model emodel) throws Exception{ 
-		//
-		
 		Integer em_id = (Integer) session.getAttribute("em_id");
 		EZ_empVO empvo = emp_service.getEmp(em_id);
 		model.addAttribute("empList", emp_service.getEmpList(em_id));
@@ -71,8 +63,7 @@ public class EZ_emp_Controller {
 	
 	//근태처리 ---POST  
 	@RequestMapping(value = "/wstatus", method = RequestMethod.POST) 
-	public String empWstatus(HttpSession session,
-			EZ_workVO workvo) throws Exception{
+	public String empWstatus(HttpSession session, EZ_workVO workvo) throws Exception{
 		Integer em_id = (Integer)session.getAttribute("em_id");
 		workvo.setEm_id(em_id);
 		emp_service.wstatusEmp(workvo);
@@ -90,12 +81,7 @@ public class EZ_emp_Controller {
 		
 		// 여기서 로그인정보는 admin인데 admin session을 삭제하지 않는다	(탈퇴후 로그인정보 session삭제)
 		//session.invalidate();
-		
 	
 		return "redirect:/ez_emp/list";   //주소와 화면바뀜 redirect
 	}
-	
-	
-	
-	
 }

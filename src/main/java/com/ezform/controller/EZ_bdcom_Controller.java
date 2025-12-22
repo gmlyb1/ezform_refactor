@@ -26,7 +26,6 @@ public class EZ_bdcom_Controller {
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addPOST(EZ_board_comVO cvo, HttpSession session) throws Exception {
-		logger.info("addPOST() 호출");
 		// content bnum만 받아옴
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
@@ -42,8 +41,6 @@ public class EZ_bdcom_Controller {
 
 	@RequestMapping(value="/remove", method=RequestMethod.GET)
 	public String removeGET(@RequestParam("com_cnum") int com_cnum, @RequestParam("com_bnum") int com_bnum) throws Exception {
-		logger.info("removeGET() 호출 "+com_cnum);
-		
 		service.delete(com_cnum);
 		
 		return "redirect:/board/read?cm_bnum="+com_bnum;

@@ -59,8 +59,6 @@ public class EZ_noti_Controller {
 	// 공지사항 글쓰기(GET)
 	@RequestMapping(value = "/register",method = RequestMethod.GET)
 	public String registerGET(HttpSession session) throws Exception{
-		logger.info("notice - registerGET() 호출");
-		
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
 		if (evo == null) return "redirect:/logout";
@@ -77,9 +75,6 @@ public class EZ_noti_Controller {
 	// 공지사항 글쓰기(POST)
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public void registerPOST(EZ_noticeVO vo, Model model, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws Exception{
-		
-		logger.info("notice - registerPOST() 호출");
-		
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
 		
@@ -127,8 +122,6 @@ public class EZ_noti_Controller {
 	// 공지사항 글 조회
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 	public void listALLGET(Model model, HttpSession session) throws Exception {
-		logger.info("notice - listALLGET() 호출");
-		
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
 		
@@ -146,20 +139,15 @@ public class EZ_noti_Controller {
 	// 공지사항 글 읽기
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void readGET(Model model, @RequestParam("not_num") int not_num, HttpSession session) throws Exception {
-		logger.info("notice - readGET() 호출! ");
-		
 		EZ_noticeVO vo = service.read(not_num);
-		
 		model.addAttribute("vo",vo);
 		
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
-		
 		int chkAdmin = evo.getEm_id();
 		
 		// 관리자인지 확인
 		boolean isAdmin = adminChk(chkAdmin);
-		
 		if (isAdmin) model.addAttribute("admin", "admin");
 	}
 	
@@ -167,12 +155,8 @@ public class EZ_noti_Controller {
 	public void mail_fileDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 파일 다운로드
 		
-		logger.info("notice_fileDown() 호출");
-		
 		String fileName = request.getParameter("fileName");
 		String realFileName = "";
-		
-		logger.info("파일명 : "+fileName);
 		
 		try {
 			String browser = request.getHeader("User-Agent");
@@ -192,7 +176,6 @@ public class EZ_noti_Controller {
 		path += "upload\\noticeUpload\\";
 		
 		realFileName = path+fileName;
-		logger.info("절대 경로 : "+realFileName);
 		
 		File tmpFile = new File(realFileName);
 		
@@ -231,7 +214,6 @@ public class EZ_noti_Controller {
 	// 공지사항 글 수정(GET) - DB에서 가져온 정보를 화면에 출력
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void modifyGET(int not_num, Model model) throws Exception {
-		logger.info(" modifyGET() 호출 ");
 			
 		model.addAttribute("nvo",service.read(not_num));
 	}
@@ -240,7 +222,6 @@ public class EZ_noti_Controller {
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public void modifyPOST(EZ_noticeVO vo, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		
-		logger.info(" modifyPOST() 호출 ");
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
 		
@@ -287,8 +268,6 @@ public class EZ_noti_Controller {
 	// 공지사항 글 삭제하기
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	public void removePOST(EZ_noticeVO vo, HttpServletResponse response, HttpSession session) throws Exception{
-		
-		logger.info(" deletePOST() 호출 ");
 		
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");

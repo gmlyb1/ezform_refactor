@@ -4,15 +4,56 @@
 
 <%@ include file="include/header.jsp"%>
 
+<style>
+/* 컨텍스트 메뉴 전체 */
+#contextMenu {
+    width: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 메뉴 리스트 */
+#contextMenu .dropdown-menu {
+    padding: 0;
+    margin: 0;
+    border: none;
+    display: block;
+}
+
+/* 메뉴 항목 */
+#contextMenu .dropdown-menu li a {
+    display: block;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    font-size: 14px;
+}
+
+/* 마우스 오버 효과 */
+#contextMenu .dropdown-menu li a:hover {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* 구분선 */
+#contextMenu .divider {
+    height: 1px;
+    background: #ddd;
+    margin: 5px 0;
+}
+
+</style>
+
 <div class="container">
 	<input type="hidden" name="em_id" id="em_id" value="${em_id}" />
-
-
 	<!-- 일자 클릭시 메뉴오픈 -->
 	<div id="contextMenu" class="dropdown clearfix">
-		<ul class="dropdown-menu dropNewEvent" role="menu"
-			aria-labelledby="dropdownMenu"
-			style="display: block; position: static; margin-bottom: 5px;">
+		<ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px;">
 			<li><a tabindex="-1" href="#">카테고리1</a></li>
 			<li><a tabindex="-1" href="#">카테고리2</a></li>
 			<li><a tabindex="-1" href="#">카테고리3</a></li>

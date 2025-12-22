@@ -43,9 +43,6 @@ public class EZ_mail_Controller {
 	// http://localhost:8088/ezform/ez_mail/recMail
 	@RequestMapping(value="/recMail", method = RequestMethod.GET)
 	public void read_RecMailGET(Model model, HttpSession session) throws Exception {
-		//  받은 메일
-		logger.info("read_RecMailGET() 호출");
-		
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
 		
@@ -55,9 +52,6 @@ public class EZ_mail_Controller {
 	
 	@RequestMapping(value="/recRead", method=RequestMethod.GET)
 	public void readDetail_RecMailGET(@RequestParam("mail_num") int mail_num, Model model) throws Exception {
-		
-		// 메일 읽기
-		logger.info("readDetail_RecMailGET() 호출");
 		
 		EZ_mailVO mvo = service.recRead(mail_num);
 		String recName = service.mailName(mvo.getMail_id());
@@ -70,16 +64,11 @@ public class EZ_mail_Controller {
 		
 	@RequestMapping(value="/emp_select", method = RequestMethod.GET)
 	public void emp_selectGET(Model model) throws Exception {
-		logger.info("emp_selectGET() 호출");
-		
 		model.addAttribute("empList",service.empSelect());
 	}
 	
 	@RequestMapping(value="/writeMail", method = RequestMethod.GET)
 	public void mailWriteGET(Model model, HttpSession session) throws Exception {
-		// 메일 쓰기
-		logger.info("mailWriteGET() 호출");
-		
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
 		
@@ -88,9 +77,6 @@ public class EZ_mail_Controller {
 	
 	@RequestMapping(value="/writeMail", method = RequestMethod.POST)
 	public void mailWritePOST(EZ_mailVO vo, Model model, HttpServletResponse response, HttpSession session, HttpServletRequest request) throws Exception {
-		// 메일 쓰기		
-		logger.info("mailWritePOST() 호출");
-		
 		// 세션
 		// 보내는 사람
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
@@ -133,7 +119,7 @@ public class EZ_mail_Controller {
 			service.mailWrite(vo);
 			
 			// alert
-			out.println("<script>alert('전송 완료'); location.href='/ezform/ez_mail/recMail'</script>");
+			out.println("<script>alert('전송이 완료되었습니다.'); location.href='/ezform/ez_mail/recMail'</script>");
 			out.flush();
 		}
 	}
@@ -141,9 +127,6 @@ public class EZ_mail_Controller {
 	@RequestMapping(value="/filedown", method=RequestMethod.GET)
 	public void mail_fileDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 파일 다운로드
-		
-		logger.info("mail_fileDown() 호출");
-		
 		String fileName = request.getParameter("fileName");
 		String realFileName = "";
 		
@@ -200,9 +183,6 @@ public class EZ_mail_Controller {
 	
 	@RequestMapping(value="/deleteMail", method=RequestMethod.POST)
 	public String delete_mail(@RequestParam("mail_num_cb") int[] delete_mail_num) throws Exception {
-		// 체크박스 메일 삭제
-		logger.info("delete_mail() 호출");
-		
 		for (int mail_num : delete_mail_num) {
 			service.mailDelete(mail_num);
 		}
@@ -213,8 +193,6 @@ public class EZ_mail_Controller {
 	
 	@RequestMapping(value="/readUpdate", method=RequestMethod.POST)
 	public String update_readCk(@RequestParam("mail_num_cb") int[] update_read_num) throws Exception {
-		// 체크박스 메일 읽음 처리
-		logger.info("update_readCk() 호출");
 		
 		for (int mail_num : update_read_num) {
 			service.mailReadUpdate(mail_num);
@@ -226,8 +204,6 @@ public class EZ_mail_Controller {
 	@RequestMapping(value="/updateStar", method=RequestMethod.GET)
 	public String update_star(@RequestParam("mail_num") int mail_num, @RequestParam("keepPage") boolean keep, Model model) throws Exception {
 		
-		logger.info("update_star() 호출 ");
-		
 		service.mailKeepUpdate(mail_num);
 		
 		if (keep) return "redirect:/ez_mail/impMail";
@@ -238,9 +214,6 @@ public class EZ_mail_Controller {
 	// ------------------------------보낸 메일----------------------------------------//
 	@RequestMapping(value="/sendMail", method = RequestMethod.GET)
 	public void read_SendMailGET(Model model, HttpSession session) throws Exception {
-		
-		//  보낸 메일
-		logger.info("read_SendMailGET 호출");
 			
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
@@ -252,9 +225,6 @@ public class EZ_mail_Controller {
 	@RequestMapping(value="/sendRead", method=RequestMethod.GET)
 	public void readDetail_SendMailGET(@RequestParam("mail_num") int mail_num, Model model) throws Exception {
 		
-		// 발신 메일 읽기
-		logger.info("readDetail_SendMailGET() 호출");
-		
 		EZ_sendmailVO smvo = service.sendRead(mail_num);
 		
 		model.addAttribute("sendReadDetail",smvo);
@@ -264,9 +234,6 @@ public class EZ_mail_Controller {
 	
 	@RequestMapping(value="/deleteMail2", method=RequestMethod.POST)
 	public String delete_mail2(@RequestParam("mail_num_cb") int[] delete_mail_num) throws Exception {
-		// 체크박스 메일 삭제 (발신자)
-		logger.info("delete_mail() 호출");
-		
 		for (int mail_num : delete_mail_num) {
 			service.mailDelete2(mail_num);
 		}
@@ -278,8 +245,6 @@ public class EZ_mail_Controller {
 	
 	@RequestMapping(value="/impMail", method=RequestMethod.GET)
 	public void impMailGET(Model model, HttpSession session) throws Exception {
-		
-		logger.info("impMailGET() 호출");
 		
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");

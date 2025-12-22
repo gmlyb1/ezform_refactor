@@ -60,8 +60,6 @@ public class EZ_mem_Controller {
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public void logoutGET(HttpSession session, HttpServletResponse response) throws Exception {
-		
-		
 		session.invalidate();
 		
 		response.setContentType("text/html; charset=utf-8");
@@ -77,7 +75,6 @@ public class EZ_mem_Controller {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPageGET() throws Exception {
 
-
 		return "/ez_mem/loginPage";
 	}
 
@@ -85,9 +82,7 @@ public class EZ_mem_Controller {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPagePOST(EZ_empVO evo, HttpSession session, Model model) throws Exception {
 
-
 		// DB에 이메일이 존재하는지 확인
-
 		List loginList = mem_service.memLogin(evo);
 
 		EZ_empVO resultVO = (EZ_empVO) loginList.get(0);
@@ -132,7 +127,7 @@ public class EZ_mem_Controller {
 			// 해당 파일 가져오기
 			MultipartFile file = multiRequest.getFile("em_image");
 			
-			System.out.println("파일값 : " + file.getOriginalFilename());
+//			System.out.println("파일값 : " + file.getOriginalFilename());
 			 
 			// 절대경로 설정
 			String file_path = multiRequest.getSession().getServletContext().getRealPath("/resources/upload/mem_Image");
@@ -159,15 +154,10 @@ public class EZ_mem_Controller {
 				
 				evo.setEm_image(file_newName);
 			}
-
-
 			// 회원가입하기
 			mem_service.memJoin(evo);
 
 		}
-		
-	
-
 		return "redirect:./join";
 	}
 	
@@ -175,8 +165,6 @@ public class EZ_mem_Controller {
 	// 회원정보
 	@RequestMapping(value = "/infoMember", method = RequestMethod.GET)
 	public String mem_infoGET(HttpSession session) throws Exception {
-		
-		
 		Integer em_id = (Integer)session.getAttribute("em_id");
 		
 //		EZ_empVO resultVO = mem_service.memInfo(em_id);
@@ -184,7 +172,6 @@ public class EZ_mem_Controller {
 		if(em_id != null) {
 			resultVO = mem_service.memInfo(em_id);
 		}
-		
 		
 		session.setAttribute("resultVO", resultVO);
 		
@@ -195,7 +182,6 @@ public class EZ_mem_Controller {
 	// 회원정보 수정 GET
 	@RequestMapping(value = "/updateMember", method = RequestMethod.GET)
 	public String mem_updateGET() throws Exception {
-		
 		
 		return "/ez_mem/updateMember";
 	}
@@ -232,7 +218,6 @@ public class EZ_mem_Controller {
 				f.delete();
 			}
 		}
-	
 		
 		EZ_empVO evo = new EZ_empVO();
 
@@ -245,7 +230,7 @@ public class EZ_mem_Controller {
 		evo.setEm_posi((String) multiRequest.getParameter("em_posi"));
 		evo.setEm_image(em_image);
 
-		System.out.println(" C : 파라미터 값" + evo);
+//		System.out.println(" C : 파라미터 값" + evo);
 		
 		int result = mem_service.memUpdate(evo);
 		
@@ -257,7 +242,6 @@ public class EZ_mem_Controller {
 	// 회원탈퇴 GET
 	@RequestMapping(value = "/deleteMember", method = RequestMethod.GET)
 	public String mem_deleteGET(Model model) throws Exception {
-		
 		
 		// 가입된 모든 회원 리스트 가져오기
 		List<EZ_empVO> listEmp = mem_service.memList();
@@ -281,7 +265,6 @@ public class EZ_mem_Controller {
 		evo.setEm_pw((String) multiRequest.getParameter("em_pw"));
 		evo.setEm_image((String)multiRequest.getParameter("default_file"));
 		
-		
 		int result = mem_service.memDelete(evo);
 	
 		// 회원탈퇴 결과 완료 시
@@ -293,7 +276,6 @@ public class EZ_mem_Controller {
 				f.delete();
 			}
 		}
-		
 	
 		model.addAttribute("deleteMem_result", result);
 			

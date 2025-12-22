@@ -57,25 +57,17 @@ public class EZ_bd_Controller {
 	// 목록
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
 	public void listPageGET(Model model) throws Exception {
-
-		logger.info("listPageGET() 호출");
-
-		// list
 		model.addAttribute("boardList", service.listCri());
 	}
 
 	// * 글쓰기 *
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void registerGET() throws Exception {
-		logger.info("registerGET() 호출");
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public void registerPOST(EZ_boardVO vo, Model model, HttpServletResponse response, HttpServletRequest request,
 			HttpSession session) throws Exception {
-		
-		logger.info("registerPOST() 호출");
-
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
@@ -116,7 +108,7 @@ public class EZ_bd_Controller {
 		// 서비스 객체를 주입 -> 동작 호출
 		service.create(vo);
 
-		out.print("<script>alert('등록 완료'); location.href='/ezform/board/listPage';</script>");
+		out.print("<script>alert('등록이 완료되었습니다.'); location.href='/ezform/board/listPage';</script>");
 		out.flush();
 	}
 
@@ -124,18 +116,16 @@ public class EZ_bd_Controller {
 	// * 글읽기(read) *
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void readGET(@RequestParam("cm_bnum") int cm_bnum, @RequestParam(value = "nohit", required = false) String hit_chk, Model model, HttpSession session) throws Exception {
-		
-		logger.info("readGET() 호출");
-		
-		// 세션
 		EZ_empVO evo = (EZ_empVO) session.getAttribute("resultVO");
 		
 		// DB정보 -> 저장
 		if (hit_chk == null) 
+		{
 			model.addAttribute("vo", service.read_hit(cm_bnum));
-		else
+		}else
+		{
 			model.addAttribute("vo",service.read_nohits(cm_bnum));
-		
+		}
 
 		// 댓글 조회
 		model.addAttribute("replyList", ReplyService.list(cm_bnum));
@@ -147,9 +137,6 @@ public class EZ_bd_Controller {
 	// *글수정 GET
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void modifyGET(@RequestParam("cm_bnum") int cm_bnum, Model model, HttpSession session) throws Exception {
-		
-		logger.info("modifyGET() 호출");
-		
 		model.addAttribute("vo", service.read_nohits(cm_bnum));
 	}
 
@@ -157,8 +144,6 @@ public class EZ_bd_Controller {
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public void modifyPOST(EZ_boardVO vo, HttpSession session, HttpServletResponse response, HttpServletRequest request)
 			throws Exception {
-		logger.info("modifyPOST() 호출");
-
 		// 세션
 		EZ_empVO evo = (EZ_empVO) session.getAttribute("resultVO");
 		
@@ -184,15 +169,13 @@ public class EZ_bd_Controller {
 
 			String temp_path = path + cm_file;
 
-			logger.info("파일명 : " + cm_file);
-			logger.info("path : " + temp_path);
 			uploadFile.transferTo(new File(temp_path));
 		}
 		
 		vo.setCm_file(cm_file);
 		service.modify(vo);
 		
-		out.print("<script>alert('수정 완료'); location.href='/ezform/board/listPage';</script>");
+		out.print("<script>alert('수정이 완료 되었습니다.'); location.href='/ezform/board/listPage';</script>");
 		out.flush();
 	}
 	
@@ -200,15 +183,13 @@ public class EZ_bd_Controller {
 	// * 글삭제 (remove) *
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public void removeGET(@RequestParam("cm_bnum") int cm_bnum, HttpServletResponse response) throws Exception {
-		logger.info("removeGET() 호출");
-
 		// 서비스
 		service.remove(cm_bnum);
 
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		out.print("<script>alert('삭제 완료'); location.href='/ezform/board/listPage';</script>");
+		out.print("<script>alert('삭제가 완료 되었습니다.'); location.href='/ezform/board/listPage';</script>");
 		out.flush();
 	}
 

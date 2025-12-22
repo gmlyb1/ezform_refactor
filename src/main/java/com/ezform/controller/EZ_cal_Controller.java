@@ -28,13 +28,12 @@ public class EZ_cal_Controller {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public void calendarGET() throws Exception {
-		logger.info(" C : calendarGET() 실행 ");
+
 	}
 	
 	@RequestMapping(value = "/selectEventList", method = RequestMethod.GET)
 	@ResponseBody
 	public List<EZ_calendarVO> selectEventList(@RequestParam int userid) throws Exception {
-		logger.info("selectEventList(int userid) 호출");
 		return service.selectEventList(userid);
 	}
 	
@@ -50,7 +49,6 @@ public class EZ_cal_Controller {
 	@ResponseBody
 	public Map<Object,Object> resizeEvent(@RequestBody EZ_calendarVO vo) throws Exception {
 		Map<Object,Object>map = new HashMap<Object,Object>();
-		logger.info("resizeEvent(EZ_calendarVO vo) 호출" + vo);
 		service.resizeEvent(vo);
 		return map;
 	}
