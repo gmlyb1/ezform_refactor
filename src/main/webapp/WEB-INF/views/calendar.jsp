@@ -166,5 +166,19 @@
 	</div> -->
 	<!-- /.filter panel -->
 </div>
+
+<script>
+$(document).ready(function() {
+    // × 버튼 클릭 시 모달 닫기
+    $('#button3').click(function(){
+        $('#eventModal').modal('hide');
+    });
+
+    // 취소 버튼 클릭 시 모달 닫기 (추가)
+    $('#button1, #button2').click(function(){
+        $('#eventModal').modal('hide');
+    });
+});
+</script>
 <!-- /.container -->
 <%@ include file="include/footer.jsp"%>

@@ -60,25 +60,25 @@
                            </div>
                            <div class="col-sm-6">
                               <label class="form-label" for="cname">부서</label>
-                              <select class="form-control" id="emp_dept" name="em_dept" >
-                              	<option>-부서-</option>
-                                 <option>개발팀</option>
-                                 <option>기술지원팀</option>
-                                 <option>경영지원팀</option>	
-                              </select>
+                              <select class="form-control" id="emp_dept" name="em_dept">
+							    <option value="">-부서-</option>
+							    <option value="개발팀" ${empvo.em_dept eq '개발팀' ? 'selected' : ''}>개발팀</option>
+							    <option value="기술지원팀" ${empvo.em_dept eq '기술지원팀' ? 'selected' : ''}>기술지원팀</option>
+							    <option value="경영지원팀" ${empvo.em_dept eq '경영지원팀' ? 'selected' : ''}>경영지원팀</option>
+							  </select>
                            </div>
                            <div class="col-sm-6">
                               <label class="form-label">직급</label>
-                              <select class="form-control" id="emp_posi" name="em_posi" >
-                              	<option>-직급-</option>
-                                 <option>인턴</option>
-                                 <option>사원</option>
-                                 <option>대리</option>
-                                 <option>과장</option>
-                                 <option>차장</option>
-                                 <option>부장</option>
-                                 <option>대표</option> 	
-                              </select>
+                              <select class="form-control" id="emp_posi" name="em_posi">
+							    <option value="">-직급-</option>
+							    <option value="인턴" ${empvo.em_posi eq '인턴' ? 'selected' : ''}>인턴</option>
+							    <option value="사원" ${empvo.em_posi eq '사원' ? 'selected' : ''}>사원</option>
+							    <option value="대리" ${empvo.em_posi eq '대리' ? 'selected' : ''}>대리</option>
+							    <option value="과장" ${empvo.em_posi eq '과장' ? 'selected' : ''}>과장</option>
+							    <option value="차장" ${empvo.em_posi eq '차장' ? 'selected' : ''}>차장</option>
+							    <option value="부장" ${empvo.em_posi eq '부장' ? 'selected' : ''}>부장</option>
+							    <option value="대표" ${empvo.em_posi eq '대표' ? 'selected' : ''}>대표</option>
+							</select>
                            </div>
                            <hr>
                            <div class="col-sm-6">

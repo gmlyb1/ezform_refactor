@@ -9,36 +9,25 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>EZFORM | business Flatform Project</title>
 <!-- Favicon -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath }/resources/images/favicon.ico" />
+<link rel="shortcut icon" href="${pageContext.request.contextPath }/resources/images/favicon.ico" />
 <!-- Library / Plugin Css Build -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/libs.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/libs.min.css">
 
 <!-- FullCalendar 2 -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/vendor/css/fullcalendar.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/css/fullcalendar.min.css" />
 <%--  <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/vendor/css/bootstrap.min.css" />  --%>
-<link rel="stylesheet"
-	href='${pageContext.request.contextPath }/resources/vendor/css/select2.min.css' />
-<link rel="stylesheet"
-	href='${pageContext.request.contextPath }/resources/vendor/css/bootstrap-datetimepicker.min.css' />
-
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/main.css">
+<link rel="stylesheet" href='${pageContext.request.contextPath }/resources/vendor/css/select2.min.css' />
+<link rel="stylesheet" href='${pageContext.request.contextPath }/resources/vendor/css/bootstrap-datetimepicker.min.css' />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/main.css">
 
 <!-- Custom Css -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/hope-ui.css?v=1.0.2">
 <!-- jQuery -->
-<script
-	src="${pageContext.request.contextPath }/resources/js/jQuery-2.1.4.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/jQuery-2.1.4.min.js"></script>
 
 <script type="text/javascript">
 	// 세션 제어

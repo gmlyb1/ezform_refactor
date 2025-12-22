@@ -8,7 +8,7 @@
 	<select id="selectEventList" resultType="EZ_calendarVO"> 
 		SELECT * 
 		FROM ez_cal 
-		where userid=#{userid} 
+		<!-- where userid=#{userid}  -->
 	</select>
 	
 	<insert id="insertEvent" parameterType="EZ_calendarVO" 

@@ -132,12 +132,13 @@ public class EZ_noti_Controller {
 		// 세션
 		EZ_empVO evo = (EZ_empVO)session.getAttribute("resultVO");
 		
-		int chkAdmin = evo.getEm_id();
-		
-		// 관리자인지 확인
-		boolean isAdmin = adminChk(chkAdmin);
-		
-		if (isAdmin) model.addAttribute("admin", "admin");
+		if(evo != null) {
+			int chkAdmin = evo.getEm_id();
+			
+			// 관리자인지 확인
+			boolean isAdmin = adminChk(chkAdmin);
+			if (isAdmin) model.addAttribute("admin", "admin");
+		}
 		
 		model.addAttribute("noticeList", service.listALL());
 	}

@@ -26,7 +26,6 @@ public class EZ_cal_Controller {
 	@Autowired
 	private EZ_cal_Service service;
 
-	// http://localhost:8088/ezform/calendar/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public void calendarGET() throws Exception {
 		logger.info(" C : calendarGET() 실행 ");

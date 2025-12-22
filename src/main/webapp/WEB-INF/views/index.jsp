@@ -7,6 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<%@ include file="include/popup.jsp" %>
+
 <div class="conatiner-fluid content-inner mt-n5 py-0">
 	<div class="row">
 		<div class="col-md-12 col-lg-9">
@@ -170,7 +172,7 @@
 	                           </div>
 	                        </div>
 						</div>
-<!------------------------------vvv--- 근태 영역 ----vvv--------------------->
+						<!------------------------------vvv--- 근태 영역 ----vvv--------------------->
 						<div class="card-header">
 							<div class="header-title">
 								<h4 class="card-title" style="text-align:center;">근태입력</h4>
@@ -225,8 +227,7 @@
 									</div>	
 								</li>
 								</c:forEach>
-	<!--------- ------------------------------------근태 영역--------------- -->								
-
+								<!--------- ------------------------------------근태 영역--------------- -->								
 							</ul>
 						</div>
 					</div>
