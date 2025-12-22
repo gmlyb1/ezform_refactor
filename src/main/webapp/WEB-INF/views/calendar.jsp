@@ -74,7 +74,7 @@
 	</div>
 
 	<!-- 일정 추가 MODAL -->
-	<div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
+	<!-- <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header"
@@ -177,11 +177,101 @@
 					<button type="button" class="btn btn-primary" id="updateEvent">저장</button>
 				</div>
 			</div>
-			<!-- /.modal-content -->
+			/.modal-content
 		</div>
-		<!-- /.modal-dialog -->
-	</div>
+		/.modal-dialog
+	</div> -->
 	<!-- /.modal -->
+	<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+	    <div class="modal-content shadow-sm rounded-3">
+	      
+	      <!-- Modal Header -->
+	      <div class="modal-header bg-primary text-white border-0">
+	        <h5 class="modal-title">일정 등록/수정</h5>
+	        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      
+	      <!-- Modal Body -->
+	      <div class="modal-body">
+	        <form id="eventForm">
+	          <div class="row mb-3 align-items-center">
+	            <label for="edit-allDay" class="col-sm-3 col-form-label">하루종일</label>
+	            <div class="col-sm-9">
+	              <input type="checkbox" class="form-check-input" id="edit-allDay">
+	            </div>
+	          </div>
+	
+	          <div class="row mb-3">
+	            <label for="edit-title" class="col-sm-3 col-form-label">일정명</label>
+	            <div class="col-sm-9">
+	              <input type="text" class="form-control" id="edit-title" required>
+	            </div>
+	          </div>
+	
+	          <div class="row mb-3">
+	            <label for="edit-start" class="col-sm-3 col-form-label">시작</label>
+	            <div class="col-sm-9">
+	              <input type="datetime-local" class="form-control" id="edit-start">
+	            </div>
+	          </div>
+	
+	          <div class="row mb-3">
+	            <label for="edit-end" class="col-sm-3 col-form-label">끝</label>
+	            <div class="col-sm-9">
+	              <input type="datetime-local" class="form-control" id="edit-end">
+	            </div>
+	          </div>
+	
+	          <div class="row mb-3">
+	            <label for="edit-type" class="col-sm-3 col-form-label">구분</label>
+	            <div class="col-sm-9">
+	              <select class="form-select" id="edit-type">
+	                <option value="카테고리1">카테고리1</option>
+	                <option value="카테고리2">카테고리2</option>
+	                <option value="카테고리3">카테고리3</option>
+	                <option value="카테고리4">카테고리4</option>
+	              </select>
+	            </div>
+	          </div>
+	
+	          <div class="row mb-3">
+	            <label for="edit-color" class="col-sm-3 col-form-label">색상</label>
+	            <div class="col-sm-9">
+	              <select class="form-select" id="edit-color">
+	                <option value="rgba(206,32,20,1)" style="color: rgba(206,32,20,1);">빨간색</option>
+	                <option value="rgba(133,21,208,1)" style="color: rgba(133,21,208,1);">보라색</option>
+	                <option value="rgba(235,153,27,1)" style="color: rgba(235,153,27,1);">주황색</option>
+	                <option value="rgba(58,87,232,1)" style="color: rgba(58,87,232,1);">파란색</option>
+	                <option value="rgba(208,21,152,1)" style="color: rgba(208,21,152,1);">핑크색</option>
+	                <option value="rgba(114,208,21,1)" style="color: rgba(114,208,21,1);">연두색</option>
+	                <option value="rgba(21,208,58,1)" style="color: rgba(21,208,58,1);">초록색</option>
+	                <option value="rgba(21,0,128,1)" style="color: rgba(21,0,128,1);">남색</option>
+	                <option value="rgba(73,80,87,1)" style="color: rgba(73,80,87,1);">검정색</option>
+	              </select>
+	            </div>
+	          </div>
+	
+	          <div class="row mb-3">
+	            <label for="edit-desc" class="col-sm-3 col-form-label">설명</label>
+	            <div class="col-sm-9">
+	              <textarea class="form-control" id="edit-desc" rows="4"></textarea>
+	            </div>
+	          </div>
+	        </form>
+	      </div>
+	
+	      <!-- Modal Footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="save-event">저장</button>
+		    <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+	
 
 	<!-- <div class="panel panel-default">
 
