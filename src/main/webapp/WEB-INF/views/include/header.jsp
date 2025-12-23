@@ -10,25 +10,19 @@
 <title>EZFORM | business Flatform Project</title>
 <!-- Favicon -->
 <link rel="shortcut icon" href="${pageContext.request.contextPath }/resources/images/favicon.ico" />
-<!-- Library / Plugin Css Build -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/libs.min.css">
 
-<!-- FullCalendar 2 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/css/fullcalendar.min.css" />
-<%--  <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/vendor/css/bootstrap.min.css" />  --%>
+<%--  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/css/bootstrap.min.css" />  --%>
 <link rel="stylesheet" href='${pageContext.request.contextPath }/resources/vendor/css/select2.min.css' />
 <link rel="stylesheet" href='${pageContext.request.contextPath }/resources/vendor/css/bootstrap-datetimepicker.min.css' />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/main.css">
 
-<!-- Custom Css -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/hope-ui.css?v=1.0.2">
-<!-- jQuery -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/hope-ui.css?v=1.0.2">
 <script src="${pageContext.request.contextPath }/resources/js/jQuery-2.1.4.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script type="text/javascript">
 	// 세션 제어
 	var result = "${result}";
@@ -108,9 +102,9 @@
 		});
 	 	
 	 });	
-		/* 날씨API------------------------------------------------------ */
-
+	/* 날씨API------------------------------------------------------ */
 </script>
+
 <style type="text/css">
 	.weatherApi tr th {
 		width:100px;
@@ -169,32 +163,35 @@ if (session.getAttribute("em_id") != null) {
 			<div class="collapse navbar-collapse" id="sidebar">
 				<!-- Sidebar Menu Start -->
 				<ul class="navbar-nav iq-main-menu">
-					<li class="nav-item static-item"><a
-						class="nav-link static-item disabled" href="#" tabindex="-1">
+					<li class="nav-item static-item">
+						<a class="nav-link static-item disabled" href="#" tabindex="-1">
 							<span class="default-icon">Home</span> <span class="mini-icon">-</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link "
-						aria-current="page" href="/ezform/main"> <i class="icon"><svg
-									width="20" viewBox="0 0 24 24" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-							<path
-										d="M9.14373 20.7821V17.7152C9.14372 16.9381 9.77567
-								 16.3067 10.5584 16.3018H13.4326C14.2189 16.3018 14.8563 
-								 16.9346 14.8563 17.7152V20.7732C14.8562 21.4473 15.404 
-								 21.9951 16.0829 22H18.0438C18.9596 22.0023 19.8388 21.6428 
-								 20.4872 21.0007C21.1356 20.3586 21.5 19.4868 21.5 
-								 18.5775V9.86585C21.5 9.13139 21.1721 8.43471 20.6046
-								  7.9635L13.943 2.67427C12.7785 1.74912 11.1154 1.77901
-								   9.98539 2.74538L3.46701 7.9635C2.87274 8.42082 2.51755 
-								   9.11956 2.5 9.86585V18.5686C2.5 20.4637 4.04738 22 5.95617
-								    22H7.87229C8.19917 22.0023 8.51349 21.8751 8.74547 21.6464C8.97746
-								     21.4178 9.10793 21.1067 9.10792 20.7821H9.14373Z"
-										fill="currentColor">
-							</path></svg> </i> <span class="item-name">홈</span>
-					</a></li>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="/ezform/main"> 
+							<i class="icon">
+								<svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M9.14373 20.7821V17.7152C9.14372 16.9381 9.77567
+										 16.3067 10.5584 16.3018H13.4326C14.2189 16.3018 14.8563 
+										 16.9346 14.8563 17.7152V20.7732C14.8562 21.4473 15.404 
+										 21.9951 16.0829 22H18.0438C18.9596 22.0023 19.8388 21.6428 
+										 20.4872 21.0007C21.1356 20.3586 21.5 19.4868 21.5 
+										 18.5775V9.86585C21.5 9.13139 21.1721 8.43471 20.6046
+										  7.9635L13.943 2.67427C12.7785 1.74912 11.1154 1.77901
+										   9.98539 2.74538L3.46701 7.9635C2.87274 8.42082 2.51755 
+										   9.11956 2.5 9.86585V18.5686C2.5 20.4637 4.04738 22 5.95617
+										    22H7.87229C8.19917 22.0023 8.51349 21.8751 8.74547 21.6464C8.97746
+										     21.4178 9.10793 21.1067 9.10792 20.7821H9.14373Z"
+												fill="currentColor">
+									</path>
+								</svg>
+							</i> 
+							<span class="item-name">홈</span>
+						</a>
+					</li>
 
 					<!------------------------------------------------------- HOME 영역 ------------------------------------------------------------->
-
 					<!------------------------------------------------------- Pages 영역 ------------------------------------------------------------->
 
 					<li><hr class="hr-horizontal"></li>
@@ -338,7 +335,7 @@ if (session.getAttribute("em_id") != null) {
 
 
 					<!---------------------------------- 사이드메뉴 : 메일 ---------------------------------------------->
-
+					
 					<!---------------------------------- 사이드메뉴 : 캘린더 게시판 ------------------------------------->
 
 					<li class="nav-item"><a class="nav-link "
@@ -365,14 +362,15 @@ if (session.getAttribute("em_id") != null) {
 
 					<!---------------------------------- 사이드메뉴 : 캘린더 게시판 ------------------------------------->
 
-
+					<li><hr class="hr-horizontal"></li>
 					<!-- ------------------------------------------------------사이드 메뉴 3번-------------------------------------------------------------->
 
 					<li class="nav-item static-item"><a
 						class="nav-link static-item disabled" href="#" tabindex="-1">
 							<span class="default-icon">Contact</span> <span class="mini-icon">-</span>
 					</a></li>
-
+					
+					
 					<!---------------------------------- 사이드메뉴 : 커뮤니티 게시판 ----------------------------------->
 					<li class="nav-item"><a class="nav-link"
 						href="/ezform/board/listPage"> <i class="icon"> <svg
@@ -528,6 +526,8 @@ if (session.getAttribute("em_id") != null) {
 
 									<li><a class="dropdown-item" href="/ezform/infoMember"><%=menu_name%></a></li>
 									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item" href="/ezform/ez_emp/workHistory">나의 출퇴근 기록</a></li>
+									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item" href="/ezform/logout">로그아웃</a></li>
 								</ul></li>
 
@@ -554,3 +554,8 @@ if (session.getAttribute("em_id") != null) {
 			<!-- Nav Header Component End -->
 			<!--Nav End-->
 		</div>
+		
+		
+		
+		
+		

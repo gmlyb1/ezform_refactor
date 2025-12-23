@@ -33,6 +33,9 @@ public interface EZ_emp_Service {
 
 	//근태List
 	public List<EZ_empVO> wstatusListEmp();
+
+	// 근태기록 List(본인꺼)
+	public List<EZ_workVO> workHistoryList(EZ_workVO wvo);
 	
 	
 	

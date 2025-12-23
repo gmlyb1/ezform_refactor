@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ezform.domain.EZ_empVO;
 import com.ezform.service.EZ_mem_Service;
 import com.ezform.service.EZ_noti_Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ezform.service.EZ_bd_Service;
 import com.ezform.service.EZ_emp_Service;
 
@@ -45,7 +46,10 @@ public class EZ_mem_Controller {
 
 	// 메인페이지
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String mainPageGET(Model model) throws Exception {
+	public String mainPageGET(Model model,HttpSession session) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		EZ_empVO loginSession = (EZ_empVO)session.getAttribute("resultVO");
+		System.out.println("resultVO:"+mapper.writerWithDefaultPrettyPrinter().writeValueAsString(loginSession));
 		
 		// 커뮤니티 리스트
 		model.addAttribute("boardList", bd_service.listCri());
@@ -99,6 +103,7 @@ public class EZ_mem_Controller {
 			session.setAttribute("em_id", resultVO.getEm_id());
 		
 		}
+		
 
 		return "redirect:./main";
 	}
@@ -282,5 +287,7 @@ public class EZ_mem_Controller {
 		return "redirect:./deleteMember";
 
 	}
+	
+	
 
 }

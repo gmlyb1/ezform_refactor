@@ -81,9 +81,19 @@ order by em_id desc
 
 <!--근태입력 처리 -->
 <insert id="wstatusEmp">
-	insert into ez_work(em_id,work_status) 
-	values(#{em_id},#{work_status})
+	insert into ez_work(em_id,work_status,user_email) 
+	values(#{em_id},#{work_status},#{user_email})
 </insert>
+
+<select id="workHisotryList" resultType="EZ_workVO" parameterType="EZ_workVO">
+	select 
+		em_id 
+		,work_regdate
+		,work_status
+		,user_email
+	from ez_work 
+	where user_email = #{user_email}
+</select>
 
 <!--근태리스트 -->
 <resultMap type="com.ezform.domain.EZ_empVO" id="workMap">
@@ -100,15 +110,21 @@ order by em_id desc
 </resultMap>
  
 <select id="workStatusList"  resultMap="workMap">
-select em_name,work_regdate,work_status,em_image from ez_em join (select *
-									from ez_work
-									where (em_id,work_regdate) in (
-											select em_id, max(work_regdate)
-											from ez_work group by em_id
-									)						
-							group by em_id) ew
+select 
+	em_name,
+	work_regdate,
+	work_status,
+	em_image 
+from ez_em join 
+(select *
+	from ez_work
+		where (em_id,work_regdate) in (
+	select em_id, max(work_regdate)
+		from ez_work group by em_id
+	)						
+group by em_id) ew
 using (em_id)
-	order by work_regdate desc
+order by work_regdate desc
 </select> 
 
 

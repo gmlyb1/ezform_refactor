@@ -37,4 +37,7 @@ public interface EZ_empDAO {
 	
 	//	근태리스트
 	public List wstatusListEmp();
+
+	// 근태기록 List(본인꺼)
+	public List<EZ_workVO> workHisotryList(EZ_workVO wvo);
 }

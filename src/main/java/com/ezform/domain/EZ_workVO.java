@@ -6,7 +6,22 @@ public class EZ_workVO {
 	private int em_id;
 	private Timestamp work_regdate;
 	private String work_status;
+	private String user_email;
 	
+	private String em_email;
+	
+	public String getEm_email() {
+		return em_email;
+	}
+	public void setEm_email(String em_email) {
+		this.em_email = em_email;
+	}
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
 	public int getEm_id() {
 		return em_id;
 	}
@@ -27,7 +42,8 @@ public class EZ_workVO {
 	}
 	@Override
 	public String toString() {
-		return "EZ_workVO [em_id=" + em_id + ", work_regdate=" + work_regdate + ", work_status=" + work_status + "]";
+		return "EZ_workVO [em_id=" + em_id + ", work_regdate=" + work_regdate + ", work_status=" + work_status
+				+ ", user_email=" + user_email + ", em_email=" + em_email + "]";
 	}
 
 	

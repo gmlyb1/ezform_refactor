@@ -113,4 +113,9 @@ public class EZ_empDAOImpl implements EZ_empDAO {
 		return wslist;
 	}
 
+	@Override
+	public List<EZ_workVO> workHisotryList(EZ_workVO wvo) {
+		return sqlSession.selectList(namespace+".workHisotryList",wvo);
+	}
+
 }

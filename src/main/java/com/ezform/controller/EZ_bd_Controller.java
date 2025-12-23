@@ -131,7 +131,9 @@ public class EZ_bd_Controller {
 		model.addAttribute("replyList", ReplyService.list(cm_bnum));
 		
 		// 작성자 본인인지 확인 (삭제 버튼 처리)
-		model.addAttribute("isWriter",evo.getEm_id());
+		if(evo != null) {
+			model.addAttribute("isWriter",evo.getEm_id());
+		}
 	}
 
 	// *글수정 GET

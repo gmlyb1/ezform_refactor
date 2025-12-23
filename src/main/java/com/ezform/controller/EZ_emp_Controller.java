@@ -1,5 +1,7 @@
 package com.ezform.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_workVO;
 import com.ezform.service.EZ_emp_Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/ez_emp/*") 
@@ -65,7 +68,11 @@ public class EZ_emp_Controller {
 	@RequestMapping(value = "/wstatus", method = RequestMethod.POST) 
 	public String empWstatus(HttpSession session, EZ_workVO workvo) throws Exception{
 		Integer em_id = (Integer)session.getAttribute("em_id");
+
+		EZ_empVO loginSession =  (EZ_empVO)session.getAttribute("resultVO");
+		
 		workvo.setEm_id(em_id);
+		workvo.setUser_email(loginSession.getEm_email());
 		emp_service.wstatusEmp(workvo);
 		
 		return "redirect:/main";	
@@ -83,5 +90,28 @@ public class EZ_emp_Controller {
 		//session.invalidate();
 	
 		return "redirect:/ez_emp/list";   //주소와 화면바뀜 redirect
+	}
+	
+	@RequestMapping(value = "/workHistory" , method = RequestMethod.GET)
+	public String workHistoryListPage(EZ_workVO wvo, Model model, HttpSession session) throws Exception
+	{
+		EZ_empVO loginSession = (EZ_empVO) session.getAttribute("resultVO");
+		if(loginSession != null) {
+			wvo.setUser_email(loginSession.getEm_email());
+		}
+		List<EZ_workVO> HistoryList = emp_service.workHistoryList(wvo);
+		model.addAttribute("HistoryList", HistoryList);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		System.out.println("HistoryList:"+mapper.writerWithDefaultPrettyPrinter().writeValueAsString(HistoryList));
+		return "/ez_emp/workHisotry";
+	}
+	
+	@RequestMapping(value = "/workHistory" , method = RequestMethod.POST)
+	public String workHistoryList() throws Exception
+	{
+		
+		
+		return "/ez_emp/workHisotry";
 	}
 }

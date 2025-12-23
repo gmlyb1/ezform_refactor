@@ -14,7 +14,7 @@ public class EZ_empVO {
 	private Timestamp em_regdate;
 	private String em_extension;
 	private String em_image;
-	
+
 	private EZ_workVO ez_workVO;
 	
 	public int getEm_id() {
@@ -77,13 +77,13 @@ public class EZ_empVO {
 	public void setEz_workVO(EZ_workVO ez_workVO) {
 		this.ez_workVO = ez_workVO;
 	}
-	
 	@Override
 	public String toString() {
 		return "EZ_empVO [em_id=" + em_id + ", em_email=" + em_email + ", em_pw=" + em_pw + ", em_name=" + em_name
 				+ ", em_dept=" + em_dept + ", em_posi=" + em_posi + ", em_regdate=" + em_regdate + ", em_extension="
 				+ em_extension + ", em_image=" + em_image + ", ez_workVO=" + ez_workVO + "]";
 	}
+	
 		
 
 }

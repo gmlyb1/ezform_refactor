@@ -74,7 +74,7 @@
 												<c:forEach begin="0" end="2" items="${boardList }" var="bd">
 													<tr>
 														<td width="80%;">
-															<a href="read?cm_bnum=${bd.cm_bnum}">
+															<a href="/ezform/board/read?cm_bnum=${bd.cm_bnum}">
 																${bd.cm_title }
 															</a>
 														</td>
