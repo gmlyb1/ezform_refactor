@@ -40,4 +40,11 @@ public interface EZ_empDAO {
 
 	// 근태기록 List(본인꺼)
 	public List<EZ_workVO> workHisotryList(EZ_workVO wvo);
+
+	// 근태기록 List(관리자용)
+	public List<EZ_workVO> UserWorkHistoryList(EZ_workVO wvo);
+
+	public List<EZ_workVO> UserWorkHistoryListCnt(EZ_workVO wvo);
+
+	public List<EZ_workVO> workHistoryListCnt(EZ_workVO wvo);
 }

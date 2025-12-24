@@ -36,6 +36,15 @@ public interface EZ_emp_Service {
 
 	// 근태기록 List(본인꺼)
 	public List<EZ_workVO> workHistoryList(EZ_workVO wvo);
+
+	// 근태기록 List(관리자용)
+	public List<EZ_workVO> UserWorkHistoryList(EZ_workVO wvo);
+	
+	// 근태기록카운트 List(관리자용)
+	public List<EZ_workVO> UserWorkHistoryListCnt(EZ_workVO wvo);
+
+	// 근태기록카운트 List(본인꺼)
+	public List<EZ_workVO> workHistoryListCnt(EZ_workVO wvo);
 	
 	
 	

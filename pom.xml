@@ -210,6 +210,15 @@
 		    <artifactId>spring-messaging</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.mindrot</groupId>
+		    <artifactId>jbcrypt</artifactId>
+		    <version>0.4</version>
+		</dependency>
+		
+		
+		
 	<!-- 외부라이브러리 추가 -->
 	</dependencies>
     <build>
@@ -240,6 +249,7 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
+            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>

@@ -7,7 +7,16 @@ public class EZ_workVO {
 	private Timestamp work_regdate;
 	private String work_status;
 	private String user_email;
+	private int work_status_cnt;
 	
+	
+	
+	public int getWork_status_cnt() {
+		return work_status_cnt;
+	}
+	public void setWork_status_cnt(int work_status_cnt) {
+		this.work_status_cnt = work_status_cnt;
+	}
 	private String em_email;
 	
 	public String getEm_email() {
@@ -43,7 +52,8 @@ public class EZ_workVO {
 	@Override
 	public String toString() {
 		return "EZ_workVO [em_id=" + em_id + ", work_regdate=" + work_regdate + ", work_status=" + work_status
-				+ ", user_email=" + user_email + ", em_email=" + em_email + "]";
+				+ ", user_email=" + user_email + ", work_status_cnt=" + work_status_cnt + ", em_email=" + em_email
+				+ "]";
 	}
 
 	

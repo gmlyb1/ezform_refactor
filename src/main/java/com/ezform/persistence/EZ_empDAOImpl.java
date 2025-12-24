@@ -118,4 +118,20 @@ public class EZ_empDAOImpl implements EZ_empDAO {
 		return sqlSession.selectList(namespace+".workHisotryList",wvo);
 	}
 
+	// 근태기록 List(관리자용)
+	@Override
+	public List<EZ_workVO> UserWorkHistoryList(EZ_workVO wvo) {
+		return sqlSession.selectList(namespace+".UserWorkHistoryList",wvo);
+	}
+
+	@Override
+	public List<EZ_workVO> UserWorkHistoryListCnt(EZ_workVO wvo) {
+		return sqlSession.selectList(namespace+".UserWorkHistoryListCnt",wvo);
+	}
+
+	@Override
+	public List<EZ_workVO> workHistoryListCnt(EZ_workVO wvo) {
+		return sqlSession.selectList(namespace+".workHistoryListCnt",wvo);
+	}
+
 }

@@ -93,6 +93,37 @@ order by em_id desc
 		,user_email
 	from ez_work 
 	where user_email = #{user_email}
+	order by work_regdate desc
+</select>
+
+	<select id="workHistoryListCnt" resultType="EZ_workVO" parameterType="EZ_workVO">
+		SELECT
+    	work_status,
+    	COUNT(*) AS work_status_cnt
+	FROM ez_work
+	WHERE user_email = #{user_email}
+	and  DATE(work_regdate) = CURDATE()
+		GROUP BY work_status
+		ORDER BY work_status
+	</select>
+
+<select id="UserWorkHistoryList" resultType="EZ_workVO" parameterType="EZ_workVO">
+	select 
+		em_id 
+		,work_regdate
+		,work_status
+		,user_email
+	from ez_work 
+	order by work_regdate desc
+</select>
+
+<select id="UserWorkHistoryListCnt" resultType="EZ_workVO" parameterType="EZ_workVO">
+	SELECT
+    	work_status,
+    	COUNT(*) AS work_status_cnt
+	FROM ez_work
+		GROUP BY work_status
+		ORDER BY work_status
 </select>
 
 <!--근태리스트 -->

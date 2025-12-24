@@ -19,20 +19,22 @@
 	                  <h4 class="card-title"></h4>
 	               </div>
 	            </div>
-	            
+	                      
 	            <div class="card-body px-0">
-	            	<div class="text-center my-5">
-					    <h2 class="mb-4 fw-bold">오늘의 통계</h2>
-					    <c:forEach items="${HistoryListCnt}" var="list">
-					        <span class="badge bg-primary mx-2 py-2 px-3 fs-5 shadow-sm">
-					            ${list.work_status}: ${list.work_status_cnt}
-					        </span>
-					    </c:forEach>
-					</div>
+				    <!-- 통계 중앙 배치 -->
+				    <div class="text-center mb-4">
+				        <c:forEach items="${HistoryListCnt}" var="list">
+				            <span class="badge bg-primary mx-2 py-2 px-3 fs-5">
+				                ${list.work_status}: ${list.work_status_cnt}
+				            </span>
+				        </c:forEach>
+				    </div>
+	            
 	               <div class="table-responsive">
 	                  <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
 	                     <thead>
 	                       <tr>
+							 <th class="text-center">아이디</th>
 							 <th class="text-center">기록</th>
 							 <th class="text-center">일시</th>
 						   </tr>
@@ -40,6 +42,14 @@
 	                     <tbody>
 	                     	<c:forEach items="${HistoryList}" var="list">
 								<tr>
+								   <c:choose>
+									<c:when test="${list.user_email != null || not empty list.user_email }">
+										<td class="text-center">${list.user_email}</td>
+									</c:when>
+									<c:otherwise>
+										<td class="text-center">-</td>
+									</c:otherwise>								   
+								   </c:choose>
 									<td class="text-center">${list.work_status}</td>
 									<td class="text-center">
 									    <fmt:formatDate value="${list.work_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/>

@@ -90,6 +90,22 @@ public class EZ_emp_ServiceImpl implements EZ_emp_Service {
 	public List<EZ_workVO> workHistoryList(EZ_workVO wvo) {
 		return empdao.workHisotryList(wvo);
 	}
+
+	// 근태기록 List(관리자용)
+	@Override
+	public List<EZ_workVO> UserWorkHistoryList(EZ_workVO wvo) {
+		return empdao.UserWorkHistoryList(wvo);
+	}
+
+	@Override
+	public List<EZ_workVO> UserWorkHistoryListCnt(EZ_workVO wvo) {
+		return empdao.UserWorkHistoryListCnt(wvo);
+	}
+
+	@Override
+	public List<EZ_workVO> workHistoryListCnt(EZ_workVO wvo) {
+		return empdao.workHistoryListCnt(wvo);
+	}
 		
 	
 

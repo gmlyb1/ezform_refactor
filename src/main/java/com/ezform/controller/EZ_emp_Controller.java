@@ -93,25 +93,28 @@ public class EZ_emp_Controller {
 	}
 	
 	@RequestMapping(value = "/workHistory" , method = RequestMethod.GET)
-	public String workHistoryListPage(EZ_workVO wvo, Model model, HttpSession session) throws Exception
+	public String workHistoryList(EZ_workVO wvo, Model model, HttpSession session) throws Exception
 	{
 		EZ_empVO loginSession = (EZ_empVO) session.getAttribute("resultVO");
 		if(loginSession != null) {
 			wvo.setUser_email(loginSession.getEm_email());
 		}
 		List<EZ_workVO> HistoryList = emp_service.workHistoryList(wvo);
+		List<EZ_workVO> HistoryListCnt= emp_service.workHistoryListCnt(wvo);
 		model.addAttribute("HistoryList", HistoryList);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("HistoryList:"+mapper.writerWithDefaultPrettyPrinter().writeValueAsString(HistoryList));
+		model.addAttribute("HistoryListCnt", HistoryListCnt);
 		return "/ez_emp/workHisotry";
 	}
 	
-	@RequestMapping(value = "/workHistory" , method = RequestMethod.POST)
-	public String workHistoryList() throws Exception
+	@RequestMapping(value = "/UserWorkHistory" , method = RequestMethod.GET)
+	public String UserworkHistoryList(EZ_workVO wvo, Model model) throws Exception
 	{
+		List<EZ_workVO> HistoryList = emp_service.UserWorkHistoryList(wvo);
+		List<EZ_workVO> HistoryListCnt = emp_service.UserWorkHistoryListCnt(wvo);
+		model.addAttribute("HistoryList", HistoryList);
+		model.addAttribute("HistoryListCnt", HistoryListCnt);
 		
-		
-		return "/ez_emp/workHisotry";
+		return "/ez_emp/UserWorkHistory";
 	}
+	
 }
