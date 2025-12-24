@@ -163,7 +163,7 @@
 					    <hr>
 					
 					    <p style="font-size:14px; color:#777;">누적 방문자</p>
-					    <h2 style="font-weight:bold;">${total}</h4>
+					    <h2 style="font-weight:bold;">${total}</h2>
 					  </div>
 					</div>
 					<div class="card">
