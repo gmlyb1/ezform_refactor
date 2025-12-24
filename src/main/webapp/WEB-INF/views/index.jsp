@@ -157,6 +157,11 @@
 					    </div>
 					  </div>
 					  <div class="card-body text-center">
+					  	<p style="font-size:14px; color:#777;">현재 접속자 수</p>
+					    <h2 style="font-weight:bold;">${currentUserCount}</h2>
+					  	
+					  	<hr>
+					  	
 					    <p style="font-size:14px; color:#777;">오늘 방문자</p>
 					    <h2 style="font-weight:bold;">${today}</h2>
 					

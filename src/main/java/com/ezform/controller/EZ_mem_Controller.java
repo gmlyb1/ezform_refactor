@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ezform.common.SessionCounter;
 import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_visitVO;
 import com.ezform.service.EZ_mem_Service;
@@ -65,13 +66,12 @@ public class EZ_mem_Controller {
 		int total = visit_service.getVisitCount(visitVO);
 		int today = visit_service.getTodayVisitCount(visitVO);
 		
-		System.out.println("total:"+total);
-		System.out.println("today:"+today);
-		
 		EZ_empVO loginSession = (EZ_empVO)session.getAttribute("resultVO");
 		
 		model.addAttribute("total", total);
 		model.addAttribute("today", today);
+		// 현재 접속자수(세션값)
+		model.addAttribute("currentUserCount", SessionCounter.getCount());
 		// 커뮤니티 리스트
 		model.addAttribute("boardList", bd_service.listCri());
 		// 공지사항 리스트
