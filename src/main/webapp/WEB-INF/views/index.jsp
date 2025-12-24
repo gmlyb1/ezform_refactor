@@ -151,6 +151,22 @@
 			<div class="row">
 				<div class="col-md-12 col-lg-12">
 					<div class="card">
+					  <div class="card-header">
+					    <div class="header-title">
+					      <h4 class="card-title">접속 현황</h4>
+					    </div>
+					  </div>
+					  <div class="card-body text-center">
+					    <p style="font-size:14px; color:#777;">오늘 방문자</p>
+					    <h2 style="font-weight:bold;">${today}</h2>
+					
+					    <hr>
+					
+					    <p style="font-size:14px; color:#777;">누적 방문자</p>
+					    <h2 style="font-weight:bold;">${total}</h4>
+					  </div>
+					</div>
+					<div class="card">
 						<div class="card-body d-flex justify-content-around text-center" style="padding: 24px 24px 0 24px;">
 							<div
 								style="color: #666; font-size: 35px; text-align: center;"
@@ -205,7 +221,7 @@
 						<div class="card-body">
 							<ul class="list-inline m-0 p-0">
 									
-						<c:forEach  var="wslist"   items="${wslist }" varStatus="status">
+							<c:forEach var="wslist" items="${wslist}" varStatus="status">
 								<li class="d-flex mb-4 align-items-center">
 									<div class="img-fluid bg-soft-warning rounded-pill">
 										<img
@@ -222,11 +238,11 @@
 									</div> 
 								   <div class="iq-media-group iq-media-group-1">
 	                                    <a href="#" class="iq-media-1">
-											   <div class="icon iq-icon-box-3 rounded-pill">${wslist.ez_workVO.work_status }</div>
+											<div class="icon iq-icon-box-3 rounded-pill">${wslist.ez_workVO.work_status }</div>
 										</a>
 									</div>	
 								</li>
-								</c:forEach>
+							</c:forEach>
 								<!--------- ------------------------------------근태 영역--------------- -->								
 							</ul>
 						</div>

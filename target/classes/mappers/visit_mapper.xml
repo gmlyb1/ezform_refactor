@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ezform.mapper.visit_Mapper">
+	
+	<insert id="insertVisit">
+		INSERT INTO ez_visitor_log
+		(
+			ip_address 
+		,   visit_date
+		,   user_agent
+		)
+		values
+		(
+			#{ip_address}
+		,	NOW()
+		,	#{user_agent}
+		)
+	</insert>
+	
+	<!-- 전체 방문 수 조회 -->
+    <select id="getVisitCount" resultType="int">
+        SELECT COUNT(*) FROM ez_visitor_log
+    </select>
+    
+    <!-- 오늘 방문 수 조회 -->
+    <select id="getTodayVisitCount" resultType="int">
+        SELECT COUNT(*) 
+        FROM ez_visitor_log
+        WHERE DATE(visit_date) = CURDATE()
+    </select>
+
+</mapper>

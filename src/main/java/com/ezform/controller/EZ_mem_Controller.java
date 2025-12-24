@@ -8,9 +8,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,8 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezform.domain.EZ_empVO;
+import com.ezform.domain.EZ_visitVO;
 import com.ezform.service.EZ_mem_Service;
 import com.ezform.service.EZ_noti_Service;
+import com.ezform.service.EZ_visit_service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ezform.service.EZ_bd_Service;
 import com.ezform.service.EZ_emp_Service;
@@ -41,16 +46,32 @@ public class EZ_mem_Controller {
 	private EZ_bd_Service bd_service;
 	@Inject
 	private EZ_emp_Service emp_service;
+	@Inject
+	private EZ_visit_service visit_service;
 
 	private static final Logger logger = LoggerFactory.getLogger(EZ_mem_Controller.class);
 
 	// 메인페이지
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String mainPageGET(Model model,HttpSession session) throws Exception {
-		ObjectMapper mapper = new ObjectMapper();
-		EZ_empVO loginSession = (EZ_empVO)session.getAttribute("resultVO");
-		System.out.println("resultVO:"+mapper.writerWithDefaultPrettyPrinter().writeValueAsString(loginSession));
+	public String mainPageGET(HttpServletRequest request,Model model,HttpSession session,EZ_visitVO visitVO) throws Exception {
 		
+		String ip = request.getRemoteAddr();
+		String userAgent = request.getHeader("User-Agent");
+		
+		visitVO.setIp_address(ip);
+		visitVO.setUser_agent(userAgent);
+		visit_service.insertVisit(visitVO);
+		
+		int total = visit_service.getVisitCount(visitVO);
+		int today = visit_service.getTodayVisitCount(visitVO);
+		
+		System.out.println("total:"+total);
+		System.out.println("today:"+today);
+		
+		EZ_empVO loginSession = (EZ_empVO)session.getAttribute("resultVO");
+		
+		model.addAttribute("total", total);
+		model.addAttribute("today", today);
 		// 커뮤니티 리스트
 		model.addAttribute("boardList", bd_service.listCri());
 		// 공지사항 리스트
