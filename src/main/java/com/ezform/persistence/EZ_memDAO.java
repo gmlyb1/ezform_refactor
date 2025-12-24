@@ -30,4 +30,6 @@ public interface EZ_memDAO {
 	
 	// 직원 리스트
 	public List<EZ_empVO> listEmp() throws Exception;
+
+	public List<EZ_empVO> messageMemberList(EZ_empVO empVO) throws Exception;
 }

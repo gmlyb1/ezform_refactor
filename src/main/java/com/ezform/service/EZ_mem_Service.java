@@ -29,5 +29,7 @@ public interface EZ_mem_Service {
 	
 	// 직원 리스트
 	public List<EZ_empVO> memList() throws Exception;
+
+	public List<EZ_empVO> messageMemberList(EZ_empVO empVO) throws Exception;
 	
 }

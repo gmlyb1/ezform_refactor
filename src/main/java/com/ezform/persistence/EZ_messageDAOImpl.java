@@ -23,13 +23,13 @@ public class EZ_messageDAOImpl implements EZ_messageDAO {
 	}
 
 	@Override
-	public List<EZ_messageVO> findList(String receive_name) {
-		return sqlSession.selectList(namespace + ".findList", receive_name);
+	public List<EZ_messageVO> findList(EZ_messageVO messageVO) {
+		return sqlSession.selectList(namespace + ".findList", messageVO);
 	}
 
 	@Override
-	public void sendMessage(EZ_messageVO messageVO) {
-		sqlSession.insert(namespace + ".sendMessage", messageVO);
+	public void insertMessage(EZ_messageVO messageVO) {
+		sqlSession.insert(namespace + ".insertMessage", messageVO);
 	}
 
 }

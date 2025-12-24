@@ -34,7 +34,6 @@
 		
 	</beans:bean>
 
-    <beans:bean id="myHandler" class="com.ezform.common.EchoHandler" />
 	<websocket:handlers>
 		<websocket:mapping handler="myHandler" path="/alram" />
 		<websocket:handshake-interceptors>
@@ -43,6 +42,7 @@
 		<websocket:sockjs websocket-enabled="true"/>
 	</websocket:handlers>
 
+    <beans:bean id="myHandler" class="com.ezform.common.EchoHandler" />
 	
 	<context:component-scan base-package="com.ezform.controller" />
 	

@@ -6,7 +6,7 @@ public class EZ_messageVO {
 	
 	private int ms_seq;
 	private String ms_title;
-	private String receive_name;
+	private String receiver_name;
 	private int gubun;
 	private Date create_date;
 	private String ms_content;
@@ -25,11 +25,11 @@ public class EZ_messageVO {
 	public void setMs_title(String ms_title) {
 		this.ms_title = ms_title;
 	}
-	public String getReceive_name() {
-		return receive_name;
+	public String getReceiver_name() {
+		return receiver_name;
 	}
-	public void setReceive_name(String receive_name) {
-		this.receive_name = receive_name;
+	public void setReceiver_name(String receiver_name) {
+		this.receiver_name = receiver_name;
 	}
 	public int getGubun() {
 		return gubun;
@@ -69,10 +69,11 @@ public class EZ_messageVO {
 	}
 	@Override
 	public String toString() {
-		return "EZ_messageVO [ms_seq=" + ms_seq + ", ms_title=" + ms_title + ", receive_name=" + receive_name
+		return "EZ_messageVO [ms_seq=" + ms_seq + ", ms_title=" + ms_title + ", receiver_name=" + receiver_name
 				+ ", gubun=" + gubun + ", create_date=" + create_date + ", ms_content=" + ms_content + ", sender_name="
 				+ sender_name + ", user_id=" + user_id + ", read_yn=" + read_yn + "]";
 	}
+	
 	
 	
 }

@@ -68,8 +68,13 @@ public class EZ_mem_Controller {
 		
 		EZ_empVO loginSession = (EZ_empVO)session.getAttribute("resultVO");
 		
+		System.out.println("loginSession:"+loginSession);
+		EZ_empVO empVO = new EZ_empVO();
+		model.addAttribute("messageMemberList", mem_service.messageMemberList(empVO));
 		model.addAttribute("total", total);
 		model.addAttribute("today", today);
+		
+		model.addAttribute("loginSession", "loginSession");
 		// 현재 접속자수(세션값)
 		model.addAttribute("currentUserCount", SessionCounter.getCount());
 		// 커뮤니티 리스트

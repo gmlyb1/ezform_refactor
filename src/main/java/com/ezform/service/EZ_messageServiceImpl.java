@@ -22,13 +22,13 @@ public class EZ_messageServiceImpl implements EZ_messageService {
 	}
 
 	@Override
-	public List<EZ_messageVO> findList(String receive_name) {
-		return messageDAO.findList(receive_name);
+	public List<EZ_messageVO> findList(EZ_messageVO messageVO) {
+		return messageDAO.findList(messageVO);
 	}
 
 	@Override
-	public void sendMessage(EZ_messageVO messageVO) {
-		messageDAO.sendMessage(messageVO);
+	public void insertMessage(EZ_messageVO messageVO) {
+		messageDAO.insertMessage(messageVO);
 	}
 
 }

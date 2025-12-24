@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="findList" resultType="EZ_messageVO">
-		select * from ez_message where receiver_name = #{receiver_name} and gubun 0
+		select * from ez_message where receiver_name = #{receiver_name} and gubun = 0
 	</select>
 	
 	<insert id="insertMessage">
@@ -31,7 +31,7 @@
 			 #{ms_title}
 			,#{receiver_name}
 			,#{gubun}
-			,#{create_date}
+			,NOW()
 			,#{ms_content}
 			,#{sender_name}
 			,#{user_id}

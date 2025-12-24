@@ -1,6 +1,5 @@
 <%@page import="java.util.Date"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%@ include file="../include/header.jsp" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -75,7 +74,7 @@
 	                              </div>
 	                              <div class="mb-3">
 	                                 <label class="form-label">내용</label>
-	                                 <textarea class="form-control" rows="10" id="com_content" name="cm_content" style="resize: none;"></textarea>
+	                                 <textarea class="form-control" rows="10" id="myEditor" name="cm_content" style="resize: none;"></textarea>
 	                              </div>
 	                           </th>
 	                        </tr>   

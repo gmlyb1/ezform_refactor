@@ -103,6 +103,70 @@
 	 	
 	 });	
 	/* 날씨API------------------------------------------------------ */
+	
+	function openNav() {
+		document.getElementById('mysidenav').style.width = '350px';
+		$.ajax({
+			type: "post",
+			dataType: "json",
+			url: "/ezform/ez_message/list",
+			data: {
+				receiver_name : $("user_name").val(),
+			},
+			success: function(data) {
+				var i = 1;
+				var dataset = data.result;
+				dataset.forEach(function(row) {
+					if($("#"+i).length > 0) {
+						
+					}else {
+						$("#mysidenav").append("<div id='" + row.view_check + "'class='letter'<div class='header'><p style='color:white;font-size:23px;margin-left:20px;'>" + row.ms_title+"</p></div><table>tbody><tr><th>발송일자: "+row.create_date + "</th><th>발송자:"+row.sender_name+"</th></tr>"+
+						"<tr><th>"+row.ms_content+"</th></tr></tbody></table><div class='footer'></div></div>");
+						
+						if(row.read_yn == 0) {
+							$("#" + i + ".footer").append("<input type='button' style='float:right;' id='letter_read' class='btn btn-danger' value='read'/>");
+						}
+						i++;
+					}
+				});
+			}
+		})
+		if($("#mysidenav").css("width") == "350px") {
+			document.getElementById('mysidenav').style.width = '0';
+		}
+	}
+	
+	function closeNav() {
+		document.getElementById('mysidenav').style.width = '0';
+	}
+	
+	$(document).ready(function(){
+		$("#message_send_btn").click(function() {
+			$('#MsgForm').modal("show");
+		});
+		
+		$("#msg_submit").click(function() {
+			var msg = "쪽지를 보내시겠습니까?";
+			
+			if(!confirm(msg)) {
+				return false;
+			}
+			
+			$.ajax({
+				url : "/ezform/ez_message/sendMsg",
+				dataType : "json",
+				type : "post",
+				data : $(".msg_form").serialize(),
+				success : function(data) {
+					alert("쪽지를 보냈습니다.");
+				} 
+			});
+		});
+		
+		$("#exit").click(function() {
+			$('#MsgForm').modal('hide');
+		});
+	});	
 </script>
 
 <style type="text/css">
@@ -190,6 +254,18 @@ if (session.getAttribute("em_id") != null) {
 							<span class="item-name">홈</span>
 						</a>
 					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="/ezform/ez_message/list"> 
+							<i class="icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
+								  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+								</svg>
+							</i> 
+							<span class="item-name">쪽지 보관함</span>
+						</a>
+					</li>
+					
 
 					<!------------------------------------------------------- HOME 영역 ------------------------------------------------------------->
 					<!------------------------------------------------------- Pages 영역 ------------------------------------------------------------->
@@ -256,16 +332,17 @@ if (session.getAttribute("em_id") != null) {
 						</a>
 					</li>
 					
-					<li class="nav-item"><a class="nav-link "
-						href="/ezform/ez_emp/UserWorkHistory">
-						<i class="icon"> 
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
-							  <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1z"/>
-							</svg>
-						</i> 
-						<span class="item-name">직원 출퇴근 기록</span>
-					</a>
+					<li class="nav-item">
+						<a class="nav-link" href="/ezform/ez_emp/UserWorkHistory">
+							<i class="icon"> 
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
+								  <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1z"/>
+								</svg>
+							</i> 
+							<span class="item-name">직원 출퇴근 기록</span>
+						</a>
 					</li>
+					<li><hr class="hr-horizontal"></li>
 					<%
 					}
 					%>
@@ -274,77 +351,80 @@ if (session.getAttribute("em_id") != null) {
 
 					<!---------------------------------- 사이드메뉴 : 메일 ---------------------------------------------->
 
-					<li class="nav-item"><a class="nav-link"
-						data-bs-toggle="collapse" href="#sidebar-user" role="button"
-						aria-expanded="false" aria-controls="sidebar-user"><i
-							class="icon"> <svg width="20" viewBox="0 0 24 24" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#sidebar-user" role="button" aria-expanded="false" aria-controls="sidebar-user">
+							<i class="icon"> <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             		<path opacity="0.4"
 										d="M22 15.94C22 18.73 19.76 20.99 16.97 21H16.96H7.05C4.27 21 2 18.75 2 15.96V15.95C2 15.95 2.006 11.524 2.014 9.298C2.015 8.88 2.495 8.646 2.822 8.906C5.198 10.791 9.447 14.228 9.5 14.273C10.21 14.842 11.11 15.163 12.03 15.163C12.95 15.163 13.85 14.842 14.56 14.262C14.613 14.227 18.767 10.893 21.179 8.977C21.507 8.716 21.989 8.95 21.99 9.367C22 11.576 22 15.94 22 15.94Z"
-										fill="currentColor"></path>
+										fill="currentColor">
+									</path>
                             		<path
 										d="M21.4759 5.67351C20.6099 4.04151 18.9059 2.99951 17.0299 2.99951H7.04988C5.17388 2.99951 3.46988 4.04151 2.60388 5.67351C2.40988 6.03851 2.50188 6.49351 2.82488 6.75151L10.2499 12.6905C10.7699 13.1105 11.3999 13.3195 12.0299 13.3195C12.0339 13.3195 12.0369 13.3195 12.0399 13.3195C12.0429 13.3195 12.0469 13.3195 12.0499 13.3195C12.6799 13.3195 13.3099 13.1105 13.8299 12.6905L21.2549 6.75151C21.5779 6.49351 21.6699 6.03851 21.4759 5.67351Z"
-										fill="currentColor"></path>                               
+										fill="currentColor">
+									</path>                               
                             	</svg>
-						</i> <span class="item-name">메일</span><i class="right-icon"> <svg
-									xmlns="http://www.w3.org/2000/svg" width="18" fill="none"
-									viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round"
-										stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                </svg>
-						</i> </a>
-						<ul class="sub-nav collapse" id="sidebar-user"
-							data-bs-parent="#sidebar">
-							
-							<li class="nav-item"><a class="nav-link "
-								href="/ezform/ez_mail/writeMail"> <i class="icon"> <svg
-											xmlns="http://www.w3.org/2000/svg" width="10"
-											viewBox="0 0 24 24" fill="currentColor">
+							</i> 
+							<span class="item-name">메일</span>
+								<i class="right-icon"> 
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                	</svg>
+								</i> 
+						</a>
+						<ul class="sub-nav collapse" id="sidebar-user" data-bs-parent="#sidebar">
+							<li class="nav-item">
+								<a class="nav-link" href="/ezform/ez_mail/writeMail"> <i class="icon"> 
+									<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                         <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                         </g>
+                                    </svg>
+								</i> 
+								<i class="sidenav-mini-icon"> U </i>
+								 <span class="item-name">메일 쓰기 </span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/ezform/ez_mail/recMail"> 
+									<i class="icon"> 
+										<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
-                                            <circle cx="12" cy="12"
-												r="8" fill="currentColor"></circle>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
                                             </g>
                                         </svg>
-								</i> <i class="sidenav-mini-icon"> U </i> <span class="item-name">메일 쓰기
-										</span>
-							</a></li>
-							<li class="nav-item"><a class="nav-link "
-								href="/ezform/ez_mail/recMail"> <i class="icon"> <svg
-											xmlns="http://www.w3.org/2000/svg" width="10"
-											viewBox="0 0 24 24" fill="currentColor">
+									</i> 
+								<i class="sidenav-mini-icon"> U </i> 
+								<span class="item-name">받은 메일함</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/ezform/ez_mail/sendMail">
+									 <i class="icon"> 
+									 	<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
-                                            <circle cx="12" cy="12"
-												r="8" fill="currentColor"></circle>
+                                            	<circle cx="12" cy="12" r="8" fill="currentColor"></circle>
                                             </g>
                                         </svg>
-								</i> <i class="sidenav-mini-icon"> U </i> <span class="item-name">받은
-										메일함</span>
-							</a></li>
-							<li class="nav-item"><a class="nav-link "
-								href="/ezform/ez_mail/sendMail"> <i class="icon"> <svg
-											xmlns="http://www.w3.org/2000/svg" width="10"
-											viewBox="0 0 24 24" fill="currentColor">
+									</i> 
+								<i class="sidenav-mini-icon"> A </i> 
+									<span class="item-name">보낸 메일함</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/ezform/ez_mail/impMail"> 
+									<i class="icon"> 
+										<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
-                                            <circle cx="12" cy="12"
-												r="8" fill="currentColor"></circle>
+                                            	<circle cx="12" cy="12" r="8" fill="currentColor"></circle>
                                             </g>
                                         </svg>
-								</i> <i class="sidenav-mini-icon"> A </i> <span class="item-name">보낸
-										메일함</span>
-							</a></li>
-							<li class="nav-item"><a class="nav-link "
-								href="/ezform/ez_mail/impMail"> <i class="icon"> <svg
-											xmlns="http://www.w3.org/2000/svg" width="10"
-											viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                            <circle cx="12" cy="12"
-												r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-								</i> <i class="sidenav-mini-icon"> U </i> <span class="item-name">중요
-										보관함</span>
-							</a></li>
-						</ul></li>
+									</i> 
+									<i class="sidenav-mini-icon"> U </i>
+									 <span class="item-name">중요 보관함</span>
+								</a>
+							</li>
+						</ul>
+					</li>
 
 
 					<!---------------------------------- 사이드메뉴 : 메일 ---------------------------------------------->
@@ -509,23 +589,23 @@ if (session.getAttribute("em_id") != null) {
 							  </div>	
 							<!--<<< 날씨API -------------------------------------------- -->
 							</li>
+								
+							<span id="recMs" onclick="openNav()" name="resMs" style="float:right;cursor:pointer;margin-right:10px;color:sky;"><i class="bi bi-chat-left" id="messageImage" style="opacity: 0.3; width:15px;"></i></span>	
+							<div id="mysidenav" class="sidenav" style="margin-top:10px;">
+								<!-- <a href="#" class="closebtn" onclick='closeNav()'>x</a> -->
+								<div id="message_send_btn" name="message_send_btn" class="btn btn-primary" style="height:40px;"><p>쪽지 보내기</p></div>
+							</div>
 							<!-- ----------------------------------------------------- 로그인/회원정보/로그아웃 영역 ------------------------------------------------- -->
-							<li class="nav-item dropdown" style="margin-top:7px;"><a
-								class="nav-link py-0 d-flex align-items-center" href="#"
-								id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false"> <img
-									src="${pageContext.request.contextPath }/resources/upload/mem_Image/${resultVO.em_image}"
-									alt="User-Profile"
-									class="img-fluid avatar avatar-50 avatar-rounded"
-									onerror="this.src='${pageContext.request.contextPath }/resources/images/silhouette.png'">
+							<li class="nav-item dropdown" style="margin-top:7px;">
+								<a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+									<img src="${pageContext.request.contextPath }/resources/upload/mem_Image/${resultVO.em_image}" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded" onerror="this.src='${pageContext.request.contextPath }/resources/images/silhouette.png'">
 									<div class="caption ms-3 d-none d-md-block ">
 										<h6 class="mb-0 caption-title">${resultVO.em_name}[${resultVO.em_posi}]</h6>
 										<p class="mb-0 caption-sub-title">${resultVO.em_email}</p>
 										<input type="hidden" name="em_id" id="em_id" value="${em_id}" />
 									</div>
-							</a>
-								<ul class="dropdown-menu dropdown-menu-end"
-									aria-labelledby="navbarDropdown">
+								</a>
+								<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 									<%
 									String menu_name = "";
 
@@ -535,6 +615,7 @@ if (session.getAttribute("em_id") != null) {
 									} else {
 										menu_name = "My프로필";
 									}
+									
 									%>
 
 									<li><a class="dropdown-item" href="/ezform/infoMember"><%=menu_name%></a></li>
@@ -542,10 +623,10 @@ if (session.getAttribute("em_id") != null) {
 									<li><a class="dropdown-item" href="/ezform/ez_emp/workHistory">나의 출퇴근 기록</a></li>
 									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item" href="/ezform/logout">로그아웃</a></li>
-								</ul></li>
+								 </ul>
+								</li>
 
 							<!-- ----------------------------------------------------- 로그인/회원정보/로그아웃 영역 ------------------------------------------------- -->
-
 						</ul>
 					</div>
 				</div>
@@ -568,6 +649,76 @@ if (session.getAttribute("em_id") != null) {
 			<!--Nav End-->
 		</div>
 		
+		 <!-- 쪽지 모달 -->
+		<div class="modal fade" id="MsgForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="exampleModalLabel">쪽지 작성</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <form class="msg_form">
+		                <input type="hidden" id="flag" name="flag" value="insert"/>
+		                <input type="hidden" id="me_email" name="me_email" value="${resultVO.em_email}"/>
+		                <input type="hidden" id="user_id" name="user_id" value="${resultVO.em_email }"/>
+		                <div class="modal-body">
+		                    <div class="form-group">
+		                        <label for="sender_name">작성자</label>
+		                        <input type="text" id="sender_name" name="sender_name" class="form-control" value="${resultVO.em_email}" readonly/>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="receiver_name">받는 사람</label>
+		                        <select id="receiver_name" name="receiver_name" class="form-control">
+		                        		<option value="">선택</option>
+		                            <c:forEach var="list" items="${messageMemberList}" varStatus="status">
+		                                <option value="${list.em_email}">${list.em_email} [${list.em_name}]</option>
+		                            </c:forEach>
+		                        </select>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="ms_title">제목</label>
+		                        <input type="text" id="ms_title" name="ms_title" class="form-control"/>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for=""ms_content"">내용</label>
+		                        <textarea id=""ms_content"" name="ms_content" class="form-control"></textarea>
+		                    </div>
+		                  <%-- <div class="form-group">
+							    <table class="table table-bordered table-striped">
+							        <thead>
+							            <tr>
+							                <th class="text-center">번호</th>
+							                <th class="text-center">제목</th>
+							                <th class="text-center">내용</th>
+							                <th class="text-center">보낸사람</th>
+							                <th class="text-center">작성일자</th>
+							            </tr>
+							        </thead>
+							        <tbody>
+							            <c:forEach items="${modalMessageList}" var="list">
+							                <tr>
+							                    <td class="text-center">${list.rowNo}</td>
+							                    <td class="text-center"><a href="/message/detail?rowNo=${list.rowNo}">${list.msg_title}</a></td>
+							                    <td class="text-center">${list.msg_content}</td>
+							                    <td class="text-center">${list.sender_name}</td>
+							                    <td class="text-center">${list.create_dt}</td>
+							                </tr>
+							            </c:forEach>
+							        </tbody>
+							    </table>
+							</div> --%>
+		                </div>
+		                <div class="modal-footer">
+		                    <button class="btn btn-primary" type="button" id="msg_submit">SEND</button>
+		                </div>
+		            </form>
+		        </div>
+		    </div>
+		</div>
+         
+         <!-- 쪽지 모달 -->
 		
 		
 		

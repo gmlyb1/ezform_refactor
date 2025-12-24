@@ -43,6 +43,19 @@
 		where em_id != 9999
 	</select>
 	
+	<select id="messageMemberList" parameterType="EZ_empVO" resultType="EZ_empVO">
+		select 
+			 em_id 
+			,em_email
+			,em_pw
+			,em_name
+			,em_dept
+			,em_posi
+			,em_regdate
+			,em_extension
+			,em_image
+		from ez_em
+	</select>
 	
 	<!-- 회원가입 --> 
 	<insert id="joinEmp">
