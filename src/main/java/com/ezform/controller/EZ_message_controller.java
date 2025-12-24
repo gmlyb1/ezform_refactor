@@ -47,6 +47,7 @@ public class EZ_message_controller {
 	}
 	
 	@RequestMapping(value="/sendMsg", method = RequestMethod.POST)
+	@ResponseBody
 	public Map<String, Object> addMessageSend( @ModelAttribute EZ_messageVO messageVO) throws Exception {
 
 	    messageService.insertMessage(messageVO);
