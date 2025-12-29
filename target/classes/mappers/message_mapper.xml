@@ -11,7 +11,11 @@
 	</select>
 	
 	<select id="findList" resultType="EZ_messageVO">
-		select * from ez_message where receiver_name = #{receiver_name} and gubun = 0
+		select * from ez_message where receiver_name = #{receiver_name} and gubun = 0 and read_yn = 0
+	</select>
+	
+	<select id="receiveList" resultType="EZ_messageVO">
+		select * from ez_message where receiver_name = #{receiver_name} and gubun = 0 and read_yn = 1
 	</select>
 	
 	<insert id="insertMessage">

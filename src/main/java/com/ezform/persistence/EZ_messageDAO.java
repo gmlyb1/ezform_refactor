@@ -17,4 +17,6 @@ public interface EZ_messageDAO {
 	public void markAsRead(Integer ms_seq);
 
 	public EZ_messageVO getMessageById(Integer ms_seq);
+
+	public List<EZ_messageVO> receiveList(EZ_messageVO messageVO);
 }

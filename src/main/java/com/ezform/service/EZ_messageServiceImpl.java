@@ -46,4 +46,10 @@ public class EZ_messageServiceImpl implements EZ_messageService {
 		return messageDAO.getMessageById(ms_seq);
 	}
 
+	@Override
+	public List<EZ_messageVO> receiveList(EZ_messageVO messageVO) {
+		// TODO Auto-generated method stub
+		return messageDAO.receiveList(messageVO);
+	}
+
 }

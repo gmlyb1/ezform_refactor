@@ -47,4 +47,9 @@ public class EZ_messageDAOImpl implements EZ_messageDAO {
 		return sqlSession.selectOne(namespace + ".getMessageById", ms_seq);
 	}
 
+	@Override
+	public List<EZ_messageVO> receiveList(EZ_messageVO messageVO) {
+		return sqlSession.selectList(namespace + ".receiveList", messageVO);
+	}
+
 }

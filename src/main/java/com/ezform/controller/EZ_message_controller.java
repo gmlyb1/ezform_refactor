@@ -31,7 +31,7 @@ public class EZ_message_controller {
 	@Inject
 	private EZ_messageService messageService;
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/sendList", method = RequestMethod.GET)
 	public String messageListPage(HttpSession session,Model model, @ModelAttribute("messageVO")EZ_messageVO messageVO) throws Exception{
 		EZ_empVO loginSessionData = (EZ_empVO) session.getAttribute("resultVO");
 		if(loginSessionData != null) {
@@ -39,12 +39,28 @@ public class EZ_message_controller {
 		}
 		List<EZ_messageVO> msg_result = messageService.findList(messageVO);
 		model.addAttribute("msg_result", msg_result);
-		return "/ez_message/list";
+		return "/ez_message/sendList";
 	}
 	
-	@RequestMapping(value = "/list", method =RequestMethod.POST)
+	@RequestMapping(value = "/sendList", method =RequestMethod.POST)
 	public String findmessageList(@ModelAttribute("messageVO")EZ_messageVO messageVO,HttpServletResponse response )throws Exception{
-		return "/ez_message/list";
+		return "/ez_message/sendList";
+	}
+	
+	@RequestMapping(value = "/receiveList", method = RequestMethod.GET)
+	public String messageReceiveListPage(HttpSession session,Model model, @ModelAttribute("messageVO")EZ_messageVO messageVO) throws Exception{
+		EZ_empVO loginSessionData = (EZ_empVO) session.getAttribute("resultVO");
+		if(loginSessionData != null) {
+			messageVO.setReceiver_name(loginSessionData.getEm_email());
+		}
+		List<EZ_messageVO> msg_result = messageService.receiveList(messageVO);
+		model.addAttribute("msg_result", msg_result);
+		return "/ez_message/receiveList";
+	}
+	
+	@RequestMapping(value = "/receiveList", method =RequestMethod.POST)
+	public String findmessageReceiveList(@ModelAttribute("messageVO")EZ_messageVO messageVO,HttpServletResponse response )throws Exception{
+		return "/ez_message/receiveList";
 	}
 	
 	@RequestMapping(value="/sendMsg", method = RequestMethod.POST)

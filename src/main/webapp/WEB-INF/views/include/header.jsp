@@ -255,7 +255,7 @@ if (session.getAttribute("em_id") != null) {
 						</a>
 					</li>
 					
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<a class="nav-link" aria-current="page" href="/ezform/ez_message/list"> 
 							<i class="icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
@@ -264,6 +264,49 @@ if (session.getAttribute("em_id") != null) {
 							</i> 
 							<span class="item-name">쪽지 보관함</span>
 						</a>
+					</li> -->
+					
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#sidebar-user-msg" role="button" aria-expanded="false" aria-controls="sidebar-user-msg">
+							<i class="icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
+								  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+								</svg>
+							</i> 
+							<span class="item-name">쪽지 보관함</span>
+								<i class="right-icon"> 
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                	</svg>
+								</i> 
+						</a>
+						<ul class="sub-nav collapse" id="sidebar-user-msg" data-bs-parent="#sidebar-msg">
+							<li class="nav-item">
+								<a class="nav-link" href="/ezform/ez_message/sendList"> <i class="icon"> 
+									<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                         <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                         </g>
+                                    </svg>
+								</i> 
+								<i class="sidenav-mini-icon"> U </i>
+								 <span class="item-name">보낸 쪽지함 </span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/ezform/ez_message/receiveList"> 
+									<i class="icon"> 
+										<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+									</i> 
+								<i class="sidenav-mini-icon"> U </i> 
+								<span class="item-name">받은 쪽지함</span>
+								</a>
+							</li>
+						</ul>
 					</li>
 					
 
