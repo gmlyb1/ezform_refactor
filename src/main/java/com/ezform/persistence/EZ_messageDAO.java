@@ -19,4 +19,6 @@ public interface EZ_messageDAO {
 	public EZ_messageVO getMessageById(Integer ms_seq);
 
 	public List<EZ_messageVO> receiveList(EZ_messageVO messageVO);
+
+	public void deleteSelected(List<Integer> msSeqs);
 }

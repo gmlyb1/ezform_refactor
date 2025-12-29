@@ -104,5 +104,12 @@ public class EZ_message_controller {
         messageService.markAsRead(msSeq);   // 읽음 처리
         return messageService.getMessageById(msSeq);
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/deleteSelected", method=RequestMethod.POST) 
+    public String deleteSelected(@RequestParam("msSeqs") List<Integer> msSeqs) throws Exception{
+    	messageService.deleteSelected(msSeqs);
+    	return "redirect:/";
+    }
 	
 }

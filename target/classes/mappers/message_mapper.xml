@@ -11,11 +11,27 @@
 	</select>
 	
 	<select id="findList" resultType="EZ_messageVO">
-		select * from ez_message where receiver_name = #{receiver_name} and gubun = 0 and read_yn = 0
+		SELECT
+		    @rownum := @rownum + 1 AS rowNum,
+		    em.*
+		FROM ez_message em
+		JOIN (SELECT @rownum := 0) r
+		WHERE receiver_name = #{receiver_name}
+		  AND gubun = 0
+		  AND read_yn = 0
+		ORDER BY create_date DESC
 	</select>
 	
 	<select id="receiveList" resultType="EZ_messageVO">
-		select * from ez_message where receiver_name = #{receiver_name} and gubun = 0 and read_yn = 1
+		 SELECT
+		    @rownum := @rownum + 1 AS rowNum,
+		    em.*
+		FROM ez_message em
+		JOIN (SELECT @rownum := 0) r
+		WHERE receiver_name = #{receiver_name}
+		  AND gubun = 0
+		  AND read_yn = 1
+		ORDER BY create_date DESC
 	</select>
 	
 	<insert id="insertMessage">
@@ -80,5 +96,13 @@
         FROM ez_message
         WHERE ms_seq = #{ms_seq}
     </select>
+    
+    <delete id="deleteSelected" parameterType="list">
+	    DELETE FROM ez_message
+	    WHERE ms_seq IN
+	    <foreach collection="list" item="seq" open="(" separator="," close=")">
+	        #{seq}
+	    </foreach>
+	</delete>
 	
 </mapper>

@@ -52,4 +52,9 @@ public class EZ_messageServiceImpl implements EZ_messageService {
 		return messageDAO.receiveList(messageVO);
 	}
 
+	@Override
+	public void deleteSelected(List<Integer> msSeqs) {
+		messageDAO.deleteSelected(msSeqs);
+	}
+
 }

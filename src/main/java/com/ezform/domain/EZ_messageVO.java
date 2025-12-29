@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class EZ_messageVO {
 	
+	private int rowNum;
 	private int ms_seq;
 	private String ms_title;
 	private String receiver_name;
@@ -13,6 +14,13 @@ public class EZ_messageVO {
 	private String sender_name;
 	private String user_id;
 	private int read_yn;
+	
+	public int getRowNum() {
+		return rowNum;
+	}
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
 	public int getMs_seq() {
 		return ms_seq;
 	}
@@ -69,9 +77,9 @@ public class EZ_messageVO {
 	}
 	@Override
 	public String toString() {
-		return "EZ_messageVO [ms_seq=" + ms_seq + ", ms_title=" + ms_title + ", receiver_name=" + receiver_name
-				+ ", gubun=" + gubun + ", create_date=" + create_date + ", ms_content=" + ms_content + ", sender_name="
-				+ sender_name + ", user_id=" + user_id + ", read_yn=" + read_yn + "]";
+		return "EZ_messageVO [rowNum=" + rowNum + ", ms_seq=" + ms_seq + ", ms_title=" + ms_title + ", receiver_name="
+				+ receiver_name + ", gubun=" + gubun + ", create_date=" + create_date + ", ms_content=" + ms_content
+				+ ", sender_name=" + sender_name + ", user_id=" + user_id + ", read_yn=" + read_yn + "]";
 	}
 	
 	

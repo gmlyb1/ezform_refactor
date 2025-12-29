@@ -39,6 +39,59 @@ $(document).on("click", ".msg-title", function () {
     });
 // 제이쿼리 끝
 });
+	$(document).on("change", "#checkAll", function () {
+	
+		$(".msgCheck").prop("checked", this.checked);
+	
+	});
+
+	$(document).on("change", ".msgCheck", function () {
+	 if (!this.checked) {
+	 
+		 $("#checkAll").prop("checked", false);
+	 
+	 } else if ($(".msgCheck:checked").length === $(".msgCheck").length) {
+	 
+		 $("#checkAll").prop("checked", true);
+	 }
+	});
+
+	$(document).on("click", "#deleteBtn", function () {
+
+	    let selected = [];
+	
+	    $(".msgCheck:checked").each(function () {
+	        selected.push($(this).val());
+	    });
+	
+	    if (selected.length === 0) {
+	        alert("삭제할 쪽지를 선택하세요.");
+	        return;
+	    }
+	
+	    if (!confirm("선택한 쪽지를 삭제하시겠습니까?")) {
+	        return;
+	    }
+	
+	    $.ajax({
+	        url: "${pageContext.request.contextPath}/ez_message/deleteSelected",
+	        type: "POST",
+	        traditional: true,   // ⭐ List<Integer> 받을 때 필수
+	        data: { msSeqs: selected },
+	        success: function () {
+	            // 화면에서 제거
+	            selected.forEach(function (seq) {
+	                $("#msg_" + seq).remove();
+	            });
+	
+	            $("#checkAll").prop("checked", false);
+	            alert("삭제되었습니다.");
+	        },
+	        error: function () {
+	            alert("삭제 실패");
+	        }
+	    });
+	});
 </script>
 
 <div class="conatiner-fluid content-inner mt-n5 py-0">
@@ -56,6 +109,7 @@ $(document).on("click", ".msg-title", function () {
 	                  <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
 	                     <thead>
 	                       <tr>
+	                       	 <th><input class="form-check-input" type="checkbox" id="checkAll"></th>
 	                       	 <th class="text-center">번호</th>
 							 <th class="text-center">주제</th>
 							 <th class="text-center">내용</th>
@@ -65,8 +119,9 @@ $(document).on("click", ".msg-title", function () {
 	                     </thead>
 	                     <tbody>
 	                     	<c:forEach items="${msg_result}" var="list">
-								<tr>
-									<td class="text-center">${list.ms_seq}</td>
+								<tr id="msg_${list.ms_seq}">
+								    <td> <input type="checkbox" class="form-check-input msgCheck" value="${list.ms_seq}"> </td>
+									<td class="text-center">${list.rowNum}</td>
 									<td class="text-center">
 									    <a href="javascript:void(0)"
 									       class="msg-title"
@@ -81,6 +136,9 @@ $(document).on("click", ".msg-title", function () {
 							</c:forEach>
 	                     </tbody>
 	                  </table>
+	                  <button type="button" id="deleteBtn" class="btn btn-danger" style="margin-left:10px;">
+				        삭제
+				      </button>
 	               </div>
 	            </div>
 	         </div>

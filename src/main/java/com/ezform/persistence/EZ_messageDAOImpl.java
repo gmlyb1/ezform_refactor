@@ -52,4 +52,9 @@ public class EZ_messageDAOImpl implements EZ_messageDAO {
 		return sqlSession.selectList(namespace + ".receiveList", messageVO);
 	}
 
+	@Override
+	public void deleteSelected(List<Integer> msSeqs) {
+		 sqlSession.delete(namespace + ".deleteSelected", msSeqs);
+	}
+
 }

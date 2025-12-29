@@ -20,4 +20,6 @@ public interface EZ_messageService {
 
 	public List<EZ_messageVO> receiveList(EZ_messageVO messageVO);
 
+	public void deleteSelected(List<Integer> msSeqs);
+
 }
