@@ -12,4 +12,10 @@ public interface EZ_messageService {
 
 	public void insertMessage(EZ_messageVO messageVO);
 
+	public List<EZ_messageVO> getUnreadMessages(Integer em_name);
+
+	public void markAsRead(Integer ms_seq);
+
+	public EZ_messageVO getMessageById(Integer ms_seq);
+
 }

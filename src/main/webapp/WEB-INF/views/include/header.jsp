@@ -593,7 +593,7 @@ if (session.getAttribute("em_id") != null) {
 							<span id="recMs" onclick="openNav()" name="resMs" style="float:right;cursor:pointer;margin-right:10px;color:sky;"><i class="bi bi-chat-left" id="messageImage" style="opacity: 0.3; width:15px;"></i></span>	
 							<div id="mysidenav" class="sidenav" style="margin-top:10px;">
 								<!-- <a href="#" class="closebtn" onclick='closeNav()'>x</a> -->
-								<div id="message_send_btn" name="message_send_btn" class="btn btn-primary" style="height:40px;"><p>쪽지 보내기</p></div>
+								<div id="message_send_btn" name="message_send_btn" class="btn btn-primary" style="height:40px;"><p>쪽지</p></div>
 							</div>
 							<!-- ----------------------------------------------------- 로그인/회원정보/로그아웃 영역 ------------------------------------------------- -->
 							<li class="nav-item dropdown" style="margin-top:7px;">

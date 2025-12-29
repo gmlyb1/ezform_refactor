@@ -16,10 +16,9 @@ public class WebSocketConfig implements WebSocketConfigurer{
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(echoHandler, "/echo").setAllowedOrigins("*")
-		.withSockJS()
-		.setClientLibraryUrl(
-				"https://cdn.jsdelivr.net/socketjs/latest/sockjs.min.js")
-		.setInterceptors(new HttpSessionHandshakeInterceptor());
+		registry.addHandler(echoHandler, "/echo")
+        .setAllowedOrigins("*")
+        .addInterceptors(new HttpSessionHandshakeInterceptor())
+        .withSockJS();
 	}
 }

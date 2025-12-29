@@ -39,4 +39,42 @@
 		)
 	</insert>
 	
+	<!-- 4. 읽지 않은 쪽지 조회 -->
+    <select id="getUnreadMessages" parameterType="int" resultType="com.ezform.domain.EZ_messageVO">
+        SELECT 
+        	 ms_seq
+        	,sender_name
+        	,(SELECT em_name FROM ez_em WHERE em_name = sender_name) AS sender_name
+            ,ms_title
+            ,ms_content
+            ,read_yn
+            ,create_date
+        FROM ez_message
+        WHERE receiver_name = #{em_name} 
+          AND read_yn = 0
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 5. 읽음 처리 -->
+    <update id="markAsRead" parameterType="int">
+        UPDATE ez_message
+        SET read_yn = 1
+        WHERE ms_seq = #{ms_seq}
+    </update>
+
+    <!-- 6. 쪽지 상세 조회 -->
+    <select id="getMessageById" parameterType="int" resultType="EZ_messageVO">
+        SELECT 
+        	ms_seq,
+        	sender_name,
+        	(SELECT sender_name FROM ez_em WHERE em_name = sender_name) AS sender_name,
+            receiver_name,
+            ms_title,
+            ms_content,
+            read_yn,
+            create_date
+        FROM ez_message
+        WHERE ms_seq = #{ms_seq}
+    </select>
+	
 </mapper>

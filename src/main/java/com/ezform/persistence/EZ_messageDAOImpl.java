@@ -32,4 +32,19 @@ public class EZ_messageDAOImpl implements EZ_messageDAO {
 		sqlSession.insert(namespace + ".insertMessage", messageVO);
 	}
 
+	@Override
+	public List<EZ_messageVO> getUnreadMessages(Integer em_name) {
+		return sqlSession.selectList(namespace + ".getUnreadMessages", em_name);
+	}
+
+	@Override
+	public void markAsRead(Integer ms_seq) {
+		sqlSession.update(namespace + ".markAsRead", ms_seq);
+	}
+
+	@Override
+	public EZ_messageVO getMessageById(Integer ms_seq) {
+		return sqlSession.selectOne(namespace + ".getMessageById", ms_seq);
+	}
+
 }

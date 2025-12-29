@@ -1,5 +1,6 @@
 package com.ezform.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,5 +58,35 @@ public class EZ_message_controller {
 	    return result;
 	}
 	
+	 // 읽지 않은 쪽지 리스트
+    @RequestMapping(value = "/unread", method=RequestMethod.GET)
+    @ResponseBody
+    public List<EZ_messageVO> getUnreadMessages(HttpSession session) {
+        Integer em_id = (Integer) session.getAttribute("em_id");
+        if (em_id == null) return Collections.emptyList();
+        return messageService.getUnreadMessages(em_id);
+    }
+
+    // 읽음 처리
+    @RequestMapping(value = "/markRead", method=RequestMethod.POST)
+    @ResponseBody
+    public String markRead(@RequestParam("ms_seq") Integer ms_seq) {
+        messageService.markAsRead(ms_seq);
+        return "success";
+    }
+
+    // 쪽지 상세 조회
+    @RequestMapping(value = "/view", method = RequestMethod.GET)
+    @ResponseBody
+    public EZ_messageVO viewMessage(@RequestParam("ms_id") Integer msId) {
+        return messageService.getMessageById(msId);
+    }
+    
+    @ResponseBody
+    @RequestMapping(value="/detail", method=RequestMethod.GET)
+    public EZ_messageVO messageDetailGET(@RequestParam("msSeq") Integer msSeq) {
+        messageService.markAsRead(msSeq);   // 읽음 처리
+        return messageService.getMessageById(msSeq);
+    }
 	
 }

@@ -31,4 +31,19 @@ public class EZ_messageServiceImpl implements EZ_messageService {
 		messageDAO.insertMessage(messageVO);
 	}
 
+	@Override
+	public List<EZ_messageVO> getUnreadMessages(Integer em_name) {
+		return messageDAO.getUnreadMessages(em_name);
+	}
+
+	@Override
+	public void markAsRead(Integer ms_seq) {
+		messageDAO.markAsRead(ms_seq);
+	}
+
+	@Override
+	public EZ_messageVO getMessageById(Integer ms_seq) {
+		return messageDAO.getMessageById(ms_seq);
+	}
+
 }
