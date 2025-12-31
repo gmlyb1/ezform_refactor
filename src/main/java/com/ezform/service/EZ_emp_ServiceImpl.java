@@ -67,7 +67,7 @@ public class EZ_emp_ServiceImpl implements EZ_emp_Service {
 	public EZ_empVO loginCheck(EZ_empVO vo) {
 		//
 		EZ_empVO loginResultVO = empdao.loginCK(vo);
-		System.out.println("S : 로그인체크 완료!");
+		//System.out.println("S : 로그인체크 완료!");
 		return loginResultVO;
 	}
 	//근태체크

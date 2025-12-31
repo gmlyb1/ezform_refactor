@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ezform.mapper.inq_Mapper">
+
+	<select id="selectInquiryList" parameterType="EZ_inqVO" resultType="EZ_inqVO">
+		 SELECT
+	          @rownum := @rownum + 1 AS rowNo
+	        , inq_no
+	        , inq_title
+	        , inq_content
+	        , inq_name
+	        , inq_dname
+	        , em_email
+	        , inq_file
+	        , inq_regdate
+	    FROM ez_inq
+	    JOIN (SELECT @rownum := 0) r
+	    WHERE em_email = #{em_email}
+	</select>
+	
+	<insert id="insertInquiry">
+		insert into ez_inq 
+			(
+			 inq_no
+			,inq_title
+			,inq_content
+			,inq_name
+			,inq_dname
+			,em_email
+			,inq_file
+			,inq_regdate
+			)
+		values
+			(
+			 #{inq_no}
+			,#{inq_title}
+			,#{inq_content}
+			,#{inq_name}
+			,#{inq_dname}
+			,#{em_email}
+			,#{inq_file}
+			,NOW()
+			)
+	</insert>
+	
+	<select id="read" resultType="EZ_inqVO">
+		select 
+			 inq_no
+			,inq_title
+			,inq_content
+			,inq_name
+			,inq_dname
+			,em_email
+			,inq_file
+			,inq_regdate
+		from ez_inq
+		where inq_no = #{inq_no}
+	</select>
+	
+	<update id="modify">
+		update ez_inq set
+			 inq_title = #{inq_title}
+			,inq_content = #{inq_content}
+			,inq_file = #{inq_file}
+			,inq_regdate = NOW()
+		where inq_no = #{inq_no}
+	</update>
+	
+	<delete id="remove">
+		delete from ez_inq 
+		where inq_no = #{inq_no}
+	</delete>
+
+	
+</mapper>
