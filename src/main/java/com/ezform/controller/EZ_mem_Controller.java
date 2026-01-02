@@ -56,6 +56,7 @@ public class EZ_mem_Controller {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String mainPageGET(HttpServletRequest request,Model model,HttpSession session,EZ_visitVO visitVO) throws Exception {
 		
+		
 		String ip = request.getRemoteAddr();
 		String userAgent = request.getHeader("User-Agent");
 		

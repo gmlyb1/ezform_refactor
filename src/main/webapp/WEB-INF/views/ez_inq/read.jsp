@@ -96,8 +96,8 @@
 					   	 	<c:choose>
 								<c:when test="${vo.em_email eq isWriter}">
 									<div class="mb-3" style="text-align:right;">
-										<button type="submit" class="btn btn-primary btn-sm" id="bd_modify" onclick="location.href='/ezform/ez_inq/modify?inq_no=${vo.inq_no}'">수정하기</button>
-										<button type="submit" class="btn btn-primary btn-sm" id="bd_remove" onclick="remove_bdchk(${vo.inq_no})">삭제하기</button>
+										<button type="submit" class="btn btn-primary" id="bd_modify" onclick="location.href='/ezform/ez_inq/modify?inq_no=${vo.inq_no}'">수정하기</button>
+										<button type="submit" class="btn btn-danger" id="bd_remove" onclick="remove_bdchk(${vo.inq_no})">삭제하기</button>
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -108,7 +108,7 @@
 									</div>
 								</c:otherwise>
 							</c:choose>
-                           	  <hr>
+                           	<%--   <hr>
                            	  <div class="mb-3" > 
 								 <form role="form" method="post" action="/ezform/comment/add">
 								    <div class="d-flex align-items-center">
@@ -117,7 +117,7 @@
 										</p>
 										<input type="hidden" name="inq_no" value="${vo.inq_no }"/>
 										<p>				
-										   <button type="submit" class="btn btn-primary btn-sm" style="margin : 55px 0 0 10px;">등록</button>
+										   <button type="submit" class="btn btn-success" style="margin : 55px 0 0 10px;">등록</button>
 										</p>
 								   </div>
 								</form>	
@@ -161,7 +161,7 @@
 									    </c:otherwise>
 								    </c:choose>
 							     </table>
-							  </div>						  
+							  </div>	 --%>					  
                            </th>
                         </tr>   
                      </tbody>

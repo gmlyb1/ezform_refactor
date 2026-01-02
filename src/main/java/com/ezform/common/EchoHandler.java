@@ -25,7 +25,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.ezform.domain.EZ_empVO;
 import com.ezform.service.EZ_messageService;
 
-@Component
 @RequestMapping("/echo")
 public class EchoHandler extends TextWebSocketHandler{
 
