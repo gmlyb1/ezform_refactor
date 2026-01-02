@@ -8,6 +8,63 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/libs.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/hope-ui.css?v=1.0.2">  
 <script src="${pageContext.request.contextPath }/resources/js/jQuery-2.1.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    const chartLabels = [
+        <c:forEach items="${HistoryListCnt}" var="item" varStatus="status">
+            "${item.work_status}"<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
+
+    const chartData = [
+        <c:forEach items="${HistoryListCnt}" var="item" varStatus="status">
+            ${item.work_status_cnt}<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
+
+    // 각 막대 색깔 배열
+    const colors = [
+        'rgba(54, 162, 235, 0.7)',
+        'rgba(255, 99, 132, 0.7)',
+        'rgba(255, 206, 86, 0.7)',
+        'rgba(75, 192, 192, 0.7)',
+        'rgba(153, 102, 255, 0.7)',
+        'rgba(255, 159, 64, 0.7)'
+    ];
+
+    const borderColors = [
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 99, 132, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+    ];
+
+    const ctx = document.getElementById('historyChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: chartLabels,
+            datasets: [{
+                label: '업무 기록 현황',
+                data: chartData,
+                backgroundColor: chartData.map((_, i) => colors[i % colors.length]), // 데이터별 색
+                borderColor: chartData.map((_, i) => borderColors[i % borderColors.length]),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+        }
+    });
+});
+</script>
+
 
 <div class="conatiner-fluid content-inner mt-n5 py-0">
 	<div>
@@ -21,6 +78,11 @@
 	            </div>
 	                      
 	            <div class="card-body px-0">
+	            
+	            	<div class="mb-4">
+				        <canvas id="historyChart" height="100"></canvas>
+				    </div>
+	            
 				    <!-- 통계 중앙 배치 -->
 				    <div class="text-center mb-4">
 				        <c:forEach items="${HistoryListCnt}" var="list">
