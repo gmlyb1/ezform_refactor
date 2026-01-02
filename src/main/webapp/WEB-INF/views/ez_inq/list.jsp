@@ -24,6 +24,8 @@
 	}
 </style>
 
+<jsp:useBean id="now" class="java.util.Date" />
+
 <div class="conatiner-fluid content-inner mt-n5 py-0">
    <div class="row">
       <div class="col-sm-12">
@@ -55,7 +57,11 @@
                      	   	 <td style="display:none"></td>
 				           	 <td>${vo.rowNo}</td>
 							 <td>
-								<a href="read?inq_no=${vo.inq_no}">${vo.inq_title}</a>
+								<a href="read?inq_no=${vo.inq_no}">${vo.inq_title}
+									<c:if test="${(now.time - vo.inq_regdate.time) <= (3 * 24 * 60 * 60 * 1000)}">
+								        <span class="badge bg-danger ms-1">NEW</span>
+								    </c:if>
+								</a>
 							 </td>	 
 							 <td>${vo.inq_name}</td>
 							 <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${vo.inq_regdate}"/></td>

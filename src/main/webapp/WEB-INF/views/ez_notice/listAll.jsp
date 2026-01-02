@@ -25,7 +25,7 @@
 	
 </style>
 
-
+<jsp:useBean id="now" class="java.util.Date" />
 
 <div class="conatiner-fluid content-inner mt-n5 py-0">
    <div class="row">
@@ -66,7 +66,11 @@
                      	     <td style="display:none"></td>
 				           	 <td>${notList.not_num }</td>
 							 <td>
-								<a href="/ezform/ez_notice/read?not_num=${notList.not_num }" class="num">${notList.not_title }</a>
+								<a href="/ezform/ez_notice/read?not_num=${notList.not_num }" class="num">${notList.not_title }
+									<c:if test="${(now.time - notList.not_regdate.time) <= (3 * 24 * 60 * 60 * 1000)}">
+								        <span class="badge bg-danger ms-1">NEW</span>
+								    </c:if>
+								</a>
 							 </td>
 							 
 							 <td>

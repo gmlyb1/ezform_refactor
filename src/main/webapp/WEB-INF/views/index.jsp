@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="com.ezform.domain.EZ_empVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -8,6 +9,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="include/popup.jsp" %>
+
+<jsp:useBean id="now" class="java.util.Date" />
 
 <div class="conatiner-fluid content-inner mt-n5 py-0">
 	<div class="row">
@@ -76,6 +79,9 @@
 														<td width="80%;">
 															<a href="/ezform/board/read?cm_bnum=${bd.cm_bnum}">
 																${bd.cm_title }
+																<c:if test="${(now.time - bd.cm_regdate.time) <= (3 * 24 * 60 * 60 * 1000)}">
+															        <span class="badge bg-danger ms-1">NEW</span>
+															    </c:if>
 															</a>
 														</td>
 														<td>
@@ -125,8 +131,10 @@
 												<c:forEach begin="0" end="2" items="${notiList }" var="noti">
 													<tr>
 														<td width="80%;">
-															<a href="/ezform/ez_notice/read?not_num=${noti.not_num }" class="num">
-																${noti.not_title }
+															<a href="/ezform/ez_notice/read?not_num=${noti.not_num }" class="num"> ${noti.not_title }
+																<c:if test="${(now.time - noti.not_regdate.time) <= (3 * 24 * 60 * 60 * 1000)}">
+															        <span class="badge bg-danger ms-1">NEW</span>
+															    </c:if>
 															</a>
 														</td>
 														<td>

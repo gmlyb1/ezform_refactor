@@ -25,7 +25,7 @@
 	
 </style>
 
-
+<jsp:useBean id="now" class="java.util.Date" />
 
 <div class="conatiner-fluid content-inner mt-n5 py-0">
    <div class="row">
@@ -59,7 +59,11 @@
                      	   	 <td style="display:none"></td>
 				           	 <td>${vo.cm_bnum}</td>
 							 <td>
-								<a href="read?cm_bnum=${vo.cm_bnum}">${vo.cm_title}</a>
+								<a href="read?cm_bnum=${vo.cm_bnum}">${vo.cm_title}
+									<c:if test="${(now.time - vo.cm_regdate.time) <= (3 * 24 * 60 * 60 * 1000)}">
+								        <span class="badge bg-danger ms-1">NEW</span>
+								    </c:if>
+								</a>
 							 </td>	 
 							 <td>${vo.cm_name}</td>
 							 <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${vo.cm_regdate}"/></td>
