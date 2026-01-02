@@ -36,6 +36,7 @@ public class EZ_emp_Controller {
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String empUpdateGET(HttpSession session, @RequestParam("em_id") int id,
 								Model model) throws Exception{
+		
 		//기존회원정보 가져오기   
 		//model객체에 저장, view페이지 까지 전달
 		model.addAttribute("empvo",emp_service.getEmp(id));
