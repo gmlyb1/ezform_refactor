@@ -16,5 +16,7 @@ public interface EZ_inqDAO {
 
 	public void modify(EZ_inqVO vo);
 
+	public List<EZ_inqVO> selectInquiryAdminList(EZ_inqVO inqVO);
+
 
 }

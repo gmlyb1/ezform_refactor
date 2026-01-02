@@ -46,4 +46,9 @@ public class EZ_inq_Serviceimpl implements EZ_inq_Service {
 		inqDAO.modify(vo);
 	}
 
+	@Override
+	public List<EZ_inqVO> selectInquiryAdminList(EZ_inqVO inqVO) {
+		return inqDAO.selectInquiryAdminList(inqVO);
+	}
+
 }

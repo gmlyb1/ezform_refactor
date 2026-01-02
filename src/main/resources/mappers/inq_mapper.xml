@@ -18,7 +18,22 @@
 	        , inq_regdate
 	    FROM ez_inq
 	    JOIN (SELECT @rownum := 0) r
-	    WHERE em_email = #{em_email}
+    	WHERE em_email = #{em_email}
+	</select>
+	
+	<select id="selectInquiryAdminList" parameterType="EZ_inqVO" resultType="EZ_inqVO">
+		 SELECT
+	          @rownum := @rownum + 1 AS rowNo
+	        , inq_no
+	        , inq_title
+	        , inq_content
+	        , inq_name
+	        , inq_dname
+	        , em_email
+	        , inq_file
+	        , inq_regdate
+	    FROM ez_inq
+	    JOIN (SELECT @rownum := 0) r
 	</select>
 	
 	<insert id="insertInquiry">

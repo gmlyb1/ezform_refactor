@@ -43,9 +43,16 @@ public class EZ_inq_Controller {
 		if(evo != null) {
 			inqVO.setEm_email(evo.getEm_email());
 		}
-		List<EZ_inqVO> inquiryList = inq_Service.selectInquiryList(inqVO);
-		model.addAttribute("inquiryList", inquiryList);
 		
+		Integer em_id = evo.getEm_id();
+		List<EZ_inqVO> inquiryList;
+		if(em_id == 9999) {
+			inquiryList = inq_Service.selectInquiryAdminList(inqVO);
+		}else {
+			inquiryList = inq_Service.selectInquiryList(inqVO);
+		}
+		model.addAttribute("inquiryList", inquiryList);
+		model.addAttribute("em_id", evo.getEm_id());
 		return "/ez_inq/list";
 	}
 	
@@ -62,7 +69,6 @@ public class EZ_inq_Controller {
 		
 		return "/ez_inq/read";
 	}
-	
 	
 	@RequestMapping(value = "/register", method=RequestMethod.GET)
 	public String insertInquiryPage(EZ_inqVO inqVO) throws Exception {

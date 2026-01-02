@@ -48,4 +48,9 @@ public class EZ_inqDAOImpl implements EZ_inqDAO {
 		sqlSession.update(namespace+".modify", vo);
 	}
 
+	@Override
+	public List<EZ_inqVO> selectInquiryAdminList(EZ_inqVO inqVO) {
+		return sqlSession.selectList(namespace+".selectInquiryAdminList",inqVO);
+	}
+
 }
