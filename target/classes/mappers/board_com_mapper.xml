@@ -28,10 +28,10 @@
 	<!-- 댓글 수정 -->
 	<update id="replyModify" parameterType="com.ezform.domain.EZ_board_comVO">
 		update ez_com set 
-		com_name = #{com_name}, 
+		<!-- com_name = #{com_name},  -->
 		com_content = #{com_content} 
 		where com_cnum = #{com_cnum} 
-		and com_bnum = #{com_bnum}
+		<!-- and com_bnum = #{com_bnum} -->
 	</update>
 	
 	<!-- 댓글 삭제 -->

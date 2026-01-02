@@ -1,6 +1,8 @@
 package com.ezform.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -48,6 +50,12 @@ public class EZ_board_comDAOImpl implements EZ_board_comDAO {
 	@Override
 	public void delete(int com_cnum) throws Exception {
 		sqlSession.delete(namespace+".replyDelete",com_cnum);
+	}
+
+	@Override
+	public void modify(EZ_board_comVO cvo) throws Exception {
+
+	    sqlSession.update(namespace + ".replyModify", cvo);
 	}
 
 }

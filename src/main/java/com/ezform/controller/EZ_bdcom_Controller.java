@@ -38,6 +38,17 @@ public class EZ_bdcom_Controller {
 		
 		return "redirect:/board/read?nohit=true&cm_bnum="+cvo.getCom_bnum();
 	}
+	
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String modifyComment(EZ_board_comVO cvo,
+			@RequestParam int com_cnum,
+	        @RequestParam String com_content,
+	        @RequestParam int com_bnum) throws Exception {
+		
+		service.modify(cvo);
+		
+		return "redirect:/board/read?cm_bnum="+com_bnum;
+	}
 
 	@RequestMapping(value="/remove", method=RequestMethod.GET)
 	public String removeGET(@RequestParam("com_cnum") int com_cnum, @RequestParam("com_bnum") int com_bnum) throws Exception {

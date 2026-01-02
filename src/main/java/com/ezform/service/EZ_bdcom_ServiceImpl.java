@@ -40,6 +40,11 @@ public class EZ_bdcom_ServiceImpl implements EZ_bdcom_Service {
 		dao.delete(com_cnum);
 	}
 
+	@Override
+	public void modify(EZ_board_comVO cvo)throws Exception {
+		dao.modify(cvo);
+	}
+
 
 	  
 }

@@ -17,4 +17,8 @@ public interface EZ_bdcom_Service {
 	
 	// 댓글 삭제
 	public void delete(int com_cnum) throws Exception;
+
+	// 댓글 수정
+	public void modify(EZ_board_comVO cvo)throws Exception;
+
 }
