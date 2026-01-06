@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/hope-ui.css?v=1.0.2">
 <script src="${pageContext.request.contextPath }/resources/js/jQuery-2.1.4.min.js"></script> 
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 <script type="text/javascript">
 	// 세션 제어
 	var result = "${result}";
@@ -169,6 +170,7 @@
 	});	
 </script>
 
+
 <style type="text/css">
 	.weatherApi tr th {
 		width:100px;
@@ -255,71 +257,7 @@ if (session.getAttribute("em_id") != null) {
 						</a>
 					</li>
 					
-					 <li class="nav-item">
-						<a class="nav-link" aria-current="page" href="/ezform/ez_inq/list"> 
-							<i class="icon">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
-								  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-								  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2"/>
-								</svg>
-							</i> 
-							<span class="item-name">1:1문의</span>
-						</a>
-					</li>
 					
-					<!-- <li class="nav-item">
-						<a class="nav-link" aria-current="page" href="/ezform/ez_message/list"> 
-							<i class="icon">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
-								  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-								</svg>
-							</i> 
-							<span class="item-name">쪽지 보관함</span>
-						</a>
-					</li> -->
-					
-					<li class="nav-item">
-						<a class="nav-link" data-bs-toggle="collapse" href="#sidebar-user-msg" role="button" aria-expanded="false" aria-controls="sidebar-user-msg">
-							<i class="icon">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
-								  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-								</svg>
-							</i> 
-							<span class="item-name">쪽지 보관함</span>
-								<i class="right-icon"> 
-									<svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                	</svg>
-								</i> 
-						</a>
-						<ul class="sub-nav collapse" id="sidebar-user-msg" data-bs-parent="#sidebar-msg">
-							<li class="nav-item">
-								<a class="nav-link" href="/ezform/ez_message/sendList"> <i class="icon"> 
-									<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                         <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                         </g>
-                                    </svg>
-								</i> 
-								<i class="sidenav-mini-icon"> U </i>
-								 <span class="item-name">보낸 쪽지함 </span>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/ezform/ez_message/receiveList"> 
-									<i class="icon"> 
-										<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-									</i> 
-								<i class="sidenav-mini-icon"> U </i> 
-								<span class="item-name">받은 쪽지함</span>
-								</a>
-							</li>
-						</ul>
-					</li>
 					
 
 					<!------------------------------------------------------- HOME 영역 ------------------------------------------------------------->
@@ -480,51 +418,112 @@ if (session.getAttribute("em_id") != null) {
 							</li>
 						</ul>
 					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#sidebar-user-msg" role="button" aria-expanded="false" aria-controls="sidebar-user-msg">
+							<i class="icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
+								  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+								</svg>
+							</i> 
+							<span class="item-name">쪽지 보관함</span>
+								<i class="right-icon"> 
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                	</svg>
+								</i> 
+						</a>
+						<ul class="sub-nav collapse" id="sidebar-user-msg" data-bs-parent="#sidebar-msg">
+							<li class="nav-item">
+								<a class="nav-link" href="/ezform/ez_message/sendList"> <i class="icon"> 
+									<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                         <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                         </g>
+                                    </svg>
+								</i> 
+								<i class="sidenav-mini-icon"> U </i>
+								 <span class="item-name">보낸 쪽지함 </span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/ezform/ez_message/receiveList"> 
+									<i class="icon"> 
+										<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+									</i> 
+								<i class="sidenav-mini-icon"> U </i> 
+								<span class="item-name">받은 쪽지함</span>
+								</a>
+							</li>
+						</ul>
+					</li>
 
 
 					<!---------------------------------- 사이드메뉴 : 메일 ---------------------------------------------->
 					
 					<!---------------------------------- 사이드메뉴 : 캘린더 게시판 ------------------------------------->
 
-					<li class="nav-item"><a class="nav-link "
-						href="/ezform/calendar/"> <i class="icon"> <svg width="20"
-									viewBox="0 0 24 24" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-                                	<path fill-rule="evenodd"
-										clip-rule="evenodd"
+					<li class="nav-item">
+						<a class="nav-link " href="/ezform/calendar/">
+							 <i class="icon"> 
+							 	<svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                	<path fill-rule="evenodd" clip-rule="evenodd"
 										d="M3 16.8701V9.25708H21V16.9311C21 20.0701 19.0241 22.0001 15.8628 22.0001H8.12733C4.99561 22.0001 3 20.0301 3 16.8701ZM7.95938 14.4101C7.50494 14.4311 7.12953 14.0701 7.10977 13.6111C7.10977 13.1511 7.46542 12.7711 7.91987 12.7501C8.36443 12.7501 8.72997 13.1011 8.73985 13.5501C8.7596 14.0111 8.40395 14.3911 7.95938 14.4101ZM12.0198 14.4101C11.5653 14.4311 11.1899 14.0701 11.1701 13.6111C11.1701 13.1511 11.5258 12.7711 11.9802 12.7501C12.4248 12.7501 12.7903 13.1011 12.8002 13.5501C12.82 14.0111 12.4643 14.3911 12.0198 14.4101ZM16.0505 18.0901C15.596 18.0801 15.2305 17.7001 15.2305 17.2401C15.2206 16.7801 15.5862 16.4011 16.0406 16.3911H16.0505C16.5148 16.3911 16.8902 16.7711 
-                                	16.8902 17.2401C16.8902 17.7101 16.5148 18.0901 16.0505 18.0901ZM11.1701 17.2401C11.1899 17.7001 11.5653 18.0611 12.0198 18.0401C12.4643 18.0211 12.82 17.6411 12.8002 17.1811C12.7903 16.7311 12.4248 16.3801 11.9802 16.3801C11.5258 16.4011 11.1701 16.7801 11.1701 17.2401ZM7.09989 17.2401C7.11965 17.7001 7.49506 18.0611 7.94951 18.0401C8.39407 18.0211 8.74973 17.6411 8.72997 17.1811C8.72009 16.7311 8.35456 16.3801 7.90999 16.3801C7.45554 16.4011 7.09989 16.7801 7.09989 17.2401ZM15.2404 13.6011C15.2404 13.1411 15.596 12.7711 16.0505 12.7611C16.4951 12.7611 16.8507 13.1201 16.8705 13.5611C16.8804 14.0211 16.5247 14.4011 16.0801 14.4101C15.6257 14.4201 15.2503 14.0701 15.2404 13.6111V13.6011Z"
-										fill="currentColor"></path>
+                                		16.8902 17.2401C16.8902 17.7101 16.5148 18.0901 16.0505 18.0901ZM11.1701 17.2401C11.1899 17.7001 11.5653 18.0611 12.0198 18.0401C12.4643 18.0211 12.82 17.6411 12.8002 17.1811C12.7903 16.7311 12.4248 16.3801 11.9802 16.3801C11.5258 16.4011 11.1701 16.7801 11.1701 17.2401ZM7.09989 17.2401C7.11965 17.7001 7.49506 18.0611 7.94951 18.0401C8.39407 18.0211 8.74973 17.6411 8.72997 17.1811C8.72009 16.7311 8.35456 16.3801 7.90999 16.3801C7.45554 16.4011 7.09989 16.7801 7.09989 17.2401ZM15.2404 13.6011C15.2404 13.1411 15.596 12.7711 16.0505 12.7611C16.4951 12.7611 16.8507 13.1201 16.8705 13.5611C16.8804 14.0211 16.5247 14.4011 16.0801 14.4101C15.6257 14.4201 15.2503 14.0701 15.2404 13.6111V13.6011Z"
+										fill="currentColor">
+									</path>
                                 	<path opacity="0.4"
 										d="M3.00293 9.25699C3.01577 8.66999 3.06517 7.50499 3.15803 7.12999C3.63224 5.02099 5.24256 3.68099 7.54442 3.48999H16.4555C18.7376 3.69099 20.3677 5.03999 20.8419 7.12999C20.9338 7.49499 20.9832 8.66899 20.996 9.25699H3.00293Z"
-										fill="currentColor"></path>
+										fill="currentColor">
+									</path>
                                 	<path
 										d="M8.30465 6.59C8.73934 6.59 9.06535 6.261 9.06535 5.82V2.771C9.06535 2.33 8.73934 2 8.30465 2C7.86996 2 7.54395 2.33 7.54395 2.771V5.82C7.54395 6.261 7.86996 6.59 8.30465 6.59Z"
-										fill="currentColor"></path>                                
+										fill="currentColor">
+									</path>                                
                                 	<path
 										d="M15.6953 6.59C16.1201 6.59 16.456 6.261 16.456 5.82V2.771C16.456 2.33 16.1201 2 15.6953 2C15.2606 2 14.9346 2.33 14.9346 2.771V5.82C14.9346 6.261 15.2606 6.59 15.6953 6.59Z"
-										fill="currentColor"></path>
+										fill="currentColor">
+									</path>
                                 </svg>
-						</i> <span class="item-name">캘린더</span>
-					</a></li>
+							</i> 
+						<span class="item-name">캘린더</span>
+					  </a>
+					</li>
 
 					<!---------------------------------- 사이드메뉴 : 캘린더 게시판 ------------------------------------->
 
 					<li><hr class="hr-horizontal"></li>
 					<!-- ------------------------------------------------------사이드 메뉴 3번-------------------------------------------------------------->
 
-					<li class="nav-item static-item"><a
-						class="nav-link static-item disabled" href="#" tabindex="-1">
+					<li class="nav-item static-item">
+						<a class="nav-link static-item disabled" href="#" tabindex="-1">
 							<span class="default-icon">Contact</span> <span class="mini-icon">-</span>
-					</a></li>
+						</a>
+					</li>
 					
 					
 					<!---------------------------------- 사이드메뉴 : 커뮤니티 게시판 ----------------------------------->
-					<li class="nav-item"><a class="nav-link"
-						href="/ezform/board/listPage"> <i class="icon"> <svg
-									width="20" viewBox="0 0 24 24" fill="none"
-									xmlns="http://www.w3.org/2000/svg">                                
-                               		<path opacity="0.4"
+					 <li class="nav-item">
+						<a class="nav-link" aria-current="page" href="/ezform/ez_inq/list"> 
+							<i class="icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
+								  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+								  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2"/>
+								</svg>
+							</i> 
+							<span class="item-name">1:1문의</span>
+						</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/ezform/board/listPage">
+						 <i class="icon"> 
+						 	<svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                                
+                              		<path opacity="0.4"
 										d="M2 11.0786C2.05 13.4166 2.19 17.4156 2.21 17.8566C2.281 18.7996 2.642 19.7526 3.204 20.4246C3.986 21.3676 4.949 21.7886 6.292 21.7886C8.148 21.7986 10.194 21.7986 12.181 21.7986C14.176 21.7986 16.112 21.7986 17.747 21.7886C19.071 21.7886 20.064 21.3566 20.836 20.4246C21.398 19.7526 21.759 18.7896 21.81 17.8566C21.83 17.4856 21.93 13.1446 21.99 11.0786H2Z"
 										fill="currentColor"></path>                                <path
 										d="M11.2451 15.3843V16.6783C11.2451 17.0923 11.5811 17.4283 11.9951 17.4283C12.4091 17.4283 12.7451 17.0923 12.7451 16.6783V15.3843C12.7451 14.9703 12.4091 14.6343 11.9951 14.6343C11.5811 14.6343 11.2451 14.9703 11.2451 15.3843Z"
@@ -532,32 +531,86 @@ if (session.getAttribute("em_id") != null) {
 										fill-rule="evenodd" clip-rule="evenodd"
 										d="M10.211 14.5565C10.111 14.9195 9.762 15.1515 9.384 15.1015C6.833 14.7455 4.395 13.8405 2.337 12.4815C2.126 12.3435 2 12.1075 2 11.8555V8.38949C2 6.28949 3.712 4.58149 5.817 4.58149H7.784C7.972 3.12949 9.202 2.00049 10.704 2.00049H13.286C14.787 2.00049 16.018 3.12949 16.206 4.58149H18.183C20.282 4.58149 21.99 6.28949 21.99 8.38949V11.8555C21.99 12.1075 21.863 12.3425 21.654 12.4815C19.592 13.8465 17.144 14.7555 14.576 15.1105C14.541 15.1155 14.507 15.1175 14.473 15.1175C14.134 15.1175 13.831 14.8885 13.746 14.5525C13.544 13.7565 12.821 13.1995 11.99 13.1995C11.148 13.1995 10.433 13.7445 10.211 14.5565ZM13.286 3.50049H10.704C10.031 3.50049 9.469 3.96049 9.301 4.58149H14.688C14.52 3.96049 13.958 3.50049 13.286 3.50049Z"
 										fill="currentColor">
-                               		</path>
-                               	</svg>
-						</i> <span class="item-name">커뮤니티 게시판</span>
-					</a></li>
+                              		</path>
+                             </svg>
+						   </i> 
+						<span class="item-name">커뮤니티 게시판</span>
+						</a>
+					</li>
 
 					<!---------------------------------- 사이드메뉴 : 커뮤니티 게시판 ----------------------------------->
 
 					<!---------------------------------- 사이드메뉴 : 공지사항 ---------------------------------------------->
-					<li class="nav-item"><a class="nav-link "
-						href="/ezform/ez_notice/listAll"> <i class="icon"> <svg
-									width="20" viewBox="0 0 24 24" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-                            		<path opacity="0.4"
+					<li class="nav-item">
+						<a class="nav-link" href="/ezform/ez_notice/listAll"> 
+							<i class="icon">
+						 		<svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+	                           		<path opacity="0.4"
 										d="M16.34 1.99976H7.67C4.28 1.99976 2 4.37976 2 7.91976V16.0898C2 19.6198 4.28 21.9998 7.67 21.9998H16.34C19.73 21.9998 22 19.6198 22 16.0898V7.91976C22 4.37976 19.73 1.99976 16.34 1.99976Z"
-										fill="currentColor"></path>
-                            		<path fill-rule="evenodd"
+										fill="currentColor">
+									</path>
+	                           		<path fill-rule="evenodd"
 										clip-rule="evenodd"
 										d="M11.1246 8.18921C11.1246 8.67121 11.5156 9.06421 11.9946 9.06421C12.4876 9.06421 12.8796 8.67121 12.8796 8.18921C12.8796 7.70721 12.4876 7.31421 12.0046 7.31421C11.5196 7.31421 11.1246 7.70721 11.1246 8.18921ZM12.8696 11.362C12.8696 10.88 12.4766 10.487 11.9946 10.487C11.5126 10.487 11.1196 10.88 11.1196 11.362V15.782C11.1196 16.264 11.5126 16.657 11.9946 16.657C12.4766 16.657 12.8696 16.264 12.8696 15.782V11.362Z"
-										fill="currentColor"></path>
-                            	</svg>
-						</i> <span class="item-name">공지사항</span>
-					</a></li>
-
+										fill="currentColor">
+									</path>
+	                           	</svg>
+							  </i> 
+							<span class="item-name">공지사항</span>
+						</a>
+					</li>
 					<!---------------------------------- 사이드메뉴 : 공지사항 ---------------------------------------------->
-
-
+					<li><hr class="hr-horizontal"></li>
+					<!---------------------------------- 사이드메뉴 : 전자결재 ---------------------------------------------->
+					<li class="nav-item static-item">
+						<a class="nav-link static-item disabled" href="#" tabindex="-1">
+							<span class="default-icon">Work</span> <span class="mini-icon">-</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#sidebar-user-ep" role="button" aria-expanded="false" aria-controls="sidebar-user-ep">
+							<i class="icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-smartwatch" viewBox="0 0 16 16">
+								  <path d="M9 5a.5.5 0 0 0-1 0v3H6a.5.5 0 0 0 0 1h2.5a.5.5 0 0 0 .5-.5z"/>
+								  <path d="M4 1.667v.383A2.5 2.5 0 0 0 2 4.5v7a2.5 2.5 0 0 0 2 2.45v.383C4 15.253 4.746 16 5.667 16h4.666c.92 0 1.667-.746 1.667-1.667v-.383a2.5 2.5 0 0 0 2-2.45V8h.5a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5H14v-.5a2.5 2.5 0 0 0-2-2.45v-.383C12 .747 11.254 0 10.333 0H5.667C4.747 0 4 .746 4 1.667M4.5 3h7A1.5 1.5 0 0 1 13 4.5v7a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7A1.5 1.5 0 0 1 4.5 3"/>
+								</svg>
+							</i> 
+							<span class="item-name">전자결재</span>
+								<i class="right-icon"> 
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                	</svg>
+								</i> 
+						</a>
+						<ul class="sub-nav collapse" id="sidebar-user-ep" data-bs-parent="#sidebar-msg">
+							<li class="nav-item">
+								<a class="nav-link" href="/ezform/ez_aPayment/list"> <i class="icon"> 
+									<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                         <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                         </g>
+                                    </svg>
+								</i> 
+								<i class="sidenav-mini-icon"> U </i>
+								 <span class="item-name">휴가원 </span>
+								</a>
+							</li>
+							<%-- <li class="nav-item">
+								<a class="nav-link" href="#"> 
+									<i class="icon"> 
+										<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+									</i> 
+								<i class="sidenav-mini-icon"> U </i> 
+								<span class="item-name">일반결재</span>
+								</a>
+							</li> --%>
+						</ul>
+					</li>
+					<!---------------------------------- 사이드메뉴 : 휴가신청 ---------------------------------------------->
 				</ul>
 				<!-- Sidebar Menu End -->
 			</div>
@@ -772,9 +825,4 @@ if (session.getAttribute("em_id") != null) {
 		        </div>
 		    </div>
 		</div>
-         
          <!-- 쪽지 모달 -->
-		
-		
-		
-		

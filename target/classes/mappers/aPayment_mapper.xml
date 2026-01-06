@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ezform.mapper.aPayment_Mapper">
+	
+	<select id="holidayList" parameterType="EZ_aPaymentVO" resultType="EZ_aPaymentVO">
+		select 
+			 ap_id
+			,user_id
+			,ap_type
+			,ap_start_date
+			,ap_end_date
+			,ap_reason
+			,ap_status
+			,ap_create_date
+			,ap_update_date
+			,approver_id
+		from ez_aPayment
+		where user_id = #{user_id}
+	</select>
+	
+	<select id="holidayDetail" resultType="EZ_aPaymentVO">
+		select 
+			 ap_id
+			,user_id
+			,ap_type
+			,ap_start_date
+			,ap_end_date
+			,ap_reason
+			,ap_status
+			,ap_create_date
+			,ap_update_date
+			,approver_id
+		from ez_aPayment
+		where ap_id = #{ap_id}
+	</select>
+	
+	<insert id="insertIndividualHoliday">
+		insert into ez_aPayment
+		(
+			 ap_id
+		    ,user_id
+			,ap_type
+			,ap_start_date
+			,ap_end_date
+			,ap_reason
+			,ap_status
+			,ap_create_date
+			,ap_update_date
+			,approver_id
+		)
+		values
+		(
+			 #{ap_id}
+			,#{user_id}
+			,#{ap_type}
+			,#{ap_start_date}
+			,#{ap_end_date}
+			,#{ap_reason}
+			,'진행'
+			,NOW()
+			,NOW()
+			,#{approver_id}
+		)
+	</insert>
+	
+	<update id="updateStatus">
+		update ez_aPayment set 
+		ap_status = #{ap_status}
+		where ap_id = #{ap_id}
+	</update>
+	
+	<delete id="deleteHoliday">
+		delete from ez_aPayment
+		where ap_id = #{ap_id}
+	</delete>
+
+</mapper>
