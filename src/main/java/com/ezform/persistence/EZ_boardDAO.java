@@ -1,8 +1,10 @@
 package com.ezform.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ezform.domain.EZ_boardVO;
+import com.ezform.domain.EZ_board_comVO;
 import com.ezform.domain.ez_cm_likeVO;
 
 public interface EZ_boardDAO {
@@ -30,4 +32,6 @@ public interface EZ_boardDAO {
 	
 	// 좋아요 처리
 	public void like(ez_cm_likeVO clvo) throws Exception;
+
+
 }

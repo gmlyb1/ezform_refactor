@@ -1,6 +1,7 @@
 package com.ezform.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ezform.domain.EZ_boardVO;
+import com.ezform.domain.EZ_board_comVO;
 import com.ezform.domain.ez_cm_likeVO;
 import com.ezform.test.testController;
 
@@ -105,5 +107,7 @@ public class EZ_boardDAOImpl implements EZ_boardDAO {
 		}
 		
 	}
+
+
 
 }

@@ -20,6 +20,7 @@
 	<select id="boardnumCnt" resultType="String">
 		select max(cm_bnum) from ez_cm
 	</select>
+	
 
 	<!-- 게시판 글쓰기 -->
 	<insert id="create">

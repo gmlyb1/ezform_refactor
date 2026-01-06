@@ -40,6 +40,7 @@ import com.ezform.domain.ez_cm_likeVO;
 import com.ezform.service.EZ_bd_Service;
 import com.ezform.service.EZ_bdcom_Service;
 import com.ezform.test.testController;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 
 @Controller
@@ -56,7 +57,8 @@ public class EZ_bd_Controller {
 
 	// 목록
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
-	public void listPageGET(Model model) throws Exception {
+	public void listPageGET(EZ_board_comVO cvo, Model model) throws Exception {
+		
 		model.addAttribute("boardList", service.listCri());
 	}
 

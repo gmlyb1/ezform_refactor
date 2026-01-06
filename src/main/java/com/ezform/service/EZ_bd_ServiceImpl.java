@@ -1,6 +1,7 @@
 package com.ezform.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ezform.domain.EZ_boardVO;
+import com.ezform.domain.EZ_board_comVO;
 import com.ezform.domain.ez_cm_likeVO;
 import com.ezform.persistence.EZ_boardDAO;
 import com.ezform.test.testController;
