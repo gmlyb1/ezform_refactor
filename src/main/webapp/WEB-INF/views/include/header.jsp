@@ -170,6 +170,28 @@
 	});	
 </script>
 
+<script>
+function loadNotifications() {
+    console.log("🔔 loadNotifications 호출됨");
+
+    fetch("/ezform/ez_notification/unread")
+        .then(res => {
+            console.log("📡 fetch 응답 객체:", res);
+            if(!res.ok) throw new Error("HTTP status " + res.status);
+            return res.json();
+        })
+        .then(data => {
+            console.log("알림 데이터:", data);
+            const badge = document.getElementById("notiCount");
+            badge.innerText = data.length;
+            badge.style.display = data.length > 0 ? "inline-block" : "none";
+        })
+        .catch(err => console.error("❌ 알림 fetch 에러:", err));
+}
+
+setInterval(loadNotifications, 7000);
+loadNotifications();
+</script>
 
 <style type="text/css">
 	.weatherApi tr th {
@@ -179,6 +201,7 @@
 	.weatherApi tr td {
 		text-align:center;
 	}
+	
 </style>
 
 <%
@@ -697,7 +720,11 @@ if (session.getAttribute("em_id") != null) {
 							  </div>	
 							<!--<<< 날씨API -------------------------------------------- -->
 							</li>
-								
+							
+							<a href="/ezform/ez_notification/list" class="position-relative" style="margin-top:15px; margin-right:10px;">
+							  🔔<span id="notiCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">0</span>
+							</a>
+							
 							<span id="recMs" onclick="openNav()" name="resMs" style="float:right;cursor:pointer;margin-right:10px;color:sky;"><i class="bi bi-chat-left" id="messageImage" style="opacity: 0.3; width:15px;"></i></span>	
 							<div id="mysidenav" class="sidenav" style="margin-top:10px;">
 								<!-- <a href="#" class="closebtn" onclick='closeNav()'>x</a> -->
