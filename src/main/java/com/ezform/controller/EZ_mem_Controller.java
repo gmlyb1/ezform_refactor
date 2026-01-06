@@ -50,6 +50,7 @@ public class EZ_mem_Controller {
 	@Inject
 	private EZ_visit_service visit_service;
 
+
 	private static final Logger logger = LoggerFactory.getLogger(EZ_mem_Controller.class);
 
 	// 메인페이지
