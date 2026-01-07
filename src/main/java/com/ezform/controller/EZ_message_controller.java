@@ -22,7 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_messageVO;
+import com.ezform.domain.EZ_notificationVO;
 import com.ezform.service.EZ_messageService;
+import com.ezform.service.EZ_notification_service;
+import com.google.protobuf.Empty;
 
 @Controller
 @RequestMapping("/ez_message/*")
@@ -30,6 +33,9 @@ public class EZ_message_controller {
 
 	@Inject
 	private EZ_messageService messageService;
+	
+	@Inject
+	private EZ_notification_service notification_service;
 	
 	@RequestMapping(value = "/sendList", method = RequestMethod.GET)
 	public String messageListPage(HttpSession session,Model model, @ModelAttribute("messageVO")EZ_messageVO messageVO) throws Exception{
@@ -65,9 +71,17 @@ public class EZ_message_controller {
 	
 	@RequestMapping(value="/sendMsg", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> addMessageSend( @ModelAttribute EZ_messageVO messageVO) throws Exception {
+	public Map<String, Object> addMessageSend( @ModelAttribute EZ_messageVO messageVO, HttpSession session) throws Exception {
 
 	    messageService.insertMessage(messageVO);
+	    
+	    EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
+	    EZ_notificationVO notificationVO = new EZ_notificationVO();
+	    notificationVO.setReceiver_name(empVO.getEm_email());
+	    notificationVO.setNoti_type("쪽지");
+	    notificationVO.setNoti_message("쪽지를 발송했습니다.");
+	    notificationVO.setNoti_link("");
+	    notification_service.insertNotification(notificationVO);
 
 	    Map<String, Object> result = new HashMap();
 	    result.put("success", true);

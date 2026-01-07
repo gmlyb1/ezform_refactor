@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ezform.domain.EZ_aPaymentVO;
 import com.ezform.domain.EZ_empVO;
+import com.ezform.domain.EZ_notificationVO;
 import com.ezform.service.EZ_aPayment_Service;
+import com.ezform.service.EZ_notification_service;
 import com.ezform.test.testController;
 
 @Controller
@@ -24,6 +26,9 @@ public class EZ_aPayment_Controller {
 
 	@Inject
 	private EZ_aPayment_Service paymentService;
+	
+	@Inject
+	private EZ_notification_service notification_service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(testController.class);
 	
@@ -59,7 +64,15 @@ public class EZ_aPayment_Controller {
 	}
 	
 	@RequestMapping(value="/register" , method=RequestMethod.POST)
-	public String aPaymentHolidayRegisterPOST(EZ_aPaymentVO avo) throws Exception{
+	public String aPaymentHolidayRegisterPOST(EZ_aPaymentVO avo,HttpSession session) throws Exception{
+		
+		EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
+	    EZ_notificationVO notificationVO = new EZ_notificationVO();
+	    notificationVO.setReceiver_name(empVO.getEm_email());
+	    notificationVO.setNoti_type("휴가원");
+	    notificationVO.setNoti_message("휴가원을 상신했습니다.");
+	    notificationVO.setNoti_link("");
+	    notification_service.insertNotification(notificationVO);
 		
 		paymentService.insertIndividualHoliday(avo);
 		
@@ -67,9 +80,15 @@ public class EZ_aPayment_Controller {
 	}
 	
 	@RequestMapping(value = "/updateStatus" ,method=RequestMethod.POST)
-	public String updateStatus(EZ_aPaymentVO avo)throws Exception 
+	public String updateStatus(EZ_aPaymentVO avo,HttpSession session)throws Exception 
 	{
-		
+		EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
+	    EZ_notificationVO notificationVO = new EZ_notificationVO();
+	    notificationVO.setReceiver_name(empVO.getEm_email());
+	    notificationVO.setNoti_type("휴가원");
+	    notificationVO.setNoti_message("휴가원 결재 상태가 변경된 이력이 있습니다.");
+	    notificationVO.setNoti_link("");
+	    notification_service.insertNotification(notificationVO);
 		paymentService.updateStatus(avo);
 		
 		return "redirect:/ez_aPayment/list";

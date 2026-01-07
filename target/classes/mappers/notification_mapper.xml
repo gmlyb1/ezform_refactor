@@ -5,9 +5,10 @@
 
 <mapper namespace="com.ezform.mapper.notification_Mapper">
 	
-	<select id="getUnread" parameterType="int" resultType="EZ_notificationVO">
+	<select id="getUnread" parameterType="EZ_notificationVO" resultType="EZ_notificationVO">
     	select
 	        noti_id,
+	        receiver_name,
 	        noti_type,
 	        noti_message,
 	        noti_link,
@@ -30,6 +31,35 @@
 		from ez_notification
 		where receiver_name = #{receiver_name}
 	</select>
+	
+	<insert id="insertNotification">
+		insert into ez_notification
+		(
+			 noti_id
+			,receiver_name
+			,noti_type
+			,noti_message
+			,noti_link
+			,is_read
+			,create_date
+		)
+		values
+		(
+			  #{noti_id}
+			, #{receiver_name}
+			, #{noti_type}
+			, #{noti_message}
+			, #{noti_link}
+			, 'N'
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateAllRead">
+		update ez_notification set 
+		is_read = 'Y'
+		where receiver_name = #{receiver_name}
+	</update>
 
 
 </mapper>

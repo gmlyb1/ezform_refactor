@@ -6,8 +6,12 @@ import com.ezform.domain.EZ_notificationVO;
 
 public interface EZ_notification_service {
 
-	public List<EZ_notificationVO> getUnread(int em_id);
+	public List<EZ_notificationVO> getUnread(EZ_notificationVO nvo);
 
 	public List<EZ_notificationVO> selectNotificationList(EZ_notificationVO notificationVO);
+
+	public void insertNotification(EZ_notificationVO notificationVO);
+
+	public void updateAllRead(EZ_notificationVO nvo);
 
 }

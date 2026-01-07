@@ -25,7 +25,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_inqVO;
+import com.ezform.domain.EZ_notificationVO;
 import com.ezform.service.EZ_inq_Service;
+import com.ezform.service.EZ_notification_service;
 import com.ezform.test.testController;
 
 @Controller
@@ -34,6 +36,9 @@ public class EZ_inq_Controller {
 
 	@Inject
 	private EZ_inq_Service inq_Service;
+	
+	@Inject
+	private EZ_notification_service notification_service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(testController.class);
 	
@@ -107,7 +112,16 @@ public class EZ_inq_Controller {
 		}
 		inqVO.setInq_file(inq_file);
 		
+		EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
+	    EZ_notificationVO notificationVO = new EZ_notificationVO();
+	    notificationVO.setReceiver_name(empVO.getEm_email());
+	    notificationVO.setNoti_type("게시판");
+	    notificationVO.setNoti_message("1:1문의 게시판 글을 작성했습니다.");
+	    notificationVO.setNoti_link("");
+	    notification_service.insertNotification(notificationVO);
+		
 		inq_Service.insertInquiry(inqVO);
+		
 		return "redirect:/ez_inq/list";
 	}
 	

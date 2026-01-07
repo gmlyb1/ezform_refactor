@@ -25,11 +25,12 @@ public class EZ_notification_Controller {
 	
 	@RequestMapping(value = "/unread", method=RequestMethod.GET)
 	@ResponseBody
-	public List<EZ_notificationVO> unread(HttpSession session) {
+	public List<EZ_notificationVO> unread(HttpSession session,EZ_notificationVO nvo) {
 	    EZ_empVO user = (EZ_empVO) session.getAttribute("resultVO");
 	    
 	    if(user != null) {
-	        List<EZ_notificationVO> list = notificationService.getUnread(user.getEm_id());
+	    	nvo.setReceiver_name(user.getEm_email());
+	        List<EZ_notificationVO> list = notificationService.getUnread(nvo);
 	        if(list != null) return list; // 정상 반환
 	    }
 	    
@@ -49,5 +50,16 @@ public class EZ_notification_Controller {
 		
 		
 		return "/ez_notification/list";
+	}
+	
+	@RequestMapping(value= "/readAll" , method=RequestMethod.POST)
+	@ResponseBody
+	public String notificationReadAll(HttpSession session, EZ_notificationVO nvo) throws Exception {
+		
+		EZ_empVO loginUser = (EZ_empVO) session.getAttribute("resultVO");
+		nvo.setReceiver_name(loginUser.getEm_email());
+		notificationService.updateAllRead(nvo);
+		
+		return "OK";
 	}
 }

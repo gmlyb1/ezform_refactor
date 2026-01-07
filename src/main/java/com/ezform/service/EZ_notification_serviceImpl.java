@@ -17,13 +17,23 @@ public class EZ_notification_serviceImpl implements EZ_notification_service {
 	private EZ_notification_DAO notificationDAO;
 
 	@Override
-	public List<EZ_notificationVO> getUnread(int em_id) {
-		return notificationDAO.getUnread(em_id);
+	public List<EZ_notificationVO> getUnread(EZ_notificationVO nvo) {
+		return notificationDAO.getUnread(nvo);
 	}
 
 	@Override
 	public List<EZ_notificationVO> selectNotificationList(EZ_notificationVO notificationVO) {
 		return notificationDAO.selectNotificationList(notificationVO);
+	}
+
+	@Override
+	public void insertNotification(EZ_notificationVO notificationVO) {
+		notificationDAO.insertNotification(notificationVO);
+	}
+
+	@Override
+	public void updateAllRead(EZ_notificationVO nvo) {
+		notificationDAO.updateAllRead(nvo);
 	}
 	
 }

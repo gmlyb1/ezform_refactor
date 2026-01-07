@@ -36,9 +36,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ezform.domain.EZ_boardVO;
 import com.ezform.domain.EZ_board_comVO;
 import com.ezform.domain.EZ_empVO;
+import com.ezform.domain.EZ_notificationVO;
 import com.ezform.domain.ez_cm_likeVO;
 import com.ezform.service.EZ_bd_Service;
 import com.ezform.service.EZ_bdcom_Service;
+import com.ezform.service.EZ_notification_service;
 import com.ezform.test.testController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
@@ -52,6 +54,9 @@ public class EZ_bd_Controller {
 
 	@Inject
 	private EZ_bdcom_Service ReplyService;
+	
+	@Inject
+	private EZ_notification_service notification_service;
 
 	private static final Logger logger = LoggerFactory.getLogger(testController.class);
 
@@ -107,7 +112,15 @@ public class EZ_bd_Controller {
 		}
 		vo.setCm_file(cm_file);
 
-		// 서비스 객체를 주입 -> 동작 호출
+		EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
+	    EZ_notificationVO notificationVO = new EZ_notificationVO();
+	    notificationVO.setReceiver_name(empVO.getEm_email());
+	    notificationVO.setNoti_type("게시판");
+	    notificationVO.setNoti_message("커뮤니티 게시판 글을 작성했습니다.");
+	    notificationVO.setNoti_link("");
+	    notification_service.insertNotification(notificationVO);
+		
+		
 		service.create(vo);
 
 		out.print("<script>alert('등록이 완료되었습니다.'); location.href='/ezform/board/listPage';</script>");
@@ -172,11 +185,19 @@ public class EZ_bd_Controller {
 			path += "upload\\boardUpload\\";
 
 			String temp_path = path + cm_file;
-
 			uploadFile.transferTo(new File(temp_path));
 		}
 		
 		vo.setCm_file(cm_file);
+		
+		EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
+	    EZ_notificationVO notificationVO = new EZ_notificationVO();
+	    notificationVO.setReceiver_name(empVO.getEm_email());
+	    notificationVO.setNoti_type("게시판");
+	    notificationVO.setNoti_message("커뮤니티 게시판 글을 수정했습니다.");
+	    notificationVO.setNoti_link("");
+	    notification_service.insertNotification(notificationVO);
+		
 		service.modify(vo);
 		
 		out.print("<script>alert('수정이 완료 되었습니다.'); location.href='/ezform/board/listPage';</script>");

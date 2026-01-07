@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ezform.domain.EZ_calendarVO;
+import com.ezform.domain.EZ_empVO;
+import com.ezform.domain.EZ_notificationVO;
 import com.ezform.service.EZ_cal_Service;
+import com.ezform.service.EZ_notification_service;
 
 @Controller
 @RequestMapping("/calendar/*")
@@ -26,6 +32,9 @@ public class EZ_cal_Controller {
 
 	@Autowired
 	private EZ_cal_Service service;
+	
+	@Autowired
+	private EZ_notification_service notification_service;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public void calendarGET() throws Exception {
@@ -40,9 +49,18 @@ public class EZ_cal_Controller {
 	
 	@ResponseBody
 	@RequestMapping(value = "/insertEvent", method = RequestMethod.POST)
-	public Map<Object,Object> insertEvent(@RequestBody EZ_calendarVO vo) throws Exception{
+	public Map<Object,Object> insertEvent(@RequestBody EZ_calendarVO vo,HttpSession session) throws Exception{
 		Map<Object,Object>map = new HashMap<Object,Object>();
-		service.insertEvent(vo);
+		
+		EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
+	    EZ_notificationVO notificationVO = new EZ_notificationVO();
+	    notificationVO.setReceiver_name(empVO.getEm_email());
+	    notificationVO.setNoti_type("캘린더");
+	    notificationVO.setNoti_message("캘린더 일정을 등록했습니다.");
+	    notificationVO.setNoti_link("");
+	    notification_service.insertNotification(notificationVO);
+		
+	    service.insertEvent(vo);
 		return map;
 	}
 	
@@ -56,8 +74,17 @@ public class EZ_cal_Controller {
 
 	@ResponseBody
 	@RequestMapping(value = "/updateEvent", method = RequestMethod.POST)
-	public Map<Object,Object> updateEvent(@RequestBody EZ_calendarVO vo,Model model) throws Exception{
+	public Map<Object,Object> updateEvent(@RequestBody EZ_calendarVO vo,Model model,HttpSession session) throws Exception{
 		Map<Object,Object>map = new HashMap<Object,Object>();
+		
+		EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
+	    EZ_notificationVO notificationVO = new EZ_notificationVO();
+	    notificationVO.setReceiver_name(empVO.getEm_email());
+	    notificationVO.setNoti_type("캘린더");
+	    notificationVO.setNoti_message("캘린더 일정을 수정했습니다.");
+	    notificationVO.setNoti_link("");
+	    notification_service.insertNotification(notificationVO);
+		
 		service.updateEvent(vo);
 		return map;
 	}

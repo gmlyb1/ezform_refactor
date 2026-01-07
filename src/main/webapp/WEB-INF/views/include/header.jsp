@@ -160,6 +160,7 @@
 				data : $(".msg_form").serialize(),
 				success : function(data) {
 					alert("쪽지를 보냈습니다.");
+					$('#MsgForm').modal('hide');
 				} 
 			});
 		});

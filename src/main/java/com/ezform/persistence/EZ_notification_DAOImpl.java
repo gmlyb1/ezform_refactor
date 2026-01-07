@@ -23,12 +23,22 @@ public class EZ_notification_DAOImpl implements EZ_notification_DAO {
 	private static final String namespace = "com.ezform.mapper.notification_Mapper";
 
 	@Override
-	public List<EZ_notificationVO> getUnread(int em_id) {
-		return sqlSession.selectList(namespace+".getUnread",em_id);
+	public List<EZ_notificationVO> getUnread(EZ_notificationVO nvo) {
+		return sqlSession.selectList(namespace+".getUnread",nvo);
 	}
 
 	@Override
 	public List<EZ_notificationVO> selectNotificationList(EZ_notificationVO notificationVO) {
 		return sqlSession.selectList(namespace+".selectNotificationList",notificationVO);
+	}
+
+	@Override
+	public void insertNotification(EZ_notificationVO notificationVO) {
+		sqlSession.insert(namespace+".insertNotification",notificationVO);
+	}
+
+	@Override
+	public void updateAllRead(EZ_notificationVO nvo) {
+		sqlSession.update(namespace+".updateAllRead", nvo);
 	}
 }
