@@ -91,7 +91,12 @@ function validateHolidayForm() {
                         <!-- 결재자 -->
                         <div class="mb-3">
                             <label for="approver_id" class="form-label">결재자</label>
-                            <input type="text" class="form-control form-control-sm" id="approver_id" name="approver_id" placeholder="결재자 입력">
+                            <!-- <input type="text" class="form-control form-control-sm" id="approver_id" name="approver_id" placeholder="결재자 입력"> -->
+                            <select class="form-select form-select-sm" id="approver_id" name="approver_id">
+							  <c:forEach items="${mList}" var="list">
+                            	<option value="${list.em_email}">${list.em_email}[${list.em_name}]</option>
+							  </c:forEach>
+                            </select>
                         </div>
 
                         <!-- 버튼 -->

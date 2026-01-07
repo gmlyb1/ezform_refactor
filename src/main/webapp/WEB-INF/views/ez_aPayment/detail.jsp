@@ -136,20 +136,22 @@
                         <button class="btn btn-primary btn-sm" onclick="location.href='holidayModify?ap_id=${detail.ap_id}'">수정</button>
                         <button class="btn btn-danger btn-sm" onclick="if(confirm('삭제하시겠습니까?')) location.href='holidayRemove?ap_id=${detail.ap_id}'">삭제</button>
                     </div> --%>
+                    
                     <div class="text-end mt-3">
 					    <!-- 승인 -->
-					    <form action="/ezform/ez_aPayment/updateStatus" method="post" style="display:inline;">
-					        <input type="hidden" name="ap_id" value="${detail.ap_id}">
-					        <input type="hidden" name="ap_status" value="승인">
-					        <button type="submit" class="btn btn-success" onclick="return confirm('승인하시겠습니까?');">승인</button>
-					    </form>
-					
-					    <!-- 반려 -->
-					    <form action="/ezform/ez_aPayment/updateStatus" method="post" style="display:inline;">
-					        <input type="hidden" name="ap_id" value="${detail.ap_id}">
-					        <input type="hidden" name="ap_status" value="반려">
-					        <button type="submit" class="btn btn-danger" onclick="return confirm('반려하시겠습니까?');">반려</button>
-					    </form>
+					    <c:if test="${sessionData.em_email eq detail.approver_id}">
+	                   		 <form action="/ezform/ez_aPayment/updateStatus" method="post" style="display:inline;">
+						        <input type="hidden" name="ap_id" value="${detail.ap_id}">
+						        <input type="hidden" name="ap_status" value="승인">
+						        <button type="submit" class="btn btn-success" onclick="return confirm('승인하시겠습니까?');">승인</button>
+						    </form>
+						    <!-- 반려 -->
+						    <form action="/ezform/ez_aPayment/updateStatus" method="post" style="display:inline;">
+						        <input type="hidden" name="ap_id" value="${detail.ap_id}">
+						        <input type="hidden" name="ap_status" value="반려">
+						        <button type="submit" class="btn btn-danger" onclick="return confirm('반려하시겠습니까?');">반려</button>
+						    </form>
+                    	</c:if>
 					
 					    <!-- 삭제 버튼 -->
 						<form action="/ezform/ez_aPayment/deleteHoliday" method="post" style="display:inline;">

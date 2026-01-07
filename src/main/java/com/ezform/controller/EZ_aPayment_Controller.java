@@ -17,6 +17,7 @@ import com.ezform.domain.EZ_aPaymentVO;
 import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_notificationVO;
 import com.ezform.service.EZ_aPayment_Service;
+import com.ezform.service.EZ_mem_Service;
 import com.ezform.service.EZ_notification_service;
 import com.ezform.test.testController;
 
@@ -29,6 +30,9 @@ public class EZ_aPayment_Controller {
 	
 	@Inject
 	private EZ_notification_service notification_service;
+	
+	@Inject
+	private EZ_mem_Service mem_Service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(testController.class);
 	
@@ -47,9 +51,10 @@ public class EZ_aPayment_Controller {
 	
 	@RequestMapping(value = "/detail", method= RequestMethod.GET)
 	public String aPaymentDetailPage(EZ_aPaymentVO avo,@RequestParam("ap_id") int ap_id,Model model,HttpSession session) throws Exception{
-		
+		EZ_empVO loginUser = (EZ_empVO) session.getAttribute("resultVO");
 		EZ_aPaymentVO detail = paymentService.holidayDetail(ap_id);
 		model.addAttribute("detail", detail);
+		model.addAttribute("sessionData", loginUser);
 		
 		return "/ez_aPayment/detail";
 	}
@@ -59,12 +64,13 @@ public class EZ_aPayment_Controller {
 		
 		EZ_empVO loginUser = (EZ_empVO) session.getAttribute("resultVO");
 		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("mList", mem_Service.memList());
 		
 		return "/ez_aPayment/register";
 	}
 	
 	@RequestMapping(value="/register" , method=RequestMethod.POST)
-	public String aPaymentHolidayRegisterPOST(EZ_aPaymentVO avo,HttpSession session) throws Exception{
+	public String aPaymentHolidayRegisterPOST(EZ_aPaymentVO avo,HttpSession session,Model model) throws Exception{
 		
 		EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
 	    EZ_notificationVO notificationVO = new EZ_notificationVO();
