@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ezform.mapper.admin_mem_Mapper">
+	
+	<select id ="adminMemLogin" parameterType="EZ_empVO" resultType="EZ_empVO">
+		select * from 
+		ez_em where 
+		em_email = #{em_email}
+		and em_pw = #{em_pw}
+		and em_second_pw = #{em_second_pw}
+	</select>
+
+</mapper>
