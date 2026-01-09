@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ezform.controller.EZ_inq_Controller;
+import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_inqVO;
 import com.ezform.persistence.EZ_inqDAO;
 
@@ -49,6 +50,16 @@ public class EZ_inq_Serviceimpl implements EZ_inq_Service {
 	@Override
 	public List<EZ_inqVO> selectInquiryAdminList(EZ_inqVO inqVO) {
 		return inqDAO.selectInquiryAdminList(inqVO);
+	}
+
+	@Override
+	public void updateCheck(EZ_inqVO inqVO) {
+		inqDAO.updateCheck(inqVO);
+	}
+
+	@Override
+	public List<EZ_empVO> unCheckInquiryList(EZ_inqVO inqVO) {
+		return inqDAO.unCheckInquiryList(inqVO);
 	}
 
 }

@@ -30,6 +30,7 @@ import com.ezform.common.SessionCounter;
 import com.ezform.domain.EZ_aPaymentVO;
 import com.ezform.domain.EZ_calendarVO;
 import com.ezform.domain.EZ_empVO;
+import com.ezform.domain.EZ_inqVO;
 import com.ezform.domain.EZ_mailVO;
 import com.ezform.domain.EZ_messageVO;
 import com.ezform.domain.EZ_notificationVO;
@@ -44,6 +45,7 @@ import com.ezform.service.EZ_aPayment_Service;
 import com.ezform.service.EZ_bd_Service;
 import com.ezform.service.EZ_cal_Service;
 import com.ezform.service.EZ_emp_Service;
+import com.ezform.service.EZ_inq_Service;
 import com.ezform.service.EZ_mail_Service;
 
 @Controller
@@ -69,13 +71,15 @@ public class EZ_mem_Controller {
 	private EZ_mail_Service mail_service;
 	@Inject
 	private EZ_notification_service notification_service;
+	@Inject 
+	private EZ_inq_Service inq_Service;
 
 
 	private static final Logger logger = LoggerFactory.getLogger(EZ_mem_Controller.class);
 
 	// 메인페이지
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String mainPageGET(HttpServletRequest request,Model model,HttpSession session,EZ_visitVO visitVO,EZ_messageVO mvo,EZ_calendarVO cvo,EZ_aPaymentVO avo,EZ_mailVO mailVO,EZ_notificationVO notificationVO) throws Exception {
+	public String mainPageGET(HttpServletRequest request,Model model,HttpSession session,EZ_visitVO visitVO,EZ_messageVO mvo,EZ_calendarVO cvo,EZ_aPaymentVO avo,EZ_mailVO mailVO,EZ_notificationVO notificationVO,EZ_inqVO inqVO) throws Exception {
 		
 		
 		String ip = request.getRemoteAddr();
@@ -118,16 +122,20 @@ public class EZ_mem_Controller {
 		model.addAttribute("unApaymentList", apayment_service.unApaymentList(avo).size());
 		// 안읽은 메일
 		if(loginSession != null) {
-			mailVO.setMail_email(loginSession.getEm_email());
+			mailVO.setMail_id(loginSession.getEm_email());
 		}
 		model.addAttribute("unReadMailList", mail_service.unreadMailList(mailVO).size());
 		// 안읽은 알람
 		if(loginSession != null) {
 			notificationVO.setReceiver_name(loginSession.getEm_email());
 		}
-		
 		model.addAttribute("unreadNotificationList", notification_service.getUnreadMessageList(notificationVO).size());
-//		model.addAttribute("unreadNotificationList", notification_service.getUnread(notificationVO).size());
+		
+		if(loginSession != null) {
+			inqVO.setEm_email(loginSession.getEm_email());
+		}
+		model.addAttribute("unCheckInquiryList", inq_Service.unCheckInquiryList(inqVO).size());
+		
 		return "index";
 	}
 	

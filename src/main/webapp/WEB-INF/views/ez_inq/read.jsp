@@ -92,7 +92,14 @@
                                  <textarea class="form-control" rows="10" style="resize: none; background-color:white;" readonly>${vo.inq_content }</textarea>
                               </div>
                               <hr>
-                              
+                             
+                            <c:if test="${em_id == 9999}">
+	                            <form action="/ezform/ez_inq/updateCheck" method="post" style="display:inline;">
+				                    <input type="hidden" name="inq_no" value="${vo.inq_no}">
+				                    <button type="submit" class="btn btn-success btn-sm">해결 처리</button>
+				                </form> 
+                            </c:if>
+                            
 					   	 	<c:choose>
 								<c:when test="${vo.em_email eq isWriter}">
 									<div class="mb-3" style="text-align:right;">

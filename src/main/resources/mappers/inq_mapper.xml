@@ -15,6 +15,7 @@
 	        , inq_dname
 	        , em_email
 	        , inq_file
+	        , inq_check
 	        , inq_regdate
 	    FROM ez_inq
 	    JOIN (SELECT @rownum := 0) r
@@ -31,6 +32,7 @@
 	        , inq_dname
 	        , em_email
 	        , inq_file
+	        , inq_check
 	        , inq_regdate
 	    FROM ez_inq
 	    JOIN (SELECT @rownum := 0) r
@@ -46,6 +48,7 @@
 			,inq_dname
 			,em_email
 			,inq_file
+			,inq_check
 			,inq_regdate
 			)
 		values
@@ -57,6 +60,7 @@
 			,#{inq_dname}
 			,#{em_email}
 			,#{inq_file}
+			,#{inq_check}
 			,NOW()
 			)
 	</insert>
@@ -70,9 +74,26 @@
 			,inq_dname
 			,em_email
 			,inq_file
+			,inq_check
 			,inq_regdate
 		from ez_inq
 		where inq_no = #{inq_no}
+	</select>
+	
+	<select id="unCheckInquiryList" parameterType="EZ_inqVO" resultType="EZ_inqVO">
+		select 
+			 inq_no
+			,inq_title
+			,inq_content
+			,inq_name
+			,inq_dname
+			,em_email
+			,inq_file
+			,inq_check
+			,inq_regdate
+		from ez_inq
+		where em_email = #{em_email}
+		and inq_check = 0
 	</select>
 	
 	<update id="modify">
@@ -83,6 +104,12 @@
 			,inq_regdate = NOW()
 		where inq_no = #{inq_no}
 	</update>
+	
+	<update id="updateCheck">
+		update ez_inq set 
+			inq_check = 1
+		where inq_no = #{inq_no}
+	</update>	
 	
 	<delete id="remove">
 		delete from ez_inq 

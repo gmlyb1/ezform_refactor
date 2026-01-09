@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_inqVO;
 import com.ezform.test.testController;
 
@@ -51,6 +52,16 @@ public class EZ_inqDAOImpl implements EZ_inqDAO {
 	@Override
 	public List<EZ_inqVO> selectInquiryAdminList(EZ_inqVO inqVO) {
 		return sqlSession.selectList(namespace+".selectInquiryAdminList",inqVO);
+	}
+
+	@Override
+	public void updateCheck(EZ_inqVO inqVO) {
+		sqlSession.update(namespace+".updateCheck", inqVO);
+	}
+
+	@Override
+	public List<EZ_empVO> unCheckInquiryList(EZ_inqVO inqVO) {
+		return sqlSession.selectList(namespace+".unCheckInquiryList", inqVO);
 	}
 
 }

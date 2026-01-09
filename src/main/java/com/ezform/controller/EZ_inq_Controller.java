@@ -63,7 +63,6 @@ public class EZ_inq_Controller {
 	
 	@RequestMapping(value = "/read" , method=RequestMethod.GET)
 	public String inquiryDetailPage(@RequestParam("inq_no") int inq_no,Model model, HttpSession session) throws Exception {
-		
 		EZ_inqVO inqVO = inq_Service.read(inq_no); 
 		model.addAttribute("vo", inqVO);
 		
@@ -71,6 +70,7 @@ public class EZ_inq_Controller {
 		if(evo != null) {
 			model.addAttribute("isWriter", evo.getEm_email());
 		}
+		model.addAttribute("em_id", evo.getEm_id());
 		
 		return "/ez_inq/read";
 	}
@@ -126,48 +126,48 @@ public class EZ_inq_Controller {
 	}
 	
 	// *글수정 GET
-		@RequestMapping(value = "/modify", method = RequestMethod.GET)
-		public void modifyGET(@RequestParam("inq_no") int inq_no, Model model, HttpSession session) throws Exception {
-			model.addAttribute("vo", inq_Service.read(inq_no));
-		}
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public void modifyGET(@RequestParam("inq_no") int inq_no, Model model, HttpSession session) throws Exception {
+		model.addAttribute("vo", inq_Service.read(inq_no));
+	}
 
-		// * 글수정(POST)
-		@RequestMapping(value = "/modify", method = RequestMethod.POST)
-		public void modifyPOST(EZ_inqVO vo, HttpSession session, HttpServletResponse response, HttpServletRequest request)
-				throws Exception {
-			// 세션
-			EZ_empVO evo = (EZ_empVO) session.getAttribute("resultVO");
-			
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			
-			if (evo == null) {
-				out.print("<script>location.href='/ezform/logout';</script>");
-				out.flush();
-			}
-			
-			String inq_file = null;
-			MultipartFile uploadFile = vo.getUploadFile();
-
-			if (!uploadFile.isEmpty()) {
-				String originalFileName = uploadFile.getOriginalFilename();
-				String ext = FilenameUtils.getExtension(originalFileName);
-				UUID uuid = UUID.randomUUID();
-				inq_file = uuid + "." + ext;
-
-				String path = request.getSession().getServletContext().getRealPath("/"); // 절대 경로
-				path += "upload\\boardUpload\\";
-
-				String temp_path = path + inq_file;
-
-				uploadFile.transferTo(new File(temp_path));
-			}
-			vo.setInq_file(inq_file);
-			inq_Service.modify(vo);
-			
-			out.print("<script>alert('수정이 완료 되었습니다.'); location.href='/ezform/ez_inq/list';</script>");
+	// * 글수정(POST)
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public void modifyPOST(EZ_inqVO vo, HttpSession session, HttpServletResponse response, HttpServletRequest request)
+			throws Exception {
+		// 세션
+		EZ_empVO evo = (EZ_empVO) session.getAttribute("resultVO");
+		
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		if (evo == null) {
+			out.print("<script>location.href='/ezform/logout';</script>");
 			out.flush();
 		}
+		
+		String inq_file = null;
+		MultipartFile uploadFile = vo.getUploadFile();
+
+		if (!uploadFile.isEmpty()) {
+			String originalFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFileName);
+			UUID uuid = UUID.randomUUID();
+			inq_file = uuid + "." + ext;
+
+			String path = request.getSession().getServletContext().getRealPath("/"); // 절대 경로
+			path += "upload\\boardUpload\\";
+
+			String temp_path = path + inq_file;
+
+			uploadFile.transferTo(new File(temp_path));
+		}
+		vo.setInq_file(inq_file);
+		inq_Service.modify(vo);
+		
+		out.print("<script>alert('수정이 완료 되었습니다.'); location.href='/ezform/ez_inq/list';</script>");
+		out.flush();
+	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public void removeGET(@RequestParam("inq_no") int inq_no, HttpServletResponse response) throws Exception {
@@ -179,6 +179,14 @@ public class EZ_inq_Controller {
 
 		out.print("<script>alert('삭제가 완료 되었습니다.'); location.href='/ezform/ez_inq/list';</script>");
 		out.flush();
+	}
+	
+	@RequestMapping(value = "/updateCheck" ,method= RequestMethod.POST)
+	public String updateCheck(EZ_inqVO inqVO) throws Exception {
+		
+		inq_Service.updateCheck(inqVO);
+		
+		return "redirect:/ez_inq/read?inq_no=" + inqVO.getInq_no();
 	}
 	
 	@RequestMapping("/userpic")

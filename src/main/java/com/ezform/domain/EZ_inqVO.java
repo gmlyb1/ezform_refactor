@@ -15,6 +15,7 @@ public class EZ_inqVO {
 	private String em_email;
 	private String inq_file;
 	private MultipartFile uploadFile;
+	private boolean inq_check;
 	private Date inq_regdate;
 	public int getRowNo() {
 		return rowNo;
@@ -70,6 +71,12 @@ public class EZ_inqVO {
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
 	}
+	public boolean isInq_check() {
+		return inq_check;
+	}
+	public void setInq_check(boolean inq_check) {
+		this.inq_check = inq_check;
+	}
 	public Date getInq_regdate() {
 		return inq_regdate;
 	}
@@ -80,9 +87,11 @@ public class EZ_inqVO {
 	public String toString() {
 		return "EZ_inqVO [rowNo=" + rowNo + ", inq_no=" + inq_no + ", inq_title=" + inq_title + ", inq_content="
 				+ inq_content + ", inq_name=" + inq_name + ", inq_dname=" + inq_dname + ", em_email=" + em_email
-				+ ", inq_file=" + inq_file + ", uploadFile=" + uploadFile + ", inq_regdate=" + inq_regdate + "]";
+				+ ", inq_file=" + inq_file + ", uploadFile=" + uploadFile + ", inq_check=" + inq_check
+				+ ", inq_regdate=" + inq_regdate + "]";
 	}
 
+	
 	
 	
 	

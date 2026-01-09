@@ -12,6 +12,54 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
 
+<style>
+.dashboard-cell {
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px; /* 최소 높이 지정 */
+    transition: all 0.3s ease;
+}
+
+.dashboard-cell .value {
+    font-size: 2rem; /* 기본 크기 */
+    font-weight: bold;
+}
+
+@media (max-width: 1200px) {
+    .dashboard-cell .value {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .dashboard-cell .value {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-cell {
+        min-height: 70px;
+    }
+    .dashboard-cell .value {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-cell {
+        min-height: 60px;
+    }
+    .dashboard-cell .value {
+        font-size: 1.2rem;
+    }
+}
+
+</style>
+
 <div class="conatiner-fluid content-inner mt-n5 py-0">
 	<div class="row">
 		<div class="col-md-12 col-lg-9">
@@ -223,9 +271,10 @@
 						  <h4 class="value">${todayEventList}</h4>
 						</div>
 						
-						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#0dcaf0; border-radius:6px;">
+						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#0dcaf0; border-radius:6px;"
+						onclick="location.href='/ezform/ez_inq/list'">
 						  <p class="label">1:1문의</p>
-						  <h4 class="value">${progressTask}</h4>
+						  <h4 class="value">${unCheckInquiryList}</h4>
 						</div>
 						
 						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#6c757d; border-radius:6px;"

@@ -8,7 +8,7 @@
 	<!-- 안읽은 메일 -->
 	<select id="unreadMailList" parameterType="EZ_mailVO" resultType="EZ_mailVO">
 		select * from ez_mail
-		where mail_email = #{mail_email}
+		where mail_id = #{mail_id}
 		and mail_readCheck = '0'
 	</select>
 
