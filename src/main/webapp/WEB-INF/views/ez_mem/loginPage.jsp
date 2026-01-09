@@ -25,7 +25,7 @@
 <script src="${pageContext.request.contextPath }/resources/js/app.js"></script>
 
 <script>
-	$(document).ready(function() {
+	/* $(document).ready(function() {
 		$("#ezLoginBtn").click(function() {
 			var emp_email = $("#emp_email").val();
 			var emp_pw = $("#emp_pw").val();
@@ -43,7 +43,41 @@
 				return "/login";
 			}
 		});
+	}); */
+	$(document).ready(function() {
+
+	    // 페이지 로드 시 저장된 아이디 가져오기
+	    if(localStorage.getItem("savedEmail")) {
+	        $("#emp_email").val(localStorage.getItem("savedEmail"));
+	        $("#saveIdCheck").prop("checked", true);
+	    }
+
+	    $("#ezLoginBtn").click(function(e) {
+	        var emp_email = $("#emp_email").val();
+	        var emp_pw = $("#emp_pw").val();
+
+	        if(emp_email == "") {
+	            alert("이메일을 입력해주세요");
+	            return false;
+	        }
+
+	        if(emp_pw == "") {
+	            alert("패스워드를 입력해주세요");
+	            return false;
+	        }
+
+	        // 아이디 저장 체크박스 확인
+	        if($("#saveIdCheck").is(":checked")) {
+	            localStorage.setItem("savedEmail", emp_email);
+	        } else {
+	            localStorage.removeItem("savedEmail");
+	        }
+
+	        // 실제 로그인 폼 제출
+	        $("form").submit();
+	    });
 	});
+
 </script>
 
 <style>
@@ -153,6 +187,12 @@
                                  <input type="password" class="form-control" id="emp_pw" name="em_pw" placeholder="비밀번호를 입력해 주세요.">
                               </div>
                            </div>
+                           <div class="col-lg-12 mb-3">
+							    <div class="form-check mt-2">
+							        <input type="checkbox" class="form-check-input" id="saveIdCheck">
+							        <label class="form-check-label" for="saveIdCheck">아이디 저장</label>
+							    </div>
+							</div>
                            <div class="d-flex justify-content-center">
                               <button type="submit" class="btn btn-primary" id="ezLoginBtn">로그인</button>
                            </div>

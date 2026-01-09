@@ -368,5 +368,13 @@ public class EZ_mem_Controller {
 	}
 	
 	
+	@RequestMapping(value = "/ez_mem/list" , method=RequestMethod.GET)
+	public String memberListGET(Model model) throws Exception {
+		
+		model.addAttribute("memList", mem_service.memList()); 
+		
+		return "/ez_mem/list";
+	}
+	
 
 }
