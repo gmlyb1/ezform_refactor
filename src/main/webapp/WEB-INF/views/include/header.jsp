@@ -200,57 +200,6 @@ loadNotifications();
 		text-align:center;
 	}
 	
-	/* 모달 배경 반투명 강화 */
-.modal-backdrop.show {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* 모달 그림자, 라운드 적용 */
-.modal-content {
-    border: none;
-    border-radius: 1rem;
-    box-shadow: 0 1rem 3rem rgba(0,0,0,0.3);
-    overflow: hidden;
-}
-
-/* 헤더 디자인 */
-.modal-header {
-    background: linear-gradient(90deg, #4e54c8, #8f94fb);
-    color: white;
-    border-bottom: none;
-    padding: 1rem 1.5rem;
-}
-
-/* 버튼 스타일 */
-.btn-primary {
-    background: linear-gradient(90deg, #4e54c8, #8f94fb);
-    border: none;
-    font-weight: 600;
-}
-.btn-primary:hover {
-    background: linear-gradient(90deg, #3b40a0, #6f74e0);
-}
-
-/* Input, Select 스타일 */
-.form-control, .form-select, textarea {
-    border-radius: 0.5rem;
-    padding: 0.6rem 1rem;
-    border: 1px solid #ccc;
-    font-size: 0.95rem;
-    transition: 0.3s;
-}
-.form-control:focus, .form-select:focus, textarea:focus {
-    border-color: #4e54c8;
-    box-shadow: 0 0 0 0.2rem rgba(78, 84, 200, 0.25);
-}
-
-/* Placeholder 스타일 */
-::placeholder {
-    color: #aaa;
-    opacity: 1;
-}
-	
-	
 </style>
 
 <%
@@ -632,7 +581,7 @@ if (session.getAttribute("em_id") != null) {
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" aria-current="page" href="#"> 
+						<a class="nav-link" aria-current="page" href="/ezform/ez_material/list"> 
 							<i class="icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16">
 								  <path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708z"/>
