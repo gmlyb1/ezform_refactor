@@ -173,16 +173,13 @@
 
 <script>
 function loadNotifications() {
-    console.log("🔔 loadNotifications 호출됨");
 
     fetch("/ezform/ez_notification/unread")
         .then(res => {
-            console.log("📡 fetch 응답 객체:", res);
             if(!res.ok) throw new Error("HTTP status " + res.status);
             return res.json();
         })
         .then(data => {
-            console.log("알림 데이터:", data);
             const badge = document.getElementById("notiCount");
             badge.innerText = data.length;
             badge.style.display = data.length > 0 ? "inline-block" : "none";
@@ -619,19 +616,6 @@ if (session.getAttribute("em_id") != null) {
 								 <span class="item-name">휴가원 </span>
 								</a>
 							</li>
-							<%-- <li class="nav-item">
-								<a class="nav-link" href="#"> 
-									<i class="icon"> 
-										<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-									</i> 
-								<i class="sidenav-mini-icon"> U </i> 
-								<span class="item-name">일반결재</span>
-								</a>
-							</li> --%>
 						</ul>
 					</li>
 					<!---------------------------------- 사이드메뉴 : 휴가신청 ---------------------------------------------->
@@ -736,7 +720,7 @@ if (session.getAttribute("em_id") != null) {
 								<a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
 									<img src="${pageContext.request.contextPath }/resources/upload/mem_Image/${resultVO.em_image}" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded" onerror="this.src='${pageContext.request.contextPath }/resources/images/silhouette.png'">
 									<div class="caption ms-3 d-none d-md-block ">
-										<h6 class="mb-0 caption-title">${resultVO.em_name}[${resultVO.em_posi}]</h6>
+										<h6 class="mb-0 caption-title">${resultVO.em_name}[${resultVO.em_dept} - ${resultVO.em_posi}]</h6>
 										<p class="mb-0 caption-sub-title">${resultVO.em_email}</p>
 										<input type="hidden" name="em_id" id="em_id" value="${em_id}" />
 									</div>
@@ -821,30 +805,6 @@ if (session.getAttribute("em_id") != null) {
 		                        <label for=""ms_content"">내용</label>
 		                        <textarea id=""ms_content"" name="ms_content" class="form-control"></textarea>
 		                    </div>
-		                  <%-- <div class="form-group">
-							    <table class="table table-bordered table-striped">
-							        <thead>
-							            <tr>
-							                <th class="text-center">번호</th>
-							                <th class="text-center">제목</th>
-							                <th class="text-center">내용</th>
-							                <th class="text-center">보낸사람</th>
-							                <th class="text-center">작성일자</th>
-							            </tr>
-							        </thead>
-							        <tbody>
-							            <c:forEach items="${modalMessageList}" var="list">
-							                <tr>
-							                    <td class="text-center">${list.rowNo}</td>
-							                    <td class="text-center"><a href="/message/detail?rowNo=${list.rowNo}">${list.msg_title}</a></td>
-							                    <td class="text-center">${list.msg_content}</td>
-							                    <td class="text-center">${list.sender_name}</td>
-							                    <td class="text-center">${list.create_dt}</td>
-							                </tr>
-							            </c:forEach>
-							        </tbody>
-							    </table>
-							</div> --%>
 		                </div>
 		                <div class="modal-footer">
 		                    <button class="btn btn-primary" type="button" id="msg_submit">SEND</button>

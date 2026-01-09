@@ -21,6 +21,23 @@
 		where user_id = #{user_id}
 	</select>
 	
+	<select id="unApaymentList" parameterType="EZ_aPaymentVO" resultType="EZ_aPaymentVO">
+		select 
+			 ap_id
+			,user_id
+			,ap_type
+			,ap_start_date
+			,ap_end_date
+			,ap_reason
+			,ap_status
+			,ap_create_date
+			,ap_update_date
+			,approver_id
+		from ez_aPayment
+		where user_id = #{user_id}
+		and ap_status = '진행'
+	</select>
+	
 	<select id="holidayDetail" resultType="EZ_aPaymentVO">
 		select 
 			 ap_id

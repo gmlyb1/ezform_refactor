@@ -100,4 +100,9 @@ public class EZ_mail_ServiceImpl implements EZ_mail_Service {
 		return mdao.mailKeepList(mail_id);
 	}
 
+	@Override
+	public List<EZ_empVO> unreadMailList(EZ_mailVO mailVO) throws Exception {
+		return mdao.unreadMailList(mailVO);
+	}
+
 }

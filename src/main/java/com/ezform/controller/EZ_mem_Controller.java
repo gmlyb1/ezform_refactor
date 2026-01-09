@@ -27,14 +27,24 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezform.common.SessionCounter;
+import com.ezform.domain.EZ_aPaymentVO;
+import com.ezform.domain.EZ_calendarVO;
 import com.ezform.domain.EZ_empVO;
+import com.ezform.domain.EZ_mailVO;
+import com.ezform.domain.EZ_messageVO;
+import com.ezform.domain.EZ_notificationVO;
 import com.ezform.domain.EZ_visitVO;
 import com.ezform.service.EZ_mem_Service;
+import com.ezform.service.EZ_messageService;
 import com.ezform.service.EZ_noti_Service;
+import com.ezform.service.EZ_notification_service;
 import com.ezform.service.EZ_visit_service;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ezform.service.EZ_aPayment_Service;
 import com.ezform.service.EZ_bd_Service;
+import com.ezform.service.EZ_cal_Service;
 import com.ezform.service.EZ_emp_Service;
+import com.ezform.service.EZ_mail_Service;
 
 @Controller
 public class EZ_mem_Controller {
@@ -49,13 +59,23 @@ public class EZ_mem_Controller {
 	private EZ_emp_Service emp_service;
 	@Inject
 	private EZ_visit_service visit_service;
+	@Inject
+	private EZ_messageService message_service;
+	@Inject 
+	private EZ_cal_Service cal_service;
+	@Inject 
+	private EZ_aPayment_Service apayment_service;
+	@Inject
+	private EZ_mail_Service mail_service;
+	@Inject
+	private EZ_notification_service notification_service;
 
 
 	private static final Logger logger = LoggerFactory.getLogger(EZ_mem_Controller.class);
 
 	// 메인페이지
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String mainPageGET(HttpServletRequest request,Model model,HttpSession session,EZ_visitVO visitVO) throws Exception {
+	public String mainPageGET(HttpServletRequest request,Model model,HttpSession session,EZ_visitVO visitVO,EZ_messageVO mvo,EZ_calendarVO cvo,EZ_aPaymentVO avo,EZ_mailVO mailVO,EZ_notificationVO notificationVO) throws Exception {
 		
 		
 		String ip = request.getRemoteAddr();
@@ -68,7 +88,7 @@ public class EZ_mem_Controller {
 		int total = visit_service.getVisitCount(visitVO);
 		int today = visit_service.getTodayVisitCount(visitVO);
 		
-//		EZ_empVO loginSession = (EZ_empVO)session.getAttribute("resultVO");
+		EZ_empVO loginSession = (EZ_empVO)session.getAttribute("resultVO");
 		
 		EZ_empVO empVO = new EZ_empVO();
 		model.addAttribute("messageMemberList", mem_service.messageMemberList(empVO));
@@ -84,6 +104,30 @@ public class EZ_mem_Controller {
 		model.addAttribute("notiList", noti_service.listALL());
 		// 근태 리스트
 		model.addAttribute("wslist", emp_service.wstatusListEmp());
+		// 안읽은 쪽지 개수
+		if(loginSession != null) {
+			mvo.setReceiver_name(loginSession.getEm_email());
+		}
+		model.addAttribute("unreadMsg", message_service.findList(mvo).size());
+		// 오늘 일정 개수
+		model.addAttribute("todayEventList", cal_service.selectEventTodayList(cvo).size());
+		// 미결재 개수
+		if(loginSession != null) {
+			avo.setUser_id(loginSession.getEm_email());
+		}
+		model.addAttribute("unApaymentList", apayment_service.unApaymentList(avo).size());
+		// 안읽은 메일
+		if(loginSession != null) {
+			mailVO.setMail_email(loginSession.getEm_email());
+		}
+		model.addAttribute("unReadMailList", mail_service.unreadMailList(mailVO).size());
+		// 안읽은 알람
+		if(loginSession != null) {
+			notificationVO.setReceiver_name(loginSession.getEm_email());
+		}
+		
+		model.addAttribute("unreadNotificationList", notification_service.getUnreadMessageList(notificationVO).size());
+//		model.addAttribute("unreadNotificationList", notification_service.getUnread(notificationVO).size());
 		return "index";
 	}
 	

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ezform.domain.EZ_calendarVO;
+import com.ezform.domain.EZ_empVO;
 import com.ezform.persistence.EZ_calDAO;
 
 @Service
@@ -52,6 +53,11 @@ public class EZ_cal_ServiceImpl implements EZ_cal_Service {
 	@Override
 	public void deleteEvent(int _id) throws Exception {
 		cdao.deleteEvent(_id);
+	}
+
+	@Override
+	public List<EZ_empVO> selectEventTodayList(EZ_calendarVO cvo) throws Exception {
+		return cdao.selectEventTodayList(cvo);
 	}
 
 }

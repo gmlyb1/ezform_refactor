@@ -3,6 +3,7 @@ package com.ezform.service;
 import java.util.List;
 
 import com.ezform.domain.EZ_aPaymentVO;
+import com.ezform.domain.EZ_empVO;
 
 public interface EZ_aPayment_Service {
 
@@ -15,5 +16,7 @@ public interface EZ_aPayment_Service {
 	public void updateStatus(EZ_aPaymentVO avo);
 
 	public void deleteHoliday(EZ_aPaymentVO avo);
+
+	public List<EZ_empVO> unApaymentList(EZ_aPaymentVO avo);
 
 }

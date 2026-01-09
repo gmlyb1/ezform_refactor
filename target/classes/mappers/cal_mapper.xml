@@ -11,6 +11,12 @@
 		<!-- where userid=#{userid}  -->
 	</select>
 	
+	<select id="selectEventTodayList" parameterType="EZ_calendarVO" resultType="EZ_calendarVO"> 
+		SELECT * 
+		FROM ez_cal 
+		WHERE DATE(start) = CURDATE()
+	</select>
+	
 	<insert id="insertEvent" parameterType="EZ_calendarVO" 
 			useGeneratedKeys="true" keyProperty="_id">    
         insert into ez_cal (

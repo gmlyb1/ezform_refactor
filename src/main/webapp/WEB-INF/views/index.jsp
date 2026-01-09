@@ -161,10 +161,10 @@
 					<div class="card">
 					  <div class="card-header">
 					    <div class="header-title">
-					      <h4 class="card-title">접속 현황</h4>
+					      <h4 class="card-title">모니터링</h4>
 					    </div>
 					  </div>
-					  <div class="card-body text-center">
+					  <%-- <div class="card-body text-center">
 					  	<p style="font-size:14px; color:#777;">현재 접속자 수</p>
 					    <h2 style="font-weight:bold;">${currentUserCount}</h2>
 					  	
@@ -177,7 +177,65 @@
 					
 					    <p style="font-size:14px; color:#777;">누적 방문자</p>
 					    <h2 style="font-weight:bold;">${total}</h2>
+					  </div> --%>
+					 <div class="card-body">
+					  <div class="row text-center g-0">
+					
+					   <!-- 1줄 : 접속 현황 -->
+						<div class="col-4 dashboard-cell text-white" style="background-color:#28a745; border-radius:6px;">
+						  <p class="label">현재 접속자</p>
+						  <h4 class="value">${currentUserCount}</h4>
+						</div>
+						
+						<div class="col-4 dashboard-cell text-white border-start" style="background-color:#007bff; border-radius:6px;">
+						  <p class="label">오늘 방문자</p>
+						  <h4 class="value">${today}</h4>
+						</div>
+						
+						<div class="col-4 dashboard-cell text-white border-start" style="background-color:#6f42c1; border-radius:6px;">
+						  <p class="label">누적 방문자</p>
+						  <h4 class="value">${total}</h4>
+						</div>
+						
+						<!-- 2줄 : 나의 할 일 -->
+						<div class="col-4 dashboard-cell text-white border-top" style="background-color:#dc3545; border-radius:6px; cursor:pointer;"
+						     onclick="location.href='/ezform/ez_aPayment/list'">
+						  <p class="label">미결재</p>
+						  <h4 class="value">${unApaymentList}</h4>
+						</div>
+						
+						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#0d6efd; border-radius:6px; cursor:pointer;"
+						     onclick="location.href='/ezform/ez_mail/recMail'">
+						  <p class="label">안읽은 메일</p>
+						  <h4 class="value">${unReadMailList}</h4>
+						</div>
+						
+						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#ffc107; border-radius:6px; cursor:pointer;"
+						     onclick="location.href='/ezform/ez_message/sendList'">
+						  <p class="label">안 읽은 쪽지</p>
+						  <h4 class="value">${unreadMsg}</h4>
+						</div>
+						
+						<!-- 3줄 : 업무 상태 -->
+						<div class="col-4 dashboard-cell text-white border-top" style="background-color:#198754; border-radius:6px;"
+							onclick="location.href='/ezform/calendar/'">
+						  <p class="label">오늘 일정</p>
+						  <h4 class="value">${todayEventList}</h4>
+						</div>
+						
+						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#0dcaf0; border-radius:6px;">
+						  <p class="label">1:1문의</p>
+						  <h4 class="value">${progressTask}</h4>
+						</div>
+						
+						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#6c757d; border-radius:6px;"
+						onclick="location.href='/ezform/ez_notification/list'">
+						  <p class="label">알림</p>
+						  <h4 class="value">${unreadNotificationList}</h4>
+						</div>
 					  </div>
+					</div>
+
 					</div>
 					<div class="card">
 						<div class="card-body d-flex justify-content-around text-center" style="padding: 24px 24px 0 24px;">
@@ -265,5 +323,7 @@
 		</div>
 	</div>
 </div>
+
+
 
 <%@ include file="include/footer.jsp"%>

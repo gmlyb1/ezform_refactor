@@ -3,6 +3,7 @@ package com.ezform.service;
 import java.util.List;
 
 import com.ezform.domain.EZ_calendarVO;
+import com.ezform.domain.EZ_empVO;
 
 public interface EZ_cal_Service {
 
@@ -15,5 +16,7 @@ public interface EZ_cal_Service {
 	public void updateEvent(EZ_calendarVO vo) throws Exception;
 
 	public void deleteEvent(int _id) throws Exception;
+
+	public List<EZ_empVO> selectEventTodayList(EZ_calendarVO cvo)throws Exception;
 
 }

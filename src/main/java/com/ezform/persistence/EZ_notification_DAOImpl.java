@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ezform.controller.EZ_mem_Controller;
 import com.ezform.controller.EZ_notification_Controller;
+import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_notificationVO;
 
 @Repository
@@ -40,5 +41,10 @@ public class EZ_notification_DAOImpl implements EZ_notification_DAO {
 	@Override
 	public void updateAllRead(EZ_notificationVO nvo) {
 		sqlSession.update(namespace+".updateAllRead", nvo);
+	}
+
+	@Override
+	public List<EZ_empVO> getUnreadMessageList(EZ_notificationVO notificationVO) {
+		return sqlSession.selectList(namespace+".getUnreadMessageList", notificationVO);
 	}
 }

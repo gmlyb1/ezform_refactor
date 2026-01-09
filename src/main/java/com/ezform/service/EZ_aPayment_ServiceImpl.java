@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ezform.domain.EZ_aPaymentVO;
+import com.ezform.domain.EZ_empVO;
 import com.ezform.persistence.EZ_aPayment_DAO;
 import com.ezform.test.testController;
 
@@ -44,5 +45,10 @@ public class EZ_aPayment_ServiceImpl implements EZ_aPayment_Service {
 	@Override
 	public void deleteHoliday(EZ_aPaymentVO avo) {
 		paydao.deleteHoliday(avo);
+	}
+
+	@Override
+	public List<EZ_empVO> unApaymentList(EZ_aPaymentVO avo) {
+		return paydao.unApaymentList(avo);
 	}
 }

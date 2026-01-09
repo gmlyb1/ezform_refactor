@@ -2,6 +2,7 @@ package com.ezform.service;
 
 import java.util.List;
 
+import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_notificationVO;
 
 public interface EZ_notification_service {
@@ -13,5 +14,7 @@ public interface EZ_notification_service {
 	public void insertNotification(EZ_notificationVO notificationVO);
 
 	public void updateAllRead(EZ_notificationVO nvo);
+
+	public List<EZ_empVO> getUnreadMessageList(EZ_notificationVO notificationVO);
 
 }

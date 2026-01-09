@@ -48,6 +48,9 @@
                            <th width="5%">No</th>
                            <th width="55%">제목</th>
                            <th width="15%">글쓴이</th>
+                           <c:if test="${em_id == 9999}">
+                           	<th width="10%">해결여부</th>
+                           </c:if>
                            <th width="20%">작성시간</th>
                         </tr>
                      </thead>
@@ -64,6 +67,9 @@
 								</a>
 							 </td>	 
 							 <td>${vo.inq_name}</td>
+							 <c:if test="${em_id == 9999}">
+								 <td>${vo.inq_check}</td>
+							 </c:if>
 							 <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${vo.inq_regdate}"/></td>
                            </tr>    
                      	</c:forEach>         

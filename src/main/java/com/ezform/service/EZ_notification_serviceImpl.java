@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_notificationVO;
 import com.ezform.persistence.EZ_notification_DAO;
 
@@ -34,6 +35,11 @@ public class EZ_notification_serviceImpl implements EZ_notification_service {
 	@Override
 	public void updateAllRead(EZ_notificationVO nvo) {
 		notificationDAO.updateAllRead(nvo);
+	}
+
+	@Override
+	public List<EZ_empVO> getUnreadMessageList(EZ_notificationVO notificationVO) {
+		return notificationDAO.getUnreadMessageList(notificationVO);
 	}
 	
 }

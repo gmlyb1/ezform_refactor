@@ -130,4 +130,9 @@ public class EZ_mailDAOImpl implements EZ_mailDAO {
 		return sqlSession.selectList(namespace+".mailKeepList",mail_id);
 	}
 
+	@Override
+	public List<EZ_empVO> unreadMailList(EZ_mailVO mailVO) throws Exception {
+		return sqlSession.selectList(namespace+".unreadMailList", mailVO);
+	}
+
 }

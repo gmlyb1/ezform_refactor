@@ -46,4 +46,6 @@ public interface EZ_mail_Service {
 	
 	// 중요 보관함 불러오기
 	public List<EZ_mailVO> mailKeepList(String mail_id) throws Exception;
+
+	public List<EZ_empVO> unreadMailList(EZ_mailVO mailVO)throws Exception;
 }
