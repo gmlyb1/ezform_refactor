@@ -12,7 +12,7 @@
 
 <style>
 .card-body {
-    height: 260px;          /* 🔥 핵심 */
+    height: 260px;          /* 핵심 */
 }
 
 .card-title {
@@ -71,7 +71,18 @@ document.addEventListener("DOMContentLoaded", function () {
         ${unreadNotificationList}
     ];
 
-    console.log("dataValues =", dataValues);
+    // 각 그래프 막대 색상
+    const colors = [
+        "#4e73df", // 현재 접속자
+        "#1cc88a", // 오늘 방문자
+        "#36b9cc", // 누적 방문자
+        "#f6c23e", // 미결재
+        "#e74a3b", // 안읽은 메일
+        "#858796", // 안 읽은 쪽지
+        "#fd7e14", // 오늘 일정
+        "#20c997", // 1:1 문의
+        "#6f42c1"  // 알림
+    ];
 
     for (let i = 0; i < 9; i++) {
         const canvas = document.getElementById("chart" + i);
@@ -85,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 labels: [labels[i]],
                 datasets: [{
                     data: [dataValues[i]],
-                    backgroundColor: "#4e73df"
+                    backgroundColor: [colors[i]] // 막대 색상 지정
                 }]
             },
             options: {

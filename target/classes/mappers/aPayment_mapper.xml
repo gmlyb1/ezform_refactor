@@ -19,6 +19,7 @@
 			,approver_id
 		from ez_aPayment
 		where user_id = #{user_id}
+		or approver_id = #{user_id}
 	</select>
 	
 	<select id="unApaymentList" parameterType="EZ_aPaymentVO" resultType="EZ_aPaymentVO">

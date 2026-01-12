@@ -117,6 +117,12 @@ public class EZ_mem_ServiceImpl implements EZ_mem_Service {
 		return mDAO.messageMemberList(empVO);
 	}
 
+
+	@Override
+	public List<EZ_empVO> memAndStatusList() throws Exception {
+		return mDAO.memAndStatusList();
+	}
+
 	
 	
 	

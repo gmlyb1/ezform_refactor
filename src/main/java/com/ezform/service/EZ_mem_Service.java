@@ -31,5 +31,7 @@ public interface EZ_mem_Service {
 	public List<EZ_empVO> memList() throws Exception;
 
 	public List<EZ_empVO> messageMemberList(EZ_empVO empVO) throws Exception;
+
+	public List<EZ_empVO> memAndStatusList()throws Exception;
 	
 }

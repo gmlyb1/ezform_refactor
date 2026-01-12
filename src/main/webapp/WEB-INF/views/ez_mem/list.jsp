@@ -58,10 +58,28 @@
                                         <td>${emp.em_id}</td>
 
                                         <!-- 직원 사진 -->
-                                        <td>
+                                       <%--  <td>
                                             <img src="${pageContext.request.contextPath }/resources/upload/mem_Image/${emp.em_image}" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded" onerror="this.src='${pageContext.request.contextPath }/resources/images/silhouette.png'">
-                                        </td>
-
+                                        </td> --%>
+                                        <td>
+										    <img src="${pageContext.request.contextPath}/resources/upload/mem_Image/${emp.em_image}" 
+										         alt="User-Profile"
+										         class="img-fluid avatar avatar-50 avatar-rounded" 
+										         onerror="this.src='${pageContext.request.contextPath}/resources/images/silhouette.png'">
+										
+										    <c:if test="${emp.ez_workVO != null && emp.ez_workVO.work_status == '출근'}">
+										        <span style="display:inline-block; width:60px; height:20px; background:green; color:#fff; 
+										                     border-radius:10px; margin-left:5px; text-align:center; font-size:12px; line-height:20px;">
+										           <strong> 출근 </strong> 
+										        </span>
+										    </c:if>
+										    <c:if test="${emp.ez_workVO == null || emp.ez_workVO.work_status != '출근'}">
+										        <span style="display:inline-block; width:60px; height:20px; background:red; color:#fff; 
+										                     border-radius:10px; margin-left:5px; text-align:center; font-size:12px; line-height:20px;">
+										            <strong> 출근안함 </strong>
+										        </span>
+										    </c:if>
+										</td>
                                         <td>${emp.em_name}</td>
                                         <td>${emp.em_dept}</td>
                                         <td>${emp.em_posi}</td>

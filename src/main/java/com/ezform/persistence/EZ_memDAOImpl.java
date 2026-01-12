@@ -162,6 +162,13 @@ public class EZ_memDAOImpl implements EZ_memDAO {
 	public List<EZ_empVO> messageMemberList(EZ_empVO empVO) throws Exception {
 		return sqlSession.selectList(namespace + ".messageMemberList",empVO);
 	}
+
+
+
+	@Override
+	public List<EZ_empVO> memAndStatusList() throws Exception {
+		return sqlSession.selectList(namespace + ".memAndStatusList");
+	}
 	
 	
 	

@@ -5,6 +5,23 @@
 
 <mapper namespace="com.testform.mapper.mem_Mapper">
 
+	<resultMap id="empWithWorkMap" type="EZ_empVO">
+    <id property="em_id" column="em_id"/>
+    <result property="em_email" column="em_email"/>
+    <result property="em_pw" column="em_pw"/>
+    <result property="em_name" column="em_name"/>
+    <result property="em_dept" column="em_dept"/>
+    <result property="em_posi" column="em_posi"/>
+    <result property="em_regdate" column="em_regdate"/>
+    <result property="em_extension" column="em_extension"/>
+    <result property="em_image" column="em_image"/>
+    <!-- Nested mapping for EZ_workVO -->
+    <association property="ez_workVO" javaType="EZ_workVO">
+        <result property="work_regdate" column="work_regdate"/>
+        <result property="work_status" column="work_status"/>
+    </association>
+</resultMap>
+
 	<!-- 직원아이디 생성 -->
 	<!-- 
 	<select id="count" resultType="int">
@@ -55,6 +72,28 @@
 			,em_extension
 			,em_image
 		from ez_em
+	</select>
+	
+	<select id="memAndStatusList" resultMap="empWithWorkMap">
+		 select 
+	       em.*,
+	       ew.work_regdate as work_regdate,
+	       ew.work_status as work_status  <!-- 여기에 별칭 추가 -->
+	    from ez_em em
+	    left join (
+	        select 
+	            ew1.em_id,
+	            ew1.user_email,
+	            ew1.work_regdate,
+	            ew1.work_status
+	        from ez_work ew1
+	        where date(ew1.work_regdate) = curdate()
+	          and ew1.work_status = '출근'
+	        group by ew1.em_id, ew1.user_email
+	    ) ew 
+	    on em.em_id = ew.em_id 
+	    and em.em_email = ew.user_email
+	    where em.em_id != 9999
 	</select>
 	
 	<!-- 회원가입 --> 

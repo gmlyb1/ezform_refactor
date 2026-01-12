@@ -35,6 +35,7 @@ import com.ezform.domain.EZ_mailVO;
 import com.ezform.domain.EZ_messageVO;
 import com.ezform.domain.EZ_notificationVO;
 import com.ezform.domain.EZ_visitVO;
+import com.ezform.domain.EZ_workVO;
 import com.ezform.service.EZ_mem_Service;
 import com.ezform.service.EZ_messageService;
 import com.ezform.service.EZ_noti_Service;
@@ -369,9 +370,11 @@ public class EZ_mem_Controller {
 	
 	
 	@RequestMapping(value = "/ez_mem/list" , method=RequestMethod.GET)
-	public String memberListGET(Model model) throws Exception {
+	public String memberListGET(Model model, HttpSession session,EZ_workVO wvo, EZ_empVO evo) throws Exception {
 		
-		model.addAttribute("memList", mem_service.memList()); 
+		evo.setEz_workVO(wvo);
+		List<EZ_empVO> statusList = mem_service.memAndStatusList();
+		model.addAttribute("memList", statusList);
 		
 		return "/ez_mem/list";
 	}
