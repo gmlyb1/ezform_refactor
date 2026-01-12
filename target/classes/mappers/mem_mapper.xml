@@ -78,7 +78,7 @@
 		 select 
 	       em.*,
 	       ew.work_regdate as work_regdate,
-	       ew.work_status as work_status  <!-- 여기에 별칭 추가 -->
+	       ew.work_status as work_status 
 	    from ez_em em
 	    left join (
 	        select 
@@ -88,7 +88,6 @@
            		,SUBSTRING_INDEX(GROUP_CONCAT(ew1.work_status ORDER BY ew1.work_regdate DESC), ',', 1) AS work_status
 	        from ez_work ew1
 	        where date(ew1.work_regdate) = curdate()
-	          <!-- and ew1.work_status = '출근' -->
 	        group by ew1.em_id, ew1.user_email
 	    ) ew 
 	    on em.em_id = ew.em_id 
