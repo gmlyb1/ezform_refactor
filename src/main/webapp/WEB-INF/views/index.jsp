@@ -12,6 +12,12 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
 
+<c:if test="${not empty msg}">
+<script>
+    alert("${msg}");
+</script>
+</c:if>
+
 <style>
 .dashboard-cell {
     padding: 12px 0;
