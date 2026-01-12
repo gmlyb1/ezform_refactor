@@ -73,7 +73,7 @@
 										           <strong> 출근 </strong> 
 										        </span>
 										    </c:if>
-										    <c:if test="${emp.ez_workVO == null || emp.ez_workVO.work_status != '출근'}">
+										    <c:if test="${emp.ez_workVO != null && emp.ez_workVO.work_status != '출근'}">
 										        <span style="display:inline-block; width:60px; height:20px; background:red; color:#fff; 
 										                     border-radius:10px; margin-left:5px; text-align:center; font-size:12px; line-height:20px;">
 										            <strong> 출근안함 </strong>

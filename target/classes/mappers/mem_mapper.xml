@@ -82,13 +82,13 @@
 	    from ez_em em
 	    left join (
 	        select 
-	            ew1.em_id,
-	            ew1.user_email,
-	            ew1.work_regdate,
-	            ew1.work_status
+	            ew1.em_id
+	            ,ew1.user_email
+	            ,MAX(ew1.work_regdate) AS work_regdate
+           		,SUBSTRING_INDEX(GROUP_CONCAT(ew1.work_status ORDER BY ew1.work_regdate DESC), ',', 1) AS work_status
 	        from ez_work ew1
 	        where date(ew1.work_regdate) = curdate()
-	          and ew1.work_status = '출근'
+	          <!-- and ew1.work_status = '출근' -->
 	        group by ew1.em_id, ew1.user_email
 	    ) ew 
 	    on em.em_id = ew.em_id 
