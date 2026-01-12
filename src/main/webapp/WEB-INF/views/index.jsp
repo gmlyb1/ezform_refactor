@@ -237,8 +237,8 @@
 					
 					   <!-- 1줄 : 접속 현황 -->
 						<div class="col-4 dashboard-cell text-white" style="background-color:#28a745; border-radius:6px;">
-						  <p class="label">현재 접속자</p>
-						  <h4 class="value">${currentUserCount}</h4>
+						  <p class="label">현재 출근자</p>
+						  <h4 class="value">${currentStatusList}</h4>
 						</div>
 						
 						<div class="col-4 dashboard-cell text-white border-start" style="background-color:#007bff; border-radius:6px;">
