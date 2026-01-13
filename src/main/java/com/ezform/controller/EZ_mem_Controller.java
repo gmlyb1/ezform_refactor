@@ -140,7 +140,7 @@ public class EZ_mem_Controller {
 		int currentlyAtWork = 0;
 		List<EZ_empVO> list = mem_service.memAndStatusList();
 		for (EZ_empVO status : list) {
-		    if ("출근".equals(status.getEz_workVO().getWork_status())) { // getStatus()는 실제 필드명으로 변경
+		    if (status.getEz_workVO() != null && "출근".equals(status.getEz_workVO().getWork_status())) { // getStatus()는 실제 필드명으로 변경
 		        currentlyAtWork++;
 		    }
 		}

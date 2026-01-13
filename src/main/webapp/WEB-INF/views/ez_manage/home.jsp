@@ -30,7 +30,7 @@ canvas {
     <div class="row g-3">
 
         <c:set var="labels"
-            value="${fn:split('현재 접속자,오늘 방문자,누적 방문자,미결재,안읽은 메일,안 읽은 쪽지,오늘 일정,1:1 문의,알림', ',')}" />
+            value="${fn:split('현재 출근자,오늘 방문자,누적 방문자,미결재,안읽은 메일,안 읽은 쪽지,오늘 일정,1:1 문의,알림', ',')}" />
 
         <c:forEach var="i" begin="0" end="8">
             <div class="col-md-4">
@@ -54,13 +54,13 @@ canvas {
 document.addEventListener("DOMContentLoaded", function () {
 
     const labels = [
-        "현재 접속자", "오늘 방문자", "누적 방문자",
+        "현재 출근자", "오늘 방문자", "누적 방문자",
         "미결재", "안읽은 메일", "안 읽은 쪽지",
         "오늘 일정", "1:1 문의", "알림"
     ];
 
     const dataValues = [
-        ${currentUserCount},
+        ${currentStatusList},
         ${today},
         ${total},
         ${unApaymentList},

@@ -1,5 +1,7 @@
 package com.ezform.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -113,6 +115,15 @@ public class EZ_manage_Controller {
 			inqVO.setEm_email(loginSession.getEm_email());
 		}
 		model.addAttribute("unCheckInquiryList", inq_Service.unCheckInquiryList(inqVO).size());
+		
+		int currentlyAtWork = 0;
+		List<EZ_empVO> list = mem_service.memAndStatusList();
+		for (EZ_empVO status : list) {
+		    if (status.getEz_workVO() != null && "출근".equals(status.getEz_workVO().getWork_status())) { // getStatus()는 실제 필드명으로 변경
+		        currentlyAtWork++;
+		    }
+		}
+		model.addAttribute("currentStatusList", currentlyAtWork);
 		
 		return "/ez_manage/home";
 	}

@@ -236,7 +236,8 @@
 					  <div class="row text-center g-0">
 					
 					   <!-- 1줄 : 접속 현황 -->
-						<div class="col-4 dashboard-cell text-white" style="background-color:#28a745; border-radius:6px;">
+						<div class="col-4 dashboard-cell text-white" style="background-color:#28a745; border-radius:6px;"
+						onclick="location.href='/ezform/ez_mem/list'">
 						  <p class="label">현재 출근자</p>
 						  <h4 class="value">${currentStatusList}</h4>
 						</div>
