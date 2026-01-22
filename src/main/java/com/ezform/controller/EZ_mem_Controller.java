@@ -216,9 +216,16 @@ public class EZ_mem_Controller {
 	}
 	
 	@RequestMapping(value = "/joinRequest", method = RequestMethod.POST)
-	public String memberJoinRequestPOST(EZ_empVO empVO) throws Exception {
+	public String memberJoinRequestPOST(EZ_empVO empVO,HttpServletResponse response) throws Exception {
 		
-		System.out.println("insert 시작");
+		if(empVO != null && empVO.getEm_id() == 9999) {
+			response.setContentType("text/html; charset=UTF-8");
+		    PrintWriter out = response.getWriter();
+		    out.println("<script>alert('직원번호 9999 는 사용할수 없는 번호입니다'); history.back();</script>");
+		    out.flush();
+		    return null;
+		}
+		
 		mem_service.insertJoinRequest(empVO);
 		
 		return "redirect:./login";
