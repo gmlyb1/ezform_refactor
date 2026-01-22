@@ -6,8 +6,26 @@
 <mapper namespace="com.ezform.mappers.emp_mapper">
 <!--회원가입(입사)  -->
 <insert id="insertEmp">
-	insert into ez_em (em_id, em_pw, em_name, em_email, em_extension, em_dept, em_posi) 
-	values(#{em_id},#{em_pw},#{em_name},#{em_email},#{em_extension},#{em_dept},#{em_posi})
+	insert into ez_em
+	(
+		em_id
+		,em_pw
+		,em_name
+		,em_email
+		,em_extension
+		,em_dept
+		,em_posi
+	) 
+	values
+	(
+		#{em_id}
+		,#{em_pw}
+		,#{em_name}
+		,#{em_email}
+		,#{em_extension}
+		,#{em_dept}
+		,#{em_posi}
+	)
 </insert>
 
 <!--정보조회 1명-->
@@ -18,15 +36,24 @@
   
   <!-- 정보업데이트 -->
 <update id="updateEmp">
-	update ez_em set em_name=#{em_name}, em_email=#{em_email}, em_extension=#{em_extension}, 
-	em_dept=#{em_dept}, em_posi=#{em_posi} 
+	update ez_em set
+	   em_name		= #{em_name}
+	 , em_email		= #{em_email}
+	 , em_extension = #{em_extension}
+	 , em_dept		= #{em_dept}
+	 , em_posi		= #{em_posi} 
+	 , em_request   = #{em_request}
 	where em_id=#{em_id} and em_pw=#{em_pw}
 </update>
 
   <!-- 정보업데이트 -->
 <update id="modifyEmp">
-	update ez_em set em_name=#{em_name}, em_email=#{em_email}, em_extension=#{em_extension}, 
-	em_dept=#{em_dept}, em_posi=#{em_posi} 
+	update ez_em set
+	   em_name		= #{em_name}
+	 , em_email		= #{em_email}
+	 , em_extension	= #{em_extension}
+	 , em_dept		= #{em_dept}
+	 , em_posi		= #{em_posi} 
 	where em_id=#{em_id} and em_pw=#{em_pw}
 </update>
 
@@ -74,15 +101,25 @@
 <select id="empList"  resultMap="empMap">   -->
 
 <select id="empList"  resultType="com.ezform.domain.EZ_empVO">
-select * 
-from ez_em  
-order by em_id desc
+	select * 
+	from ez_em  
+	order by em_id desc
 </select> 
 
 <!--근태입력 처리 -->
 <insert id="wstatusEmp">
-	insert into ez_work(em_id,work_status,user_email) 
-	values(#{em_id},#{work_status},#{user_email})
+	insert into ez_work
+	(
+		 em_id
+		,work_status
+		,user_email
+	) 
+	values
+	(
+		 #{em_id}
+		,#{work_status}
+		,#{user_email}
+	)
 </insert>
 
 <select id="workHisotryList" resultType="EZ_workVO" parameterType="EZ_workVO">
@@ -140,23 +177,23 @@ order by em_id desc
 		</association>
 </resultMap>
  
-<select id="workStatusList"  resultMap="workMap">
-select 
-	em_name,
-	work_regdate,
-	work_status,
-	em_image 
-from ez_em join 
-(select *
-	from ez_work
-		where (em_id,work_regdate) in (
-	select em_id, max(work_regdate)
-		from ez_work group by em_id
-	)						
-group by em_id) ew
-using (em_id)
-order by work_regdate desc
-</select> 
+	<select id="workStatusList"  resultMap="workMap">
+		select 
+			em_name,
+			work_regdate,
+			work_status,
+			em_image 
+		from ez_em join 
+		(select *
+			from ez_work
+				where (em_id,work_regdate) in (
+			select em_id, max(work_regdate)
+				from ez_work group by em_id
+			)						
+		group by em_id) ew
+		using (em_id)
+		order by work_regdate desc
+	</select> 
 
 
 </mapper>

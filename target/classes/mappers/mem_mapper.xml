@@ -72,6 +72,7 @@
 			,em_extension
 			,em_image
 		from ez_em
+		where em_email != #{em_email}
 	</select>
 	
 	<select id="memAndStatusList" resultMap="empWithWorkMap">
@@ -95,15 +96,68 @@
 	    where em.em_id != 9999
 	</select>
 	
+	<insert id="insertJoinRequest">
+		insert into ez_em
+		(
+			em_id
+			,em_name
+			,em_pw
+			,em_email
+			,em_dept
+			,em_posi
+			,em_request
+			,em_etc
+		)
+		values
+		(
+			#{em_id}
+			,#{em_name}
+			,'1234'
+			,#{em_email}
+			,#{em_dept}
+			,#{em_posi}
+			,0
+			,#{em_etc}
+		)
+	</insert>
+	
 	<!-- 회원가입 --> 
 	<insert id="joinEmp">
-		insert into ez_em (em_id,em_email,em_pw,em_name,em_dept,em_posi,em_regdate,em_extension,em_image) 
-		values (#{em_id},#{em_email},#{em_pw},#{em_name},#{em_dept},#{em_posi},now(),#{em_extension},#{em_image})
+		insert into ez_em 
+		(
+			 em_id
+			,em_email
+			,em_pw
+			,em_name
+			,em_dept
+			,em_posi
+			,em_regdate
+			,em_extension
+			,em_image
+		) 
+		values 
+		(
+			 #{em_id}
+			,#{em_email}
+			,#{em_pw}
+			,#{em_name}
+			,#{em_dept}
+			,#{em_posi}
+			,now()
+			,#{em_extension}
+			,#{em_image}
+		)
 	</insert>
 
 	<!-- 회원 수정 -->
 	<update id="updateEmp">
-		update ez_em set em_name=#{em_name},em_dept=#{em_dept},em_posi=#{em_posi},em_extension=#{em_extension},em_regdate=now(),em_image=#{em_image}
+		update ez_em set
+			  em_name  		= #{em_name}
+			 ,em_dept 		= #{em_dept}
+			 ,em_posi 		= #{em_posi}
+			 ,em_extension	= #{em_extension}
+			 ,em_regdate	= now()
+			 ,em_image		= #{em_image}
 	    where em_id=#{em_id} and em_pw=#{em_pw}
 	</update>
 	

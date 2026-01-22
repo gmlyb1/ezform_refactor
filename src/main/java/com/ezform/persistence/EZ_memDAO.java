@@ -34,4 +34,6 @@ public interface EZ_memDAO {
 	public List<EZ_empVO> messageMemberList(EZ_empVO empVO) throws Exception;
 
 	public List<EZ_empVO> memAndStatusList()throws Exception;
+
+	public void insertJoinRequest(EZ_empVO empVO)throws Exception;
 }

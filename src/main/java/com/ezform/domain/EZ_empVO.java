@@ -14,7 +14,21 @@ public class EZ_empVO {
 	private Timestamp em_regdate;
 	private String em_extension;
 	private String em_image;
+	private int em_request;
+	private String em_etc;
 
+	public String getEm_etc() {
+		return em_etc;
+	}
+	public void setEm_etc(String em_etc) {
+		this.em_etc = em_etc;
+	}
+	public int getEm_request() {
+		return em_request;
+	}
+	public void setEm_request(int em_request) {
+		this.em_request = em_request;
+	}
 	private EZ_workVO ez_workVO;
 	
 	public int getEm_id() {
@@ -81,8 +95,10 @@ public class EZ_empVO {
 	public String toString() {
 		return "EZ_empVO [em_id=" + em_id + ", em_email=" + em_email + ", em_pw=" + em_pw + ", em_name=" + em_name
 				+ ", em_dept=" + em_dept + ", em_posi=" + em_posi + ", em_regdate=" + em_regdate + ", em_extension="
-				+ em_extension + ", em_image=" + em_image + ", ez_workVO=" + ez_workVO + "]";
+				+ em_extension + ", em_image=" + em_image + ", em_request=" + em_request + ", em_etc=" + em_etc
+				+ ", ez_workVO=" + ez_workVO + "]";
 	}
+	
 	
 		
 

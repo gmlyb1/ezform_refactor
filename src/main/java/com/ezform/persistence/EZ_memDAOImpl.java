@@ -169,6 +169,13 @@ public class EZ_memDAOImpl implements EZ_memDAO {
 	public List<EZ_empVO> memAndStatusList() throws Exception {
 		return sqlSession.selectList(namespace + ".memAndStatusList");
 	}
+
+
+
+	@Override
+	public void insertJoinRequest(EZ_empVO empVO) throws Exception {
+		sqlSession.insert(namespace + ".insertJoinRequest",empVO);
+	}
 	
 	
 	

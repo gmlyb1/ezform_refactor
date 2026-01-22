@@ -196,6 +196,11 @@
                            <div class="d-flex justify-content-center">
                               <button type="submit" class="btn btn-primary" id="ezLoginBtn">로그인</button>
                            </div>
+                           <div class="d-flex justify-content-center mt-3">
+							    <a href="/ezform/joinRequest" class="btn btn-outline-success w-100 rounded-pill">
+							        가입요청
+							    </a>
+							</div>
                            <p class="mt-3 text-center">Nice to meet you ezform. Please log in here.</p>
                         </form>
                      </div>

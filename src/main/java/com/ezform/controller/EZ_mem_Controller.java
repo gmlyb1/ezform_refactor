@@ -96,6 +96,10 @@ public class EZ_mem_Controller {
 		EZ_empVO loginSession = (EZ_empVO)session.getAttribute("resultVO");
 		
 		EZ_empVO empVO = new EZ_empVO();
+		
+		if(loginSession != null) {
+			empVO.setEm_email(loginSession.getEm_email());
+		}
 		model.addAttribute("messageMemberList", mem_service.messageMemberList(empVO));
 		model.addAttribute("total", total);
 		model.addAttribute("today", today);
@@ -173,7 +177,7 @@ public class EZ_mem_Controller {
 
 	// 로그인 - 로그인 처리
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPagePOST(EZ_empVO evo, HttpSession session, Model model) throws Exception {
+	public String loginPagePOST(EZ_empVO evo, HttpSession session, Model model, HttpServletResponse response) throws Exception {
 
 		// DB에 이메일이 존재하는지 확인
 		List loginList = mem_service.memLogin(evo);
@@ -181,6 +185,14 @@ public class EZ_mem_Controller {
 		EZ_empVO resultVO = (EZ_empVO) loginList.get(0);
 		Integer result = (Integer) loginList.get(1);
 
+		if(resultVO != null && resultVO.getEm_request() == 0) {
+			response.setContentType("text/html; charset=UTF-8");
+		    PrintWriter out = response.getWriter();
+		    out.println("<script>alert('아직 승인 되지 않은 계정입니다.'); history.back();</script>");
+		    out.flush();
+		    return null;
+		}
+		
 		// result 결과 = (-2 : 이메일존재X) / (-1 : 패스워드 오류) / (0 : null) / (1 : 로그인 성공)
 		
 		// 로그인 결과값
@@ -197,6 +209,21 @@ public class EZ_mem_Controller {
 		return "redirect:./main";
 	}
 
+	@RequestMapping(value = "/joinRequest", method = RequestMethod.GET)
+	public String memberJoinRequestGET() throws Exception {
+		
+		return "/ez_mem/joinRequest";
+	}
+	
+	@RequestMapping(value = "/joinRequest", method = RequestMethod.POST)
+	public String memberJoinRequestPOST(EZ_empVO empVO) throws Exception {
+		
+		System.out.println("insert 시작");
+		mem_service.insertJoinRequest(empVO);
+		
+		return "redirect:./login";
+	}
+	
 	// 사원생성 - 페이지 이동
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String joinPageGET() throws Exception {

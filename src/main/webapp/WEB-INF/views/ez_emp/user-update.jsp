@@ -80,6 +80,14 @@
 							    <option value="대표" ${empvo.em_posi eq '대표' ? 'selected' : ''}>대표</option>
 							</select>
                            </div>
+                           <div class="col-sm-6">
+                              <label class="form-label" for="cname">계정 승인 여부</label>
+                              <select class="form-control" id="emp_request" name="em_request">
+							    <option value="">-부서-</option>
+							    <option value="0" ${empvo.em_request == 0 ? 'selected' : ''}>미승인</option>
+							    <option value="1" ${empvo.em_request == 1 ? 'selected' : ''}>승인</option>
+							  </select>
+                           </div>
                            <hr>
                            <div class="col-sm-6">
                               <input type="submit" class="btn btn-primary" value="정보수정"/>

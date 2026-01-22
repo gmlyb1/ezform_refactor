@@ -123,6 +123,12 @@ public class EZ_mem_ServiceImpl implements EZ_mem_Service {
 		return mDAO.memAndStatusList();
 	}
 
+
+	@Override
+	public void insertJoinRequest(EZ_empVO empVO) throws Exception {
+		mDAO.insertJoinRequest(empVO);
+	}
+
 	
 	
 	
