@@ -76,7 +76,7 @@ function markAllRead() {
                      	<c:forEach var="notiList" items="${notificationList}">
                      	   <tr>
                      	     <td style="display:none"></td>
-				           	 <td class="text-center">${notiList.noti_id }</td>
+				           	 <td class="text-center">${notiList.rowNum}</td>
 							 <td class="text-center">${notiList.receiver_name}</td>
 							 <td class="text-center">${notiList.noti_type }</td>
 							 <td class="text-center">${notiList.noti_message }</td>

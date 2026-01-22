@@ -4,7 +4,8 @@ import java.security.Timestamp;
 import java.util.Date;
 
 public class EZ_notificationVO {
-
+	
+	private int rowNum;
 	private int noti_id;
 	private String receiver_name;
 	private String noti_type;
@@ -12,6 +13,14 @@ public class EZ_notificationVO {
 	private String noti_link;
 	private boolean is_read;
 	private Date create_date;
+	
+	
+	public int getRowNum() {
+		return rowNum;
+	}
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
 	public int getNoti_id() {
 		return noti_id;
 	}
@@ -56,9 +65,9 @@ public class EZ_notificationVO {
 	}
 	@Override
 	public String toString() {
-		return "EZ_notificationVO [noti_id=" + noti_id + ", receiver_name=" + receiver_name + ", noti_type=" + noti_type
-				+ ", noti_message=" + noti_message + ", noti_link=" + noti_link + ", is_read=" + is_read
-				+ ", create_date=" + create_date + "]";
+		return "EZ_notificationVO [rowNum=" + rowNum + ", noti_id=" + noti_id + ", receiver_name=" + receiver_name
+				+ ", noti_type=" + noti_type + ", noti_message=" + noti_message + ", noti_link=" + noti_link
+				+ ", is_read=" + is_read + ", create_date=" + create_date + "]";
 	}
 	
 	

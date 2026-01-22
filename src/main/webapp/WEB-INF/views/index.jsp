@@ -66,6 +66,83 @@
 
 </style>
 
+<style>
+.monitoring-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.monitoring-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.monitoring-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.monitoring-item i {
+    font-size: 2rem;
+    color: #0d6efd;
+    margin-bottom: 10px;
+}
+
+.monitoring-item .label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.monitoring-item .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.progress {
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.progress-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: #0d6efd;
+    transition: width 0.5s ease;
+}
+.progress-bar.bg-info { background-color: #17a2b8; }
+.progress-bar.bg-warning { background-color: #ffc107; }
+.progress-bar.bg-danger { background-color: #dc3545; }
+.progress-bar.bg-primary { background-color: #007bff; }
+.progress-bar.bg-success { background-color: #28a745; }
+.progress-bar.bg-secondary { background-color: #6c757d; }
+
+/* 모바일 대응 */
+@media (max-width: 992px) {
+    .monitoring-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .monitoring-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
 <div class="conatiner-fluid content-inner mt-n5 py-0">
 	<div class="row">
 		<div class="col-md-12 col-lg-9">
@@ -213,86 +290,108 @@
 			<div class="row">
 				<div class="col-md-12 col-lg-12">
 					<div class="card">
-					  <div class="card-header">
-					    <div class="header-title">
-					      <h4 class="card-title">모니터링</h4>
+					    <div class="card-header">
+					        <div class="header-title">
+					            <h4 class="card-title">모니터링</h4>
+					        </div>
 					    </div>
-					  </div>
-					  <%-- <div class="card-body text-center">
-					  	<p style="font-size:14px; color:#777;">현재 접속자 수</p>
-					    <h2 style="font-weight:bold;">${currentUserCount}</h2>
-					  	
-					  	<hr>
-					  	
-					    <p style="font-size:14px; color:#777;">오늘 방문자</p>
-					    <h2 style="font-weight:bold;">${today}</h2>
+					    <div class="card-body">
+					        <div class="monitoring-grid">
 					
-					    <hr>
+					            <!-- 1. 현재 출근자 -->
+					            <div class="monitoring-item" onclick="location.href='/ezform/ez_mem/list'">
+					                <i class="fa fa-user-check"></i>
+					                <p class="label">현재 출근자</p>
+					                <h3 class="value">${currentStatusList}</h3>
+					                <div class="progress">
+					                    <div class="progress-bar" style="width: ${currentStatusList * 10}%"></div>
+					                </div>
+					            </div>
 					
-					    <p style="font-size:14px; color:#777;">누적 방문자</p>
-					    <h2 style="font-weight:bold;">${total}</h2>
-					  </div> --%>
-					 <div class="card-body">
-					  <div class="row text-center g-0">
+					            <!-- 2. 오늘 방문자 -->
+					            <div class="monitoring-item" onclick="location.href='/ezform/ez_mem/list'">
+					                <i class="fa fa-eye"></i>
+					                <p class="label">오늘 방문자</p>
+					                <h3 class="value">${today}</h3>
+					                <div class="progress">
+					                    <div class="progress-bar bg-info" style="width: ${today * 1}%"></div>
+					                </div>
+					            </div>
 					
-					   <!-- 1줄 : 접속 현황 -->
-						<div class="col-4 dashboard-cell text-white" style="background-color:#28a745; border-radius:6px;"
-						onclick="location.href='/ezform/ez_mem/list'">
-						  <p class="label">현재 출근자</p>
-						  <h4 class="value">${currentStatusList}</h4>
-						</div>
-						
-						<div class="col-4 dashboard-cell text-white border-start" style="background-color:#007bff; border-radius:6px;">
-						  <p class="label">오늘 방문자</p>
-						  <h4 class="value">${today}</h4>
-						</div>
-						
-						<div class="col-4 dashboard-cell text-white border-start" style="background-color:#6f42c1; border-radius:6px;">
-						  <p class="label">누적 방문자</p>
-						  <h4 class="value">${total}</h4>
-						</div>
-						
-						<!-- 2줄 : 나의 할 일 -->
-						<div class="col-4 dashboard-cell text-white border-top" style="background-color:#dc3545; border-radius:6px; cursor:pointer;"
-						     onclick="location.href='/ezform/ez_aPayment/list'">
-						  <p class="label">미결재</p>
-						  <h4 class="value">${unApaymentList}</h4>
-						</div>
-						
-						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#0d6efd; border-radius:6px; cursor:pointer;"
-						     onclick="location.href='/ezform/ez_mail/recMail'">
-						  <p class="label">안읽은 메일</p>
-						  <h4 class="value">${unReadMailList}</h4>
-						</div>
-						
-						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#ffc107; border-radius:6px; cursor:pointer;"
-						     onclick="location.href='/ezform/ez_message/sendList'">
-						  <p class="label">안 읽은 쪽지</p>
-						  <h4 class="value">${unreadMsg}</h4>
-						</div>
-						
-						<!-- 3줄 : 업무 상태 -->
-						<div class="col-4 dashboard-cell text-white border-top" style="background-color:#198754; border-radius:6px;"
-							onclick="location.href='/ezform/calendar/'">
-						  <p class="label">오늘 일정</p>
-						  <h4 class="value">${todayEventList}</h4>
-						</div>
-						
-						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#0dcaf0; border-radius:6px;"
-						onclick="location.href='/ezform/ez_inq/list'">
-						  <p class="label">1:1문의</p>
-						  <h4 class="value">${unCheckInquiryList}</h4>
-						</div>
-						
-						<div class="col-4 dashboard-cell text-white border-top border-start" style="background-color:#6c757d; border-radius:6px;"
-						onclick="location.href='/ezform/ez_notification/list'">
-						  <p class="label">알림</p>
-						  <h4 class="value">${unreadNotificationList}</h4>
-						</div>
-					  </div>
+					            <!-- 3. 누적 방문자 -->
+					            <div class="monitoring-item" onclick="location.href='/ezform/ez_mem/list'">
+					                <i class="fa fa-chart-line"></i>
+					                <p class="label">누적 방문자</p>
+					                <h3 class="value">${total}</h3>
+					                <div class="progress">
+					                    <div class="progress-bar bg-warning" style="width: ${total * 0.1}%"></div>
+					                </div>
+					            </div>
+					
+					            <!-- 4. 미결재 -->
+					            <div class="monitoring-item" onclick="location.href='/ezform/ez_aPayment/list'">
+					                <i class="fa fa-file-signature"></i>
+					                <p class="label">미결재</p>
+					                <h3 class="value">${unApaymentList}</h3>
+					                <div class="progress">
+					                    <div class="progress-bar bg-danger" style="width: ${unApaymentList * 10}%"></div>
+					                </div>
+					            </div>
+					
+					            <!-- 5. 안읽은 메일 -->
+					            <div class="monitoring-item" onclick="location.href='/ezform/ez_mail/recMail'">
+					                <i class="fa fa-envelope"></i>
+					                <p class="label">안읽은 메일</p>
+					                <h3 class="value">${unReadMailList}</h3>
+					                <div class="progress">
+					                    <div class="progress-bar bg-primary" style="width: ${unReadMailList * 10}%"></div>
+					                </div>
+					            </div>
+					
+					            <!-- 6. 안 읽은 쪽지 -->
+					            <div class="monitoring-item" onclick="location.href='/ezform/ez_message/sendList'">
+					                <i class="fa fa-comment-alt"></i>
+					                <p class="label">안 읽은 쪽지</p>
+					                <h3 class="value">${unreadMsg}</h3>
+					                <div class="progress">
+					                    <div class="progress-bar bg-success" style="width: ${unreadMsg * 10}%"></div>
+					                </div>
+					            </div>
+					
+					            <!-- 7. 오늘 일정 -->
+					            <div class="monitoring-item" onclick="location.href='/ezform/calendar/'">
+					                <i class="fa fa-calendar-alt"></i>
+					                <p class="label">오늘 일정</p>
+					                <h3 class="value">${todayEventList}</h3>
+					                <div class="progress">
+					                    <div class="progress-bar bg-info" style="width: ${todayEventList * 10}%"></div>
+					                </div>
+					            </div>
+					
+					            <!-- 8. 1:1문의 -->
+					            <div class="monitoring-item" onclick="location.href='/ezform/ez_inq/list'">
+					                <i class="fa fa-question-circle"></i>
+					                <p class="label">1:1문의</p>
+					                <h3 class="value">${unCheckInquiryList}</h3>
+					                <div class="progress">
+					                    <div class="progress-bar bg-warning" style="width: ${unCheckInquiryList * 10}%"></div>
+					                </div>
+					            </div>
+					
+					            <!-- 9. 알림 -->
+					            <div class="monitoring-item" onclick="location.href='/ezform/ez_notification/list'">
+					                <i class="fa fa-bell"></i>
+					                <p class="label">알림</p>
+					                <h3 class="value">${unreadNotificationList}</h3>
+					                <div class="progress">
+					                    <div class="progress-bar bg-secondary" style="width: ${unreadNotificationList * 10}%"></div>
+					                </div>
+					            </div>
+					
+					        </div>
+					    </div>
 					</div>
-
-					</div>
+	
 					<div class="card">
 						<div class="card-body d-flex justify-content-around text-center" style="padding: 24px 24px 0 24px;">
 							<div
