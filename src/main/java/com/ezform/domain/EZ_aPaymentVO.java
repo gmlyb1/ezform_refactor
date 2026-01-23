@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class EZ_aPaymentVO {
 
+	private int rowNum;
 	private int ap_id; // 결재 ID
 	private String user_id; // 신청자 ID (사원 테이블 FK)
 	private String ap_type; // 결재 종류 (ex: 연차, 반차 등)
@@ -22,6 +23,12 @@ public class EZ_aPaymentVO {
 	private String refIds;
 	
 	
+	public int getRowNum() {
+		return rowNum;
+	}
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
 	public String getRefIds() {
 		return refIds;
 	}
@@ -90,11 +97,13 @@ public class EZ_aPaymentVO {
 	}
 	@Override
 	public String toString() {
-		return "EZ_aPaymentVO [ap_id=" + ap_id + ", user_id=" + user_id + ", ap_type=" + ap_type + ", ap_start_date="
-				+ ap_start_date + ", ap_end_date=" + ap_end_date + ", ap_reason=" + ap_reason + ", ap_status="
-				+ ap_status + ", ap_create_date=" + ap_create_date + ", ap_update_date=" + ap_update_date
-				+ ", approver_id=" + approver_id + ", refIds=" + refIds + "]";
+		return "EZ_aPaymentVO [rowNum=" + rowNum + ", ap_id=" + ap_id + ", user_id=" + user_id + ", ap_type=" + ap_type
+				+ ", ap_start_date=" + ap_start_date + ", ap_end_date=" + ap_end_date + ", ap_reason=" + ap_reason
+				+ ", ap_status=" + ap_status + ", ap_create_date=" + ap_create_date + ", ap_update_date="
+				+ ap_update_date + ", approver_id=" + approver_id + ", refIds=" + refIds + "]";
 	}
+	
+	
 
 	
 	

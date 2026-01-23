@@ -7,39 +7,43 @@
 	
 	<select id="holidayList" parameterType="EZ_aPaymentVO" resultType="EZ_aPaymentVO">
 		select 
-			 ap_id
-			,user_id
-			,ap_type
-			,ap_start_date
-			,ap_end_date
-			,ap_reason
-			,ap_status
-			,ap_create_date
-			,ap_update_date
-			,approver_id
-			,refIds
-		from ez_aPayment
-		where user_id = #{user_id}
-		or approver_id = #{user_id}
+			@rownum := @rownum + 1 AS rowNum
+			,n.ap_id
+			,n.user_id
+			,n.ap_type
+			,n.ap_start_date
+			,n.ap_end_date
+			,n.ap_reason
+			,n.ap_status
+			,n.ap_create_date
+			,n.ap_update_date
+			,n.approver_id
+			,n.refIds
+		from ez_aPayment n
+		JOIN (SELECT @rownum := 0) r
+		where n.user_id = #{user_id}
+		or n.approver_id = #{user_id}
 		or FIND_IN_SET(#{user_id}, refIds) > 0
 	</select>
 	
 	<select id="unApaymentList" parameterType="EZ_aPaymentVO" resultType="EZ_aPaymentVO">
 		select 
-			 ap_id
-			,user_id
-			,ap_type
-			,ap_start_date
-			,ap_end_date
-			,ap_reason
-			,ap_status
-			,ap_create_date
-			,ap_update_date
-			,approver_id
-			,refIds
-		from ez_aPayment
-		where approver_id = #{user_id}
-		and ap_status = '진행'
+		    @rownum := @rownum + 1 AS rowNum
+			,n.ap_id
+			,n.user_id
+			,n.ap_type
+			,n.ap_start_date
+			,n.ap_end_date
+			,n.ap_reason
+			,n.ap_status
+			,n.ap_create_date
+			,n.ap_update_date
+			,n.approver_id
+			,n.refIds
+		from ez_aPayment n
+		JOIN (SELECT @rownum := 0) r
+		where n.approver_id = #{user_id}
+		and n.ap_status = '진행'
 	</select>
 	
 	<select id="holidayDetail" resultType="EZ_aPaymentVO">

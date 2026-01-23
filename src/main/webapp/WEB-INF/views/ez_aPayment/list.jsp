@@ -43,7 +43,7 @@
 	                     <tbody>
 	                     	<c:forEach items="${holiList}" var="list">
 								<tr>
-									<td class="text-center">${list.ap_id}</td>
+									<td class="text-center">${list.rowNum}</td>
 									<td class="text-center">${list.user_id}</td>
 									<td class="text-center">${list.ap_type}</td>
 									<td class="text-center">
