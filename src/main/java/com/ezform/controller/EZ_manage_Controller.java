@@ -89,31 +89,23 @@ public class EZ_manage_Controller {
 		// 근태 리스트
 		model.addAttribute("wslist", emp_service.wstatusListEmp());
 		// 안읽은 쪽지 개수
-		if(loginSession != null) {
+		if(loginSession != null) 
+		{
 			mvo.setReceiver_name(loginSession.getEm_email());
+			avo.setUser_id(loginSession.getEm_email());
+			mailVO.setMail_id(loginSession.getEm_email());
+			notificationVO.setReceiver_name(loginSession.getEm_email());
+			inqVO.setEm_email(loginSession.getEm_email());
 		}
 		model.addAttribute("unreadMsg", message_service.findList(mvo).size());
 		// 오늘 일정 개수
 		model.addAttribute("todayEventList", cal_service.selectEventTodayList(cvo).size());
 		// 미결재 개수
-		if(loginSession != null) {
-			avo.setUser_id(loginSession.getEm_email());
-		}
 		model.addAttribute("unApaymentList", apayment_service.unApaymentList(avo).size());
 		// 안읽은 메일
-		if(loginSession != null) {
-			mailVO.setMail_id(loginSession.getEm_email());
-		}
 		model.addAttribute("unReadMailList", mail_service.unreadMailList(mailVO).size());
 		// 안읽은 알람
-		if(loginSession != null) {
-			notificationVO.setReceiver_name(loginSession.getEm_email());
-		}
 		model.addAttribute("unreadNotificationList", notification_service.getUnreadMessageList(notificationVO).size());
-		
-		if(loginSession != null) {
-			inqVO.setEm_email(loginSession.getEm_email());
-		}
 		model.addAttribute("unCheckInquiryList", inq_Service.unCheckInquiryList(inqVO).size());
 		
 		int currentlyAtWork = 0;

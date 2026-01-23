@@ -65,7 +65,13 @@
 								</a>
 							 </td>	 
 							 <td>${vo.inq_name}</td>
-							 <td>${vo.inq_check}</td>
+							 <c:if test="${vo.inq_check eq true }">
+							 	<td>해결</td>
+							 </c:if>
+							 <c:if test="${vo.inq_check eq false }">
+							 	<td>미해결</td>
+							 </c:if>
+							 <%-- <td>${vo.inq_check}</td> --%>
 							 <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${vo.inq_regdate}"/></td>
                            </tr>    
                      	</c:forEach>         
