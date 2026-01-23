@@ -17,9 +17,11 @@
 			,ap_create_date
 			,ap_update_date
 			,approver_id
+			,refIds
 		from ez_aPayment
 		where user_id = #{user_id}
 		or approver_id = #{user_id}
+		or FIND_IN_SET(#{user_id}, refIds) > 0
 	</select>
 	
 	<select id="unApaymentList" parameterType="EZ_aPaymentVO" resultType="EZ_aPaymentVO">
@@ -34,6 +36,7 @@
 			,ap_create_date
 			,ap_update_date
 			,approver_id
+			,refIds
 		from ez_aPayment
 		where user_id = #{user_id}
 		and ap_status = '진행'
@@ -51,6 +54,7 @@
 			,ap_create_date
 			,ap_update_date
 			,approver_id
+			,refIds
 		from ez_aPayment
 		where ap_id = #{ap_id}
 	</select>
@@ -68,6 +72,7 @@
 			,ap_create_date
 			,ap_update_date
 			,approver_id
+			,refids
 		)
 		values
 		(
@@ -81,6 +86,7 @@
 			,NOW()
 			,NOW()
 			,#{approver_id}
+			,#{refIds}
 		)
 	</insert>
 	

@@ -1,60 +1,9 @@
 <%@page import="com.ezform.domain.EZ_boardVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<!-- <script type="text/javascript">
-	function editComment(com_cnum, com_bnum) {
-	    const div = document.getElementById("content_" + com_cnum);
-	    const original = div.innerText;
-
-	    // div.dataset.original에 원본 내용을 저장
-	    div.dataset.original = original;
-
-	    div.innerHTML =
-	        '<form method="post" action="/ezform/comment/modify">' +
-	            '<textarea name="com_content" class="form-control" rows="3" style="resize:none;">' + 
-	            original.replace(/</g, "&lt;").replace(/>/g, "&gt;") + '</textarea>' +
-	            '<input type="hidden" name="com_cnum" value="' + com_cnum + '">' +
-	            '<input type="hidden" name="com_bnum" value="' + com_bnum + '">' +
-	            '<div style="margin-top:5px; text-align:right;">' +
-	                '<button type="submit" class="btn btn-sm btn-primary">저장</button>' +
-	                '<button type="button" class="btn btn-sm btn-secondary" onclick="cancelEdit(' + com_cnum + ')">취소</button>' +
-	            '</div>' +
-	        '</form>';
-	}
-	
-	function cancelEdit(com_cnum) {
-	    const div = document.getElementById("content_" + com_cnum);
-	    const original = div.dataset.original;
-	    div.innerHTML = `<pre style="font-family:arial;">${original}</pre>`;
-	}
-
-	function remove_bdchk(data) {
-		if (!confirm("삭제 하시겠습니까?")) return false;
-		else {
-			location.href="/ezform/board/remove?cm_bnum="+data;
-		}
-	}
-
-	function remove_comchk(data1, data2) {
-		if (!confirm("삭제 하시겠습니까?")) return false;
-		else {
-			location.href="/ezform/comment/remove?com_cnum="+data1+"&com_bnum="+data2;
-		}
-	}
-	function img_view(image) {
-		// 새 창으로 이미지 띄우기
-		var url = "/ezform/board/viewImg?imgName="+image;
-
-		window.open(url,"_blank","width=350, height=350");
-	}
-	
-</script> -->
 
 <div class="container-fluid content-inner mt-n5 py-0">
     <div class="row justify-content-center">
@@ -109,6 +58,15 @@
                         </div>
                     </div>
 
+					<div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">참조인</label>
+                            <p class="form-control-plaintext">
+							    ${fn:replace(detail.refIds, ",", ", ")}
+							</p>
+                        </div>
+                    </div>
+
                     <!-- 사유 -->
                     <div class="mb-3">
                         <label class="form-label fw-bold">사유</label>
@@ -130,12 +88,6 @@
                             </p>
                         </div>
                     </div>
-
-                    <!-- 버튼 -->
-                   <%--  <div class="text-end">
-                        <button class="btn btn-primary btn-sm" onclick="location.href='holidayModify?ap_id=${detail.ap_id}'">수정</button>
-                        <button class="btn btn-danger btn-sm" onclick="if(confirm('삭제하시겠습니까?')) location.href='holidayRemove?ap_id=${detail.ap_id}'">삭제</button>
-                    </div> --%>
                     
                     <div class="text-end mt-3">
 					    <!-- 승인 -->

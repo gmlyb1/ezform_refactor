@@ -1,8 +1,10 @@
 package com.ezform.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -56,8 +58,18 @@ public class EZ_emp_Controller {
 	
 	//사원 전체리스트(관리자 기능) ---GET  
 	@RequestMapping(value = "/list", method = RequestMethod.GET) 
-	public String empList(HttpSession session, Model model,Model emodel) throws Exception{ 
+	public String empList(HttpSession session, Model model,Model emodel,HttpServletResponse response) throws Exception{ 
 		Integer em_id = (Integer) session.getAttribute("em_id");
+		
+		if(em_id != 9999) {
+			System.out.println("여기진입함"+em_id);
+			response.setContentType("text/html; charset=UTF-8");
+		    PrintWriter out = response.getWriter();
+		    out.println("<script>alert('접근할수 없는 페이지 입니다.'); history.back();</script>");
+		    out.flush();
+		    return null;
+		}
+		
 		EZ_empVO empvo = emp_service.getEmp(em_id);
 		model.addAttribute("empList", emp_service.getEmpList(em_id));
 		emodel.addAttribute("empvo", empvo);

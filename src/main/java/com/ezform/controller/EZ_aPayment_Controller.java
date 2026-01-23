@@ -3,6 +3,7 @@ package com.ezform.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import com.ezform.domain.EZ_aPaymentVO;
 import com.ezform.domain.EZ_empVO;
 import com.ezform.domain.EZ_notificationVO;
 import com.ezform.service.EZ_aPayment_Service;
+import com.ezform.service.EZ_emp_Service;
 import com.ezform.service.EZ_mem_Service;
 import com.ezform.service.EZ_notification_service;
 import com.ezform.test.testController;
@@ -33,6 +35,9 @@ public class EZ_aPayment_Controller {
 	
 	@Inject
 	private EZ_mem_Service mem_Service;
+	
+	@Inject
+	private EZ_emp_Service emp_Service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(testController.class);
 	
@@ -70,16 +75,20 @@ public class EZ_aPayment_Controller {
 	}
 	
 	@RequestMapping(value="/register" , method=RequestMethod.POST)
-	public String aPaymentHolidayRegisterPOST(EZ_aPaymentVO avo,HttpSession session,Model model) throws Exception{
+	public String aPaymentHolidayRegisterPOST(EZ_aPaymentVO avo,HttpSession session,Model model,HttpServletRequest request) throws Exception{
 		
 		EZ_empVO empVO = (EZ_empVO) session.getAttribute("resultVO");
 	    EZ_notificationVO notificationVO = new EZ_notificationVO();
-	    notificationVO.setReceiver_name(empVO.getEm_email());
+	    if(empVO != null) {
+	    	notificationVO.setReceiver_name(empVO.getEm_email());
+	    }
 	    notificationVO.setNoti_type("휴가원");
 	    notificationVO.setNoti_message("휴가원을 상신했습니다.");
 	    notificationVO.setNoti_link("");
 	    notification_service.insertNotification(notificationVO);
 		
+	    String[] refEmails = request.getParameterValues("refIds");
+	    avo.setRefIds(String.join(",", refEmails));
 		paymentService.insertIndividualHoliday(avo);
 		
 		return "redirect:/ez_aPayment/list";
@@ -108,6 +117,17 @@ public class EZ_aPayment_Controller {
 		
 		return "redirect:/ez_aPayment/list";
 	}	
+	
+	@RequestMapping(value="/refSelectPopup" , method=RequestMethod.GET)
+	public String refSelectPopupGET(Model model, HttpSession session) throws Exception {
+		
+		EZ_empVO loginSession = (EZ_empVO)session.getAttribute("resultVO");
+		Integer em_id = loginSession.getEm_id();
+		List<EZ_empVO> empList = emp_Service.getEmpList(em_id);
+		model.addAttribute("empList", empList);
+		
+		return "/ez_aPayment/refSelectPopup";
+	}
 	
 	
 }

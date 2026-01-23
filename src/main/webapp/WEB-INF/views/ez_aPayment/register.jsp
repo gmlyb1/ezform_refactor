@@ -35,8 +35,57 @@ function validateHolidayForm() {
         form.ap_end_date.focus();
         return false;
     }
-
+    
+	
     return true;
+}
+
+let selectedRefs = []; // 선택한 참조인 저장
+
+function openRefPopup() {
+    // 간단한 팝업 예시 (window.open) - 실제로는 모달도 가능
+    let popup = window.open('/ezform/ez_aPayment/refSelectPopup', '참조인 선택', 'width=400,height=500');
+}
+
+// 팝업에서 선택 후 부모 창으로 전달
+function addRef(email, name) {
+    if (!selectedRefs.includes(email)) {
+        selectedRefs.push(email);
+        
+        // 리스트 UI 추가
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+        li.textContent = email;
+        //li.textContent = `${email} [${name}]`;
+        
+        
+        console.log('li.textContent:',li.textContent);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-sm btn-outline-danger';
+        btn.textContent = '삭제';
+        btn.onclick = () => {
+            selectedRefs = selectedRefs.filter(e => e !== email);
+            li.remove();
+            document.getElementById('refIds').value = selectedRefs.join(',');
+            updateSelectedRefInput();
+        };
+
+        li.appendChild(btn);
+        document.getElementById('refList').appendChild(li);
+
+        // hidden 값 업데이트
+        document.getElementById('refIds').value = selectedRefs.join(',');
+
+        // input 창에도 표시
+        updateSelectedRefInput();
+    }
+}
+
+function updateSelectedRefInput() {
+    const input = document.getElementById('selectedRef');
+    input.value = selectedRefs.map(e => e).join(', ');
 }
 </script>
 
@@ -98,11 +147,28 @@ function validateHolidayForm() {
 							  </c:forEach>
                             </select>
                         </div>
+                        
+                        <!-- 참조인 -->
+						<div class="mb-3">
+						    <label class="form-label">참조인</label>
+						    
+						    <!-- 참조인 선택 버튼 -->
+						    <div class="d-flex mb-2">
+						        <input type="text" id="selectedRef" class="form-control form-control-sm" placeholder="참조인 선택" readonly>
+						        <button type="button" class="btn btn-outline-primary ms-2" onclick="openRefPopup()">선택</button>
+						    </div>
+						
+						    <!-- 선택한 참조인 리스트 -->
+						    <ul id="refList" class="list-group list-group-flush"></ul>
+						
+						    <!-- 최종 폼 submit 시 전송용 hidden -->
+						    <input type="hidden" name="refIds" id="refIds">
+						</div>
 
                         <!-- 버튼 -->
                         <div class="text-end">
-                            <input type="submit" class="btn btn-primary btn-sm" value="신청">
-                            <input type="button" class="btn btn-secondary btn-sm" value="취소" onclick="location.href='holidayList';">
+                            <input type="submit" class="btn btn-primary" value="신청">
+                            <input type="button" class="btn btn-danger" value="취소" onclick="location.href='holidayList';">
                         </div>
                     </form>
                 </div>

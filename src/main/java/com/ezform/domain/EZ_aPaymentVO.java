@@ -1,6 +1,7 @@
 package com.ezform.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,6 +19,15 @@ public class EZ_aPaymentVO {
 	private Date ap_create_date; // 생성일
 	private Date ap_update_date; // 수정일
 	private String approver_id; // 결재자 ID
+	private String refIds;
+	
+	
+	public String getRefIds() {
+		return refIds;
+	}
+	public void setRefIds(String refIds) {
+		this.refIds = refIds;
+	}
 	public int getAp_id() {
 		return ap_id;
 	}
@@ -83,7 +93,7 @@ public class EZ_aPaymentVO {
 		return "EZ_aPaymentVO [ap_id=" + ap_id + ", user_id=" + user_id + ", ap_type=" + ap_type + ", ap_start_date="
 				+ ap_start_date + ", ap_end_date=" + ap_end_date + ", ap_reason=" + ap_reason + ", ap_status="
 				+ ap_status + ", ap_create_date=" + ap_create_date + ", ap_update_date=" + ap_update_date
-				+ ", approver_id=" + approver_id + "]";
+				+ ", approver_id=" + approver_id + ", refIds=" + refIds + "]";
 	}
 
 	
