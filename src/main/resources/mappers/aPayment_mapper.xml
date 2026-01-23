@@ -38,7 +38,7 @@
 			,approver_id
 			,refIds
 		from ez_aPayment
-		where user_id = #{user_id}
+		where approver_id = #{user_id}
 		and ap_status = '진행'
 	</select>
 	
